@@ -4,7 +4,7 @@
   "description": "A light-weight MEAN stack boilerplate.",
   "main": "server.js",
   "scripts": {
-    "start": "gulp"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "author": "Blake Johnston",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.13.3",
-    "mongodb": "^2.0.42"
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31"
   }
 }
