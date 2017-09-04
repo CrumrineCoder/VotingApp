@@ -3,7 +3,7 @@
 (function () {
 
    var addButton = document.querySelector('.btn-add');
-   var deleteButton = document.querySelector('.btn-delete');
+
    var clickNbr = document.querySelector('#click-nbr');
    var apiUrl = 'https://joinordie.glitch.me/api/clicks';
 
@@ -33,7 +33,6 @@
    }
 
    function updateClickCount (data) {
-     console.log('and update is afoot')
       var clicksObject = JSON.parse(data);
       clickNbr.innerHTML = clicksObject.clicks;
    }
@@ -48,12 +47,5 @@
 
    }, false);
 
-   deleteButton.addEventListener('click', function () {
-
-      ajaxRequest('DELETE', apiUrl, function () {
-         ajaxRequest('GET', apiUrl, updateClickCount);
-      });
-
-   }, false);
 
 })();

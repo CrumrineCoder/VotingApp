@@ -3,26 +3,23 @@
 <html>
 
    <head>
-      <title>Clementine.js - The elegant and lightweight full-stack boilerplate.</title>
+      <title>Voting App</title>
       <link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
       <link href="/public/css/main.css" rel="stylesheet" type="text/css">  
    </head>
 
    <body>
       <div class="container">
-         <img src="/public/img/clementine_150.png" />
+        <!-- <img src="https://cdn.glitch.com/ddf1bf97-cad3-4585-bf21-e034ca6b0f23%2F1502884135327.gif?1504381489810" /> -->
          <br />
-         <p class="clementine-text">Clementine.js</p>
+         <p class="heading-text">A priori knowledge: yes or no?</p>
       </div>
 
-      <div class="container">
-         <p>You have clicked the button <span id="click-nbr"></span> times.</p>   
-         <br />
-         <div class="btn-container">
-            <button type="submit" class="btn btn-add">CLICK ME!</button>
-            <button class="btn btn-delete">RESET</button>
-         </div>
-      </div>
+      <form action="" class="btn-container">
+           <input type="radio" value="yes">Yes<br>
+           <input type="radio" value="no">No<br>
+		   <button class="btn btn-submit"> Vote </button>
+      </form>
 
       <script type="text/javascript" src="/controllers/clickController.client.js"></script>   
    </body>
