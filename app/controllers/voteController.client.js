@@ -4,8 +4,8 @@
 
    var addButton = document.querySelector('.btn-add');
 
-   var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = 'https://joinordie.glitch.me/api/clicks';
+   var voteNbr = document.querySelector('#vote-nbr');
+   var apiUrl = 'https://joinordie.glitch.me/api/votes';
 
    function ready (fn) {
       if (typeof fn !== 'function') {
@@ -32,17 +32,17 @@
       xmlhttp.send();
    }
 
-   function updateClickCount (data) {
-      var clicksObject = JSON.parse(data);
-      clickNbr.innerHTML = clicksObject.clicks;
+   function updatevoteCount (data) {
+      var votesObject = JSON.parse(data);
+      voteNbr.innerHTML = votesObject.votes;
    }
 
-   ready(ajaxRequest('GET', apiUrl, updateClickCount));
+   ready(ajaxRequest('GET', apiUrl, updatevoteCount));
 
-   addButton.addEventListener('click', function () {
+   addButton.addEventListener('vote', function () {
 
       ajaxRequest('POST', apiUrl, function () {
-         ajaxRequest('GET', apiUrl, updateClickCount);
+         ajaxRequest('GET', apiUrl, updatevoteCount);
       });
 
    }, false);
