@@ -2,6 +2,7 @@
 
 function clickHandler (db) {
    var clicks = db.collection('clicks');
+
    console.log("Clicks are being done");
    this.getClicks = function (req, res) {
       console.log("get clicks");
@@ -34,6 +35,7 @@ function clickHandler (db) {
    };
 
    this.addClick = function (req, res) {
+  
      console.log('addclick');
       clicks.findAndModify({}, { '_id': 1 }, { $inc: { 'clicks': 1 }}, function (err, result) {
          if (err) {
