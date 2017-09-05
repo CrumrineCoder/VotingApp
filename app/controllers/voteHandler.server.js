@@ -37,7 +37,6 @@ function voteHandler (db) {
    };
 // Vote on the poll 
    this.addvote = function (req, res) {
-     console.log("DEY DEY DEY");
      // changes 'votes' to the options inside the Poll
       votes.findAndModify({}, { '_id': 1 }, { $inc: { 'Yes': 1 }}, function (err, result) {
          if (err) {

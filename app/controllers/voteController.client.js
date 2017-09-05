@@ -2,7 +2,8 @@
 
 
 (function () {
-  var addButton = document.querySelector('.dinosaur');
+  var addButton = document.querySelector('.submit');
+
    var voteNbr = document.querySelector('#vote-nbr');
    var apiUrl = 'https://joinordie.glitch.me/api/votes';
 
@@ -36,16 +37,10 @@
    var votesObject = JSON.parse(data);
    voteNbr.innerHTML = votesObject.votes;
  }
-   console.log("please come first");
    ready(ajaxRequest('GET', apiUrl, updatevoteCount));
     
-   addButton.addEventListener('vote', function () {
-     console.log("BUSTIN")
-      ajaxRequest('POST', apiUrl, function () {
-   
-        // ajaxRequest('GET', apiUrl, updatevoteCount);
-      });
-
+   addButton.addEventListener('click', function () {
+      ajaxRequest('POST', apiUrl);
    }, false);
 
 
