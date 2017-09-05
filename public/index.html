@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 
 <html>
-
    <head>
       <title>Voting App</title>
-      <link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
       <link href="/public/css/main.css" rel="stylesheet" type="text/css">  
    </head>
-
-   <body>
-      <div class="container">
-        <!-- <img src="https://cdn.glitch.com/ddf1bf97-cad3-4585-bf21-e034ca6b0f23%2F1502884135327.gif?1504381489810" /> -->
-         <br />
-         <p class="heading-text">A priori knowledge: yes or no?</p>
-      </div>
-
-      <form action="" class="btn-container">
-           <input name = "Question" type="radio" value="yes">Yes<br>
-           <input name = "Question" type="radio" value="no">No<br>
-		   <button class="btn btn-submit" onclick="test()"> Vote </button>
-      </form>
-
-      <script type="text/javascript" src="/controllers/clickController.client.js"></script>   
-   </body>
-
+  <body>
+    <p>How would you like your coffee?</p>
+    <form>
+      <input type="radio" name="coffee" value="cream">With cream<br>
+      <input type="radio" name="coffee" value="sugar">With sugar<br>
+      <br>
+      <button class="dinosaur" value="Send order">testing </button>
+    </form>
+    <p id="vote-nbr">
+      aaaaaaa
+    </p>
+    <script type="text/javascript" src="/controllers/voteController.client.js"></script>
+  </body>
 </html>
+
+
