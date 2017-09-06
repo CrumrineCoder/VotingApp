@@ -18,7 +18,7 @@ img {
 	display: block;
 }
 
-.heading-text { /* Styling for the Clementine.js text */
+h1 { /* Styling for the Clementine.js text */
 
 	margin: 0px 0px 20px 0px;
 	font-weight: 500;
@@ -32,6 +32,8 @@ img {
 	margin: -10px auto 0 auto;
 	
 }
+
+
 
 .btn {	/* Styling for buttons */
 	margin: 0 8px;
@@ -57,4 +59,8 @@ img {
 	transform: scale(0.9, 0.9);
 	-webkit-transform: scale(0.9, 0.9);
 	-moz-transform: scale(0.9, 0.9);
+}
+
+.radio-toolbar label {
+  color: red;
 }
