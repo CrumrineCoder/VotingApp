@@ -37,11 +37,13 @@
    var votesObject = JSON.parse(data);
    voteNbr.innerHTML = votesObject.votes;
  }
+  // ready( A get request using the API url with a callback of updating the vote count)
    ready(ajaxRequest('GET', apiUrl, updatevoteCount));
     
    addButton.addEventListener('click', function () {
-     console.log("HONK");
-      ajaxRequest('POST', apiUrl, result);
+       result = document.querySelector('input[name= "question"]:checked').value;
+     console.log("Result: " + result);
+      ajaxRequest('POST', apiUrl);
    }, false);
 
 
