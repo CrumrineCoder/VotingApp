@@ -2,8 +2,8 @@
 
 
 (function () {
-  var addButton = document.querySelector('.submit');
-
+  var addButton = document.querySelector('.submit'); 
+  var result = null; 
    var voteNbr = document.querySelector('#vote-nbr');
    var apiUrl = 'https://joinordie.glitch.me/api/votes';
 
@@ -40,7 +40,8 @@
    ready(ajaxRequest('GET', apiUrl, updatevoteCount));
     
    addButton.addEventListener('click', function () {
-      ajaxRequest('POST', apiUrl);
+     console.log("HONK");
+      ajaxRequest('POST', apiUrl, result);
    }, false);
 
 

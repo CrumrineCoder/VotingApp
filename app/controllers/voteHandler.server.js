@@ -3,6 +3,7 @@
 
 function voteHandler (db) {
   console.log("Vote Handler running");
+ 
   // Get the 'votes' collection
    var votes = db.collection('votes');
   // Make a new method 'getvotes'
@@ -36,7 +37,9 @@ function voteHandler (db) {
       });
    };
 // Vote on the poll 
+ // var clientSideVariables = require(process.cwd() + '/controllers/voteController.client.js'); 
    this.addvote = function (req, res) {
+      console.log(req.query.amount);
      // changes 'votes' to the options inside the Poll
       votes.findAndModify({}, { '_id': 1 }, { $inc: { 'Yes': 1 }}, function (err, result) {
          if (err) {
