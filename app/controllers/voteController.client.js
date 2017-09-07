@@ -5,7 +5,7 @@
     var addButton = document.querySelector('.submit');
     var result = null;
     var voteNbr = document.querySelector('#vote-nbr');
-    var apiUrl = 'https://joinordie.glitch.me/api/votes';
+    var apiUrl = 'https://joinordie.glitch.me/api/:vote?';
 
     function ready(fn) {
         // Will do the function once the document is ready
@@ -44,7 +44,8 @@
       // Check if a radio is checked
         result = document.querySelector('input[name= "question"]:checked').value;
         console.log("Result: " + result);
-        ajaxRequest('POST', apiUrl, function() {
+      // Make a post request to change the votes, and then a get request to update the browser side
+        ajaxRequest('POST', apiUrl + "data=" + result , function() {
             ajaxRequest('GET', apiUrl, updatevoteCount)
         });
     }, false);

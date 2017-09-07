@@ -11,7 +11,7 @@ module.exports = function (app, db) {
          res.sendFile(process.cwd() + '/public/index.html');
       });
 // If routed here and there's a get or post method, do these  things  inside of the server file
-   app.route('/api/votes')
+   app.route('/api/:vote?')
       .get(voteHandler.getvotes)
       .post(voteHandler.addvote)
 };
