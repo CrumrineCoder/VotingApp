@@ -39,14 +39,16 @@ function voteHandler (db) {
 // Vote on the poll 
  // var clientSideVariables = require(process.cwd() + '/controllers/voteController.client.js'); 
    this.addvote = function (req, res) {
-      console.log(req.query.data);
-     // changes 'votes' to the options inside the Poll
-      votes.findAndModify({}, { '_id': 1 }, { $inc: { 'Yes': 1 }}, function (err, result) {
+     var results = req.query.data;
+     if(votes.hasOwnProperty=results){
+         votes.findAndModify({}, { '_id': 1 }, { $inc: { [results]: 1 }}, function (err, result) {
          if (err) {
             throw err;
          }
          res.json(result);
       });
+     }
+      
    }; 
 
   
