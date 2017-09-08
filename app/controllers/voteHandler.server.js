@@ -2,13 +2,11 @@
 
 
 function voteHandler (db) {
-  console.log("Vote Handler running");
  
   // Get the 'votes' collection
    var votes = db.collection('votes');
   // Make a new method 'getvotes'
    this.getvotes = function (req, res) {
-     console.log("Get Votes running");
      // No need for an id yet, we will need those for when we're allowed to make polls however
       var voteProjection = { '_id': false };
      // Inside the collection, find the first thing. Will need to change this when there is more than one poll
@@ -40,14 +38,12 @@ function voteHandler (db) {
  // var clientSideVariables = require(process.cwd() + '/controllers/voteController.client.js'); 
    this.addvote = function (req, res) {
      var results = req.query.data;
-     if(votes.hasOwnProperty=results){
          votes.findAndModify({}, { '_id': 1 }, { $inc: { [results]: 1 }}, function (err, result) {
          if (err) {
             throw err;
          }
          res.json(result);
       });
-     }
       
    }; 
 

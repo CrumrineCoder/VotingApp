@@ -35,7 +35,13 @@
 
     function updatevoteCount(data) {
         var votesObject = JSON.parse(data);
-        voteNbr.innerHTML = votesObject.votes;
+        var keys = [], values = [];
+        for(var i in votesObject){
+          keys.push(i);
+          values.push(votesObject[i]);
+        }
+       console.log(keys);
+       console.log(values);
     }
     // Do updateVoteCount as soon as the document has finished loading
     ready(ajaxRequest('GET', apiUrl, updatevoteCount));
