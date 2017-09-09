@@ -41,76 +41,28 @@
             keys.push(i);
             values.push(votesObject[i]);
         }
-    /*    var voteData = {
-            labels: [keys],
-            datasets: [{
-                fillColor: "rgba(172,194,132,0.4)",
-                strokeColor: "#ACC26D",
-                pointColor: "#fff",
-                pointStrokeColor: "#9DB86D",
-                data: values
-            }]
-        }
-        var voting = document.getElementById('chart').getContext('2d');
-        new Chart(voting).line(voteData);
 
-        var ctx = document.getElementById('chart').getContext('2d');
+
+        var ctx = document.getElementById("chart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                [{
-                    fillColor: "rgba(172,194,132,0.4)",
-                    strokeColor: "#ACC26D",
-                    pointColor: "#fff",
-                    pointStrokeColor: "#9DB86D",
+                labels: keys,
+                datasets: [{
+                    backgroundColor: [
+                        "#2ecc71",
+                        "#3498db",
+                        "#95a5a6",
+                        "#9b59b6",
+                        "#f1c40f",
+                        "#e74c3c",
+                        "#34495e"
+                    ],
                     data: values
                 }]
             }
-        });*/
+        });
 
-var ctx = document.getElementById("chart").getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'pie',
-  data: {
-    labels: keys,
-    datasets: [{
-      backgroundColor: [
-        "#2ecc71",
-        "#3498db",
-        "#95a5a6",
-        "#9b59b6",
-        "#f1c40f",
-        "#e74c3c",
-        "#34495e"
-      ],
-      data: values
-    }]
-  }
-});
-
-
-        //      var ctx = document.getElementById('chart').getContext('2d');
-        /* var chart = new Chart(ctx, {
-           type: 'line',
-           data: {
-             labels: keys,
-             datasets: 
-             [
-               {
-                 fillColor : "rgba(172,194,132,0.4)",
-                 strokeColor : "#ACC26D",
-                 pointColor : "#fff",
-                 pointStrokeColor : "#9DB86D",
-                 data : values
-             }
-             ]
-           }
-         }); 
-        var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: values,
-            labels: keys
-        });*/
     }
     // Do updateVoteCount as soon as the document has finished loading
     ready(ajaxRequest('GET', apiUrl, updatevoteCount));
