@@ -1,5 +1,9 @@
 'use strict';
-
+/*
+This file handles adding votes to a poll as well as displaying the data to the user. 
+It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
+The pie chart is updated on first loading the page as well. 
+*/
 
 (function() {
     var addButton = document.querySelector('.submit');
