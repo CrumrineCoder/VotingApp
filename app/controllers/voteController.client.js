@@ -1,6 +1,6 @@
 'use strict';
-//<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js" > < /script>
-//window.Chart = require('chart.js');
+
+
 (function() {
     var addButton = document.querySelector('.submit');
     var result = null;
@@ -32,6 +32,7 @@
         xmlhttp.open(method, url, true);
         xmlhttp.send();
     }
+    
 
     function updatevoteCount(data) {
         var votesObject = JSON.parse(data);
