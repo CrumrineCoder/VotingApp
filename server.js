@@ -8,6 +8,19 @@ var express = require('express'),
 var MongoClient = mongodb.MongoClient; 
 var mLab = 'mongodb://' + process.env.HOST + '/' + process.env.NAME;
 var app = express();
+ 
+/* For Authentication */ 
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var passport = require('passport');
+
+//app.use('/api', routesApi);
+//require(process.cwd() + '/models/db');
+//require(process.cwd()+ '/config/passport.js'); 
+app.use(passport.initialize());
 
 MongoClient.connect(mLab, function (err, db) {
 
