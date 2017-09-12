@@ -11,6 +11,7 @@ module.exports = function (app, db) {
   // var registerHandler = new RegisterHandler(db);
 // If routed here and there's a get method, send the index.html file
    app.route('/')
+      //res.render('index')
       .get(function (req, res) {
          res.sendFile(process.cwd() + '/public/index.html');
       });
