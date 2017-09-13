@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
+/*var mongoose = require('mongoose');
 var gracefulShutdown;
-/*var dbURI = 'mongodb://localhost/meanAuth';
+var dbURI = 'mongodb://localhost/meanAuth';
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGOLAB_URI;
-}*/
+}
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient; 
 var dbURI = 'mongodb://' + process.env.HOST + '/' + process.env.NAME;
@@ -50,3 +50,4 @@ process.on('SIGTERM', function() {
 
 // BRING IN YOUR SCHEMAS & MODELS
 require('./users');
+*/

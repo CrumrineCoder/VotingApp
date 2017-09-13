@@ -22,6 +22,7 @@ router.post('/register', function(req, res){
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
+
 	// Validation
 	req.checkBody('name', 'Name is required').notEmpty();
 	req.checkBody('email', 'Email is required').notEmpty();
@@ -82,6 +83,18 @@ passport.deserializeUser(function(id, done) {
   User.getUserById(id, function(err, user) {
     done(err, user);
   });
+});
+
+router.post('/login',
+  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+router.get('/logout', function(req, res){
+	req.logout();
+	req.flash('success_msg', 'You are logged out');
+	res.redirect('/users/login');
 });
 
 module.exports = router;

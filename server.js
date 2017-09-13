@@ -12,9 +12,12 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 
-//mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME);
-//var db = mongoose.connection;
 
+mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
+  useMongoClient: true
+});
+var db = mongoose.connection;
+ 
 var users = require('./app/routes/users.js');
 /*
   This file handles connecting the user to the server and the controllers to the database. 
@@ -59,6 +62,9 @@ app.use(session({
     resave: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
       var namespace = param.split('.')
@@ -87,10 +93,11 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', routes);
-   app.use('/users', users);
-	app.listen(3000, function () {
+app.use('/users', users);
+	
+app.listen(3000, function () {
 	 	console.log('Listening on port 3000...');
-	});
+});
 
 /*
 MongoClient.connect(mLab, function (err, db) {
