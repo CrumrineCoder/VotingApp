@@ -26,9 +26,14 @@ var users = require('./app/routes/users.js');
 var express = require('express'),
     routes = require('./app/routes/index.js'),
     mongodb = require('mongodb');
+
+//var router = express.Router();
 var MongoClient = mongodb.MongoClient;
 var mLab = 'mongodb://' + process.env.HOST + '/' + process.env.NAME;
 var app = express();
+
+//routes(app)
+
 
 // Taken from: https://www.youtube.com/watch?v=Z1ktxiqyiLA
 app.set('views', path.join(__dirname, 'views'));
@@ -85,10 +90,6 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
-app.listen(3000, function() {
-        console.log('Listening on port 3000...');
-    });
-
 
 MongoClient.connect(mLab, function(err, db) {
 
@@ -98,10 +99,12 @@ MongoClient.connect(mLab, function(err, db) {
         console.log('MongoDB successfully connected on port 27017.');
     }
 
-    app.db = db; 
+  //  app.db = db; 
     //app.use('/public', express.static(process.cwd() + '/public'));
     //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
     //Exports the routes to app and db
-    //routes(app, db);
-    
+    routes(app, db);
+    app.listen(3000, function () {
+	    console.log('Listening on port 3000...');
+    }); 
 });

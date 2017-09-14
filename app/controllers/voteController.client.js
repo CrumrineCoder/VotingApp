@@ -6,6 +6,7 @@ The pie chart is updated on first loading the page as well.
 */
 
 (function() {
+    console.log("Garbo");
     var addButton = document.querySelector('.submit');
     var result = null;
     var voteNbr = document.querySelector('#vote-nbr');
@@ -13,6 +14,7 @@ The pie chart is updated on first loading the page as well.
 
     function ready(fn) {
         // Will do the function once the document is ready
+        console.log("Ready");
         if (typeof fn !== 'function') {
             return;
         }
@@ -23,7 +25,7 @@ The pie chart is updated on first loading the page as well.
 
         document.addEventListener('DOMContentLoaded', fn, false);
     }
-
+  
     function ajaxRequest(method, url, callback) {
         var xmlhttp = new XMLHttpRequest();
         // Everytime the readystage changes, we're checking if it's done, and if so this function will do the callback
@@ -39,6 +41,7 @@ The pie chart is updated on first loading the page as well.
     
 
     function updatevoteCount(data) {
+      console.log(data);
         var votesObject = JSON.parse(data);
         var keys = [],
             values = [];
@@ -74,11 +77,14 @@ The pie chart is updated on first loading the page as well.
 
     addButton.addEventListener('click', function() {
         // Check if a radio is checked
+      console.log("Event Listener is Working");
         result = document.querySelector('input[name= "question"]:checked').value;
         console.log("Result: " + result);
         // Make a post request to change the votes, and then a get request to update the browser side
         ajaxRequest('POST', apiUrl + "data=" + result, function() {
-            ajaxRequest('GET', apiUrl, updatevoteCount)
+            console.log("Post Made");
+            ajaxRequest('GET', apiUrl, updatevoteCount);
+            console.log("Get Made");
         });
     }, false);
 
