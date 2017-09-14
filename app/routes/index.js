@@ -14,9 +14,13 @@ function ensureAuthenticated(req, res, next){
 		return next();
 	} else {
 		//req.flash('error_msg','You are not logged in');
-		res.redirect('/users/login');
+		res.redirect('/users/index');
 	}
 }
+
+var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
+
+
 
 module.exports = router;
 
