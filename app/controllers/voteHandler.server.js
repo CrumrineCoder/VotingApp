@@ -2,7 +2,8 @@
 /*
   This file can find the poll, and if it doesn't, make the poll on the request. This file also handles updating the database
 */
-/*
+var MongoClient = require('mongodb').MongoClient;
+
 function voteHandler (db) {
  
   // Get the 'votes' collection
@@ -53,4 +54,3 @@ function voteHandler (db) {
 }
 
 module.exports = voteHandler;
-*/
