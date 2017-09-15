@@ -7,7 +7,7 @@
 function voteHandler (db) {
  
   // Get the 'votes' collection
-   var votes = db.collection('votes');
+   //var votes = db.collection('votes');
   // Make a new method 'getvotes'
    this.getvotes = function (req, res) {
      // No need for an id yet, we will need those for when we're allowed to make polls however

@@ -2,8 +2,8 @@
 /*
 This file handles redirecting API calls to the controllers
 */
-var express = require('express');
-var router = express.Router();
+//var express = require('express');
+//var router = express.Router();
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
@@ -13,7 +13,7 @@ function ensureAuthenticated(req, res, next){
 		res.redirect('/users/index');
 	}
 }
-
+ 
 var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
 //var RegisterHandler = require(process.cwd())
 
@@ -32,7 +32,25 @@ module.exports = function (app, db) {
       .post(voteHandler.addvote)
 };
 
+/*
+'use strict';
 
+var ClickHandler = require(process.cwd() + '/app/controllers/clickHandler.server.js');
+
+module.exports = function (app, db) {
+   var clickHandler = new ClickHandler(db);
+
+   app.route('/')
+      .get(function (req, res) {
+         res.sendFile(process.cwd() + '/public/index.html');
+      });
+
+   app.route('/api/clicks')
+      .get(clickHandler.getClicks)
+      .post(clickHandler.addClick)
+      .delete(clickHandler.resetClicks);
+};
+*/
 /*
 router.get('/', ensureAuthenticated, function(req, res){
 	res.render('index');
