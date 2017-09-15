@@ -2,12 +2,12 @@
 /*
   This file can find the poll, and if it doesn't, make the poll on the request. This file also handles updating the database
 */
-var MongoClient = require('mongodb').MongoClient;
+//var MongoClient = require('mongodb').MongoClient;
 
 function voteHandler (db) {
  
   // Get the 'votes' collection
-   var votes = db.collection('votes');
+   //var votes = db.collection('votes');
   // Make a new method 'getvotes'
    this.getvotes = function (req, res) {
      // No need for an id yet, we will need those for when we're allowed to make polls however

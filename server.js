@@ -85,9 +85,7 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
-app.listen(3000, function() {
-        console.log('Listening on port 3000...');
-    });
+
 
 
 MongoClient.connect(mLab, function(err, db) {
@@ -98,10 +96,12 @@ MongoClient.connect(mLab, function(err, db) {
         console.log('MongoDB successfully connected on port 27017.');
     }
 
-    app.db = db; 
+    //app.db = db; 
     //app.use('/public', express.static(process.cwd() + '/public'));
     //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
     //Exports the routes to app and db
-    //routes(app, db);
-    
+    routes(app, db);
+    app.listen(3000, function() {
+        console.log('Listening on port 3000...');
+    });
 });
