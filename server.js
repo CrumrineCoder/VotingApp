@@ -1,6 +1,8 @@
 'use strict';
 /* Authentication: */
-
+/*
+  This file handles connecting the user to the server and the controllers to the database. 
+*/
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -11,19 +13,13 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-//var mongoose = require('mongoose');
- 
- 
-//mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
-  //  useMongoClient: true
-//});
-//var db = mongoose.connection;
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
+    useMongoClient: true
+});
+var db = mongoose.connection;
 
-
-//var users = require('./app/routes/users.js');
-/*
-  This file handles connecting the user to the server and the controllers to the database. 
-*/
+var users = require('./app/routes/users.js');
 var express = require('express'),
     routes = require('./app/routes/index.js'),
     mongodb = require('mongodb');
@@ -84,7 +80,7 @@ app.use(function(req, res, next) {
 });
 
 //app.use('/', routes);
-//app.use('/users', users);
+app.use('/users', users);
 
 
 
@@ -101,7 +97,7 @@ MongoClient.connect(mLab, function(err, db) {
    // app.use('/', routes)
     //app.db = db; 
     //app.use('/public', express.static(process.cwd() + '/public'));
-    //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+    app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
     //Exports the routes to app and db
     routes(app, db);
     app.listen(3000, function() {
