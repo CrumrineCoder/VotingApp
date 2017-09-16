@@ -4,7 +4,8 @@ This file handles redirecting API calls to the controllers
 */
 //var express = require('express');
 //var router = express.Router();
-
+console.log("Index Running");
+/*
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
@@ -13,23 +14,31 @@ function ensureAuthenticated(req, res, next){
 		res.redirect('/users/index');
 	}
 }
- 
-var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
+ */
+//var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
 //var RegisterHandler = require(process.cwd())
 
 module.exports = function (app, db) {
+  console.log("Module exports of index.js working");
+//  console.log(db); 
+ //db.collection('votes').find().toArray(function(err, docs) {
+   // console.log(JSON.stringify(docs));
+//});
+  
 // Creates an object from the server controller
-   var voteHandler = new VoteHandler(db);
+ //  var voteHandler = new VoteHandler(db);
   // var registerHandler = new RegisterHandler(db);
 // If routed here and there's a get method, send the index.html file
+
    app.route('/')
       .get(function (req, res) {
-         res.sendFile(process.cwd() + '/public/index.html');
+         res.render(process.cwd() + '/views/index.handlebars');
       });
 // If routed here and there's a get or post method, do these  things  inside of the server file
-   app.route('/api/:vote?')
-      .get(voteHandler.getvotes)
-      .post(voteHandler.addvote)
+   console.log('api.route("api:vote?")');
+  // app.route('/api/:vote?')
+   //   .get(voteHandler.getvotes)
+    //  .post(voteHandler.addvote)
 };
 
 /*

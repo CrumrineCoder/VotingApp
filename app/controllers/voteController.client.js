@@ -4,17 +4,18 @@ This file handles adding votes to a poll as well as displaying the data to the u
 It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
 The pie chart is updated on first loading the page as well. 
 */
-/*
+
 (function() {
-    console.log("Garbo");
+  console.log("voteController client running");
     var addButton = document.querySelector('.submit');
     var result = null;
     var voteNbr = document.querySelector('#vote-nbr');
     var apiUrl = 'https://joinordie.glitch.me/api/:vote?';
 
     function ready(fn) {
+      console.log("Ready Function of client running");
         // Will do the function once the document is ready
-        console.log("Ready");
+  
         if (typeof fn !== 'function') {
             return;
         }
@@ -27,6 +28,7 @@ The pie chart is updated on first loading the page as well.
     }
   
     function ajaxRequest(method, url, callback) {
+      console.log("ajaxRequest function of client running");
         var xmlhttp = new XMLHttpRequest();
         // Everytime the readystage changes, we're checking if it's done, and if so this function will do the callback
         xmlhttp.onreadystatechange = function() {
@@ -41,7 +43,7 @@ The pie chart is updated on first loading the page as well.
     
 
     function updatevoteCount(data) {
-      console.log(data);
+       console.log("updatevoteCount function of client running");
         var votesObject = JSON.parse(data);
         var keys = [],
             values = [];
@@ -79,7 +81,6 @@ The pie chart is updated on first loading the page as well.
         // Check if a radio is checked
       console.log("Event Listener is Working");
         result = document.querySelector('input[name= "question"]:checked').value;
-        console.log("Result: " + result);
         // Make a post request to change the votes, and then a get request to update the browser side
         ajaxRequest('POST', apiUrl + "data=" + result, function() {
             console.log("Post Made");
