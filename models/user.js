@@ -1,3 +1,6 @@
+console.log('models user.js running')
+console.log(process.cwd())
+/*
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 

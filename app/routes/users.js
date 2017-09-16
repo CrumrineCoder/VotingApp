@@ -1,3 +1,4 @@
+console.log("users.js running");
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
@@ -6,21 +7,25 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require(process.cwd() + '/models/user');
 // Register
 router.get('/register', function(req, res){
+  console.log("router.get register");
 	res.render('register');
 });
 
 // Login
 router.get('/login', function(req, res){
+  console.log("router.get login");
 	res.render('login');
 });
 
 // Homepage
 router.get('/index', function(req, res){
+  console.log("router.get index");
 	res.render('index');
 });
 
 // Register User
 router.post('/register', function(req, res){
+  console.log("router.post register");
 	var name = req.body.name;
 	var email = req.body.email;
 	var username = req.body.username;

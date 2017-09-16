@@ -10,16 +10,17 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongoose = require('mongoose');
+
+//var mongoose = require('mongoose');
+ 
+ 
+//mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
+  //  useMongoClient: true
+//});
+//var db = mongoose.connection;
 
 
-mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
-    useMongoClient: true
-});
-var db = mongoose.connection;
-
-
-var users = require('./app/routes/users.js');
+//var users = require('./app/routes/users.js');
 /*
   This file handles connecting the user to the server and the controllers to the database. 
 */
@@ -82,20 +83,22 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
+//app.use('/', routes);
+//app.use('/users', users);
 
 
 
 
 MongoClient.connect(mLab, function(err, db) {
-
+ 
     if (err) {
         throw new Error('Database failed to connect!');
     } else {
         console.log('MongoDB successfully connected on port 27017.');
     }
-
+   // console.log(db);
+    app.use('/views', express.static(process.cwd() + '/views'));
+   // app.use('/', routes)
     //app.db = db; 
     //app.use('/public', express.static(process.cwd() + '/public'));
     //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
