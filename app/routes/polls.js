@@ -1,22 +1,26 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+//var passport = require('passport');
+//var LocalStrategy = require('passport-local').Strategy;
 
 var Poll = require(process.cwd() + '/models/poll');
 
+router.get('/create', function(req, res) {
+
+    res.render('create');
+});
 // Create poll
 router.post('/create', function(req, res) {
 
-    var question = req.body.name;
+    var question = req.body.question;
     var answer = req.body.answer;
-    var answer2 = req.body.answer2;
+    var secondAnswer = req.body.secondAnswer;
 
 
     // Validation
     req.checkBody('question', 'Question is required').notEmpty();
     req.checkBody('answer', 'At least two answers are required').notEmpty();
-    req.checkBody('answer2', 'At least two answers are required').notEmpty();
+    req.checkBody('secondAnswer', 'At least two answers are required').notEmpty();
     // I might need more validation, but I believe I'll only require these validations and the rest of things that are added are optional, which means I don't need to check them
 
     var errors = req.validationErrors();
@@ -28,7 +32,7 @@ router.post('/create', function(req, res) {
         var newPoll= new Poll({
             question: question,
             answer: answer,
-            answer2: answer2
+            secondAnswer: secondAnswer
         });
         Poll.createPoll(newPoll, function(err, Poll) {
             if (err) throw err;
@@ -37,6 +41,8 @@ router.post('/create', function(req, res) {
 
         req.flash('success_msg', 'Your poll was created.');
 
-       // res.redirect('/users/login');
+       res.redirect('/');
     }
 });
+
+module.exports = router;

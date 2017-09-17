@@ -77,7 +77,7 @@ The pie chart is updated on first loading the page as well.
     // Do updateVoteCount as soon as the document has finished loading
     ready(ajaxRequest('GET', apiUrl, updatevoteCount));
 
-    addButton.addEventListener('click', function() {
+    /*addButton.addEventListener('click', function() {
         // Check if a radio is checked
   
         result = document.querySelector('input[name= "question"]:checked').value;
@@ -87,7 +87,7 @@ The pie chart is updated on first loading the page as well.
             ajaxRequest('GET', apiUrl, updatevoteCount);
  
         });
-    }, false);
+    }, false);*/
 
 
 })();
