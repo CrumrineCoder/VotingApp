@@ -18,7 +18,7 @@ mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
     useMongoClient: true
 });
 var db = mongoose.connection;
-
+var polls = require('./app/routes/polls.js');
 var users = require('./app/routes/users.js');
 var express = require('express'),
     routes = require('./app/routes/index.js'),
@@ -82,6 +82,7 @@ app.use(function(req, res, next) {
 
 //app.use('/', routes);
 app.use('/users', users);
+app.use('/polls', polls);
 
 MongoClient.connect(mLab, function(err, db) {
  

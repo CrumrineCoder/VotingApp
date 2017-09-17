@@ -11,7 +11,10 @@ var PollSchema = mongoose.Schema({
 	},
 	answer: {
 		type: String
-	}
+	},
+  secondAnswer:{
+    type: String
+  }
 });
 
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
