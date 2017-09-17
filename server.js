@@ -42,6 +42,7 @@ app.use(cookieParser());
 
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/views', express.static(process.cwd() + '/views'));
 
 app.use(session({
     secret: process.env.PASSKEY,
@@ -82,9 +83,6 @@ app.use(function(req, res, next) {
 //app.use('/', routes);
 app.use('/users', users);
 
-
-
-
 MongoClient.connect(mLab, function(err, db) {
  
     if (err) {
@@ -92,12 +90,7 @@ MongoClient.connect(mLab, function(err, db) {
     } else {
         console.log('MongoDB successfully connected on port 27017.');
     }
-   // console.log(db);
-    app.use('/views', express.static(process.cwd() + '/views'));
-   // app.use('/', routes)
-    //app.db = db; 
-    //app.use('/public', express.static(process.cwd() + '/public'));
-    app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+ 
     //Exports the routes to app and db
     routes(app, db);
     app.listen(3000, function() {

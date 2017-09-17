@@ -14,7 +14,6 @@ module.exports = function(app, db) {
             res.render(process.cwd() + '/views/index.handlebars');
         });
     // If routed here and there's a get or post method, do these  things  inside of the server file
-    console.log('api.route("api:vote?")');
     app.route('/api/:vote?')
         .get(voteHandler.getvotes)
         .post(voteHandler.addvote)
