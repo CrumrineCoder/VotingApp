@@ -14,13 +14,13 @@ router.post('/create', function(req, res) {
 
     var question = req.body.question;
     var answer = req.body.answer;
-    var secondAnswer = req.body.secondAnswer;
+    var answer2 = req.body.answer2;
 
 
     // Validation
     req.checkBody('question', 'Question is required').notEmpty();
     req.checkBody('answer', 'At least two answers are required').notEmpty();
-    req.checkBody('secondAnswer', 'At least two answers are required').notEmpty();
+    req.checkBody('answer2', 'At least two answers are required').notEmpty();
     // I might need more validation, but I believe I'll only require these validations and the rest of things that are added are optional, which means I don't need to check them
 
     var errors = req.validationErrors();
@@ -32,7 +32,7 @@ router.post('/create', function(req, res) {
         var newPoll= new Poll({
             question: question,
             answer: answer,
-            secondAnswer: secondAnswer
+            answer2: answer2
         });
         Poll.createPoll(newPoll, function(err, Poll) {
             if (err) throw err;

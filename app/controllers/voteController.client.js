@@ -1,16 +1,18 @@
-'use strict';
+//'use strict';
 /*
 This file handles adding votes to a poll as well as displaying the data to the user. 
 It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
 The pie chart is updated on first loading the page as well. 
 */
 
-(function() {
+var i = 3; 
+window.onload = function() {
  
-    var addButton = document.querySelector('.submit');
-    var result = null;
-    var voteNbr = document.querySelector('#vote-nbr');
+    //var poll = document.querySelector('.poll');
+    //var result = null;
+    //var voteNbr = document.querySelector('#vote-nbr');
     var apiUrl = 'https://joinordie.glitch.me/api/:vote?';
+    var submitButton = document.getElementsByClassName("submit")[0];
 
     function ready(fn) {
   
@@ -76,7 +78,53 @@ The pie chart is updated on first loading the page as well.
     }
     // Do updateVoteCount as soon as the document has finished loading
     ready(ajaxRequest('GET', apiUrl, updatevoteCount));
+    var latestInputField = document.getElementsByName("answer2")[0]; 
+    latestInputField.addEventListener("input", handler);
+    function handler(e){      
+        console.log(latestInputField);
+        e.target.removeEventListener(e.type, arguments.callee);
+        var input = document.createElement("input");
+        var form = document.getElementsByClassName('poll')[0];
+        input.type = "text";
+        input.name = "answer" + i; 
+        form.insertBefore(input, submitButton);
+        //latestInputField.appendChild(input); 
+          console.log(latestInputField);
+      //submitButton.insertBefore(input);
+        //submitButton.insertBefore(document.createElement("br"));
+        //form.appendChild(input);
+        //form.appendChild(document.createElement("br"));
+        i++;
+        console.log("I: " + i);
+       // latestInputField.addEventListener("input", handler);
+    }
+  console.log("answer"+i);
+  console.log(i);
+  latestInputField = document.getElementsByName("answer"+i)[0]; 
+        console.log(latestInputField);
+  //console.log(document.getElementsByName("answer2")[0]);
+  
+    /*
+var i = 3;
 
+function addInput(){
+    // Might want to add validation for whether the first two text fields have inputs already in them, but that depends on the functionality of mongoose
+    var input = document.createElement("input");
+    var form = document.getElementsByClassName('poll')[0];
+    input.type = "text";
+    input.name = "answer" + i; 
+    input.oninput = test();
+    console.log(input);
+    //input.oninput = addInput();
+    form.appendChild(input);
+    form.appendChild(document.createElement("br"));
+    i++;
+}
+function test(){
+  console.log("boople");
+}
+var form = document.getElementsByClassName('poll')[0];
+*/
     /*addButton.addEventListener('click', function() {
         // Check if a radio is checked
   
@@ -90,4 +138,4 @@ The pie chart is updated on first loading the page as well.
     }, false);*/
 
 
-})();
+};
