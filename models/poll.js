@@ -12,7 +12,7 @@ var PollSchema = mongoose.Schema({
 	answer: {
 		type: String
 	},
-  secondAnswer:{
+  answer2:{
     type: String
   }
 });
