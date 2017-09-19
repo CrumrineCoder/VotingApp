@@ -89,92 +89,12 @@ window.onload = function() {
         i++;
         e.target.removeEventListener(e.type, arguments.callee);
         var input = document.createElement("input");
-        var form = document.getElementsByClassName('poll')[0];
-        
+        var form = document.getElementsByClassName('poll')[0];        
         input.type = "text";
         input.name = "answer" + i; 
         input.placeholder = "Enter reply";
-      //  alert(input);
-     //   alert(input.innerHTML);
-      /*
-      
-    var s = '<div id="myDiv"></div>';
-var temp = document.createElement('div');
-temp.innerHTML = s;
-var htmlObject = temp.firstChild;
-*/
-       input.appendChild(lineBreak);
-
-      //  input.innerHTML = input.innerHTML + "<br>";
         form.insertBefore(input, submitButton);
-       // submitButton.parentNode.insertBefore(lineBreak, submitButton.nextSibling);
-        //document.getElementsByName("answer"+i)[0].appendChild()
-      //  document.getElementsByName("answer"+i)[0].form.insertBefore(lineBreak, document.getElementsByName("answer"+i)[0].nextSibling);
-        //form.insertBefore(lineBreak, submitButton);
-        
-        //latestInputField.appendChild(input); 
-
-      //submitButton.insertBefore(input);
-        //submitButton.insertBefore(document.createElement("br"));
-        //form.appendChild(input);
-        //form.appendChild(document.createElement("br"));
-
         latestInputField = document.getElementsByName("answer"+i)[0]; 
-      //  latestInputField.outerHTML = '<div class="form-group">' + latestInputField.innerHTML + ' <br></div>'  
-     //   console.log(latestInputField);
-       // latestInputField.outerHTML = "AAAAAAAAAAAAAAAAAAAAAH";
-     //   console.log(latestInputField);
         latestInputField.addEventListener("input", handler);
-       // latestInputField.appendChild(document.createElement("br"));
-     //   insertAfter(lineBreak, latestInputField);
-      //  latestInputField.appendChild(lineBreak)
-      //  newEvent(i);
-      var markup = document.documentElement.innerHTML;
-      console.log(markup);
     }
-  
 };
-/*
-function newEvent(i){
-     var latestInputField = document.getElementsByName("answer"+i)[0]; 
-     latestInputField.addEventListener("input", handler);
-     console.log(latestInputField);
-} */
-// console.log("answer"+i);
- // console.log("I af: "+ i);
- // latestInputField = document.getElementsByName("answer"+i)[0]; 
- // console.log("Latest Input  Field outside Handler: " + latestInputField);
-  //console.log(document.getElementsByName("answer2")[0]);
-  
-    /*
-var i = 3;
-
-function addInput(){
-    // Might want to add validation for whether the first two text fields have inputs already in them, but that depends on the functionality of mongoose
-    var input = document.createElement("input");
-    var form = document.getElementsByClassName('poll')[0];
-    input.type = "text";
-    input.name = "answer" + i; 
-    input.oninput = test();
-    console.log(input);
-    //input.oninput = addInput();
-    form.appendChild(input);
-    form.appendChild(document.createElement("br"));
-    i++;
-}
-function test(){
-  console.log("boople");
-}
-var form = document.getElementsByClassName('poll')[0];
-*/
-    /*addButton.addEventListener('click', function() {
-        // Check if a radio is checked
-  
-        result = document.querySelector('input[name= "question"]:checked').value;
-        // Make a post request to change the votes, and then a get request to update the browser side
-        ajaxRequest('POST', apiUrl + "data=" + result, function() {
-  
-            ajaxRequest('GET', apiUrl, updatevoteCount);
- 
-        });
-    }, false);*/
