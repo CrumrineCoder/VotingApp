@@ -4,10 +4,13 @@ This file handles adding votes to a poll as well as displaying the data to the u
 It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
 The pie chart is updated on first loading the page as well. 
 */
+function insertAfter(el, referenceNode) {
+    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+}
+var i = 2; 
 
-var i = 3; 
 window.onload = function() {
- 
+   
     //var poll = document.querySelector('.poll');
     //var result = null;
     //var voteNbr = document.querySelector('#vote-nbr');
@@ -80,28 +83,46 @@ window.onload = function() {
     ready(ajaxRequest('GET', apiUrl, updatevoteCount));
     var latestInputField = document.getElementsByName("answer2")[0]; 
     latestInputField.addEventListener("input", handler);
-    function handler(e){      
-        console.log(latestInputField);
+    var lineBreak = document.createElement("br");
+    function handler(e){ 
+        i++;
         e.target.removeEventListener(e.type, arguments.callee);
         var input = document.createElement("input");
         var form = document.getElementsByClassName('poll')[0];
+      //  form.insertBefore(lineBreak, submitButton);
         input.type = "text";
         input.name = "answer" + i; 
+        input.placeholder = "Enter reply";
+        
         form.insertBefore(input, submitButton);
+        //form.insertBefore(lineBreak, submitButton);
+        
         //latestInputField.appendChild(input); 
-          console.log(latestInputField);
+
       //submitButton.insertBefore(input);
         //submitButton.insertBefore(document.createElement("br"));
         //form.appendChild(input);
         //form.appendChild(document.createElement("br"));
-        i++;
-        console.log("I: " + i);
-       // latestInputField.addEventListener("input", handler);
+
+        latestInputField = document.getElementsByName("answer"+i)[0]; 
+        latestInputField.addEventListener("input", handler);
+        latestInputField.appendChild(document.createElement("br"));
+     //   insertAfter(lineBreak, latestInputField);
+      //  latestInputField.appendChild(lineBreak)
+      //  newEvent(i);
     }
-  console.log("answer"+i);
-  console.log(i);
-  latestInputField = document.getElementsByName("answer"+i)[0]; 
-        console.log(latestInputField);
+  
+};
+/*
+function newEvent(i){
+     var latestInputField = document.getElementsByName("answer"+i)[0]; 
+     latestInputField.addEventListener("input", handler);
+     console.log(latestInputField);
+} */
+// console.log("answer"+i);
+ // console.log("I af: "+ i);
+ // latestInputField = document.getElementsByName("answer"+i)[0]; 
+ // console.log("Latest Input  Field outside Handler: " + latestInputField);
   //console.log(document.getElementsByName("answer2")[0]);
   
     /*
@@ -136,6 +157,3 @@ var form = document.getElementsByClassName('poll')[0];
  
         });
     }, false);*/
-
-
-};
