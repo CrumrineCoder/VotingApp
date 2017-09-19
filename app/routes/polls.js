@@ -24,11 +24,17 @@ router.post('/create', function(req, res) {
     if(numberOfOptions < 2){
       errors.push({msg: 'At least two answers are required'});
     }
-    if (errors) {
+    if (errors.arrayLength == 0) {
+       errors = [];
         res.render('create', {
             errors: errors
         });
     } else {
+       for (var key in req.body) {
+           if(req.body[key] == ''){
+             delete req.body[key];
+           }
+        }
         var newPoll= new Poll(req.body);
         Poll.createPoll(newPoll, function(err, Poll) {
             if (err) throw err;
