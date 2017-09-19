@@ -84,17 +84,32 @@ window.onload = function() {
     var latestInputField = document.getElementsByName("answer2")[0]; 
     latestInputField.addEventListener("input", handler);
     var lineBreak = document.createElement("br");
+    
     function handler(e){ 
         i++;
         e.target.removeEventListener(e.type, arguments.callee);
         var input = document.createElement("input");
         var form = document.getElementsByClassName('poll')[0];
-      //  form.insertBefore(lineBreak, submitButton);
+        
         input.type = "text";
         input.name = "answer" + i; 
         input.placeholder = "Enter reply";
-        
+      //  alert(input);
+     //   alert(input.innerHTML);
+      /*
+      
+    var s = '<div id="myDiv"></div>';
+var temp = document.createElement('div');
+temp.innerHTML = s;
+var htmlObject = temp.firstChild;
+*/
+       input.appendChild(lineBreak);
+
+      //  input.innerHTML = input.innerHTML + "<br>";
         form.insertBefore(input, submitButton);
+       // submitButton.parentNode.insertBefore(lineBreak, submitButton.nextSibling);
+        //document.getElementsByName("answer"+i)[0].appendChild()
+      //  document.getElementsByName("answer"+i)[0].form.insertBefore(lineBreak, document.getElementsByName("answer"+i)[0].nextSibling);
         //form.insertBefore(lineBreak, submitButton);
         
         //latestInputField.appendChild(input); 
@@ -105,11 +120,17 @@ window.onload = function() {
         //form.appendChild(document.createElement("br"));
 
         latestInputField = document.getElementsByName("answer"+i)[0]; 
+      //  latestInputField.outerHTML = '<div class="form-group">' + latestInputField.innerHTML + ' <br></div>'  
+     //   console.log(latestInputField);
+       // latestInputField.outerHTML = "AAAAAAAAAAAAAAAAAAAAAH";
+     //   console.log(latestInputField);
         latestInputField.addEventListener("input", handler);
-        latestInputField.appendChild(document.createElement("br"));
+       // latestInputField.appendChild(document.createElement("br"));
      //   insertAfter(lineBreak, latestInputField);
       //  latestInputField.appendChild(lineBreak)
       //  newEvent(i);
+      var markup = document.documentElement.innerHTML;
+      console.log(markup);
     }
   
 };
