@@ -5,8 +5,14 @@ var router = express.Router();
 
 var Poll = require(process.cwd() + '/models/poll');
 
+
+
 router.get('/create', function(req, res) {
     res.render('create');
+});
+
+router.get('/view', function(req, res) {
+    res.render('pollListings');
 });
 
 

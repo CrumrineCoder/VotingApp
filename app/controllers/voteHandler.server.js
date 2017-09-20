@@ -4,6 +4,18 @@
 */
 function voteHandler(db) {
 
+    // Get the 'polls' collection
+    // Send the collection in a function
+   var polls = db.collection('polls');
+   this.getPolls = function(req,res){
+     polls.find({}, {_id: 0, __v:0}).toArray(function(err,documents){
+       if(err) throw err
+       res.json(documents);
+     })     
+   }
+    
+
+  
     // Get the 'votes' collection
     var votes = db.collection('votes');
     // Make a new method 'getvotes'
@@ -41,7 +53,7 @@ function voteHandler(db) {
         });
     };
     // Vote on the poll 
-
+/*
     this.addvote = function(req, res) {
 
         var results = req.query.data;
@@ -60,7 +72,7 @@ function voteHandler(db) {
 
     };
 
-
+*/
 }
 
 module.exports = voteHandler;
