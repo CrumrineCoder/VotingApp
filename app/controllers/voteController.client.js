@@ -4,18 +4,16 @@ This file handles adding votes to a poll as well as displaying the data to the u
 It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
 The pie chart is updated on first loading the page as well. 
 */
-function insertAfter(el, referenceNode) {
-    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-}
-var i = 2; 
-
+  
 window.onload = function() {
-   
+    console.log("TEST");
+  
+    
     //var poll = document.querySelector('.poll');
     //var result = null;
     //var voteNbr = document.querySelector('#vote-nbr');
-    var apiUrl = 'https://joinordie.glitch.me/api/:vote?';
-    var submitButton = document.getElementsByClassName("submit")[0];
+    var apiUrl = 'https://joinordie.glitch.me/api/';
+    //Used to have :vote? on the end of apiUrl, might need it again
 
     function ready(fn) {
   
@@ -46,8 +44,8 @@ window.onload = function() {
         xmlhttp.send();
     }
     
-
-    function updatevoteCount(data) {
+   //Results page
+  /*  function updatevoteCount(data) {
    
         var votesObject = JSON.parse(data);
         var keys = [],
@@ -78,23 +76,55 @@ window.onload = function() {
             }
         });
 
-    }
+    } 
+    */
     // Do updateVoteCount as soon as the document has finished loading
-    ready(ajaxRequest('GET', apiUrl, updatevoteCount));
-    var latestInputField = document.getElementsByName("answer2")[0]; 
-    latestInputField.addEventListener("input", handler);
-    var lineBreak = document.createElement("br");
-    
-    function handler(e){ 
-        i++;
-        e.target.removeEventListener(e.type, arguments.callee);
-        var input = document.createElement("input");
-        var form = document.getElementsByClassName('poll')[0];        
-        input.type = "text";
-        input.name = "answer" + i; 
-        input.placeholder = "Enter reply";
-        form.insertBefore(input, submitButton);
-        latestInputField = document.getElementsByName("answer"+i)[0]; 
-        latestInputField.addEventListener("input", handler);
+    //ready(ajaxRequest('GET', apiUrl, updatevoteCount));
+  
+    //Viewing Polls
+
+   function showListings(data) {
+        var listings = document.getElementById('anchor');
+        var pollObject = JSON.parse(data);
+        for(var i=0; i<pollObject.length; i++){
+         listings.innerHTML += pollObject[i].question;
+         listings.innerHTML += "<br>";
+       }
+   //    listings.innerHTML = "TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+  //      listings.innerHTML = pollObject;   
+ //       console.log(pollObject[0].question);
+     /*
+        var votesObject = JSON.parse(data);
+        var keys = [],
+            values = [];
+        for (var i in votesObject) {
+            keys.push(i);
+            values.push(votesObject[i]);
+        }
+
+
+        var ctx = document.getElementById("chart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: keys,
+                datasets: [{
+                    backgroundColor: [
+                        "#2ecc71",
+                        "#3498db",
+                        "#95a5a6",
+                        "#9b59b6",
+                        "#f1c40f",
+                        "#e74c3c",
+                        "#34495e"
+                    ],
+                    data: values
+                }]
+            }
+        });
+   */
+
     }
+  
+      ready(ajaxRequest('GET', apiUrl + "listings", showListings ));
 };
