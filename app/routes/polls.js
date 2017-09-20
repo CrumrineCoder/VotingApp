@@ -24,7 +24,9 @@ router.post('/create', function(req, res) {
     if(numberOfOptions < 2){
       errors.push({msg: 'At least two answers are required'});
     }
-    if (errors.arrayLength != 0) {
+
+   
+    if (errors.arrayLength != 0 && errors.arrayLength != undefined) {
         res.render('create', {
             errors: errors
         });
