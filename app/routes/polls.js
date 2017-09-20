@@ -6,9 +6,10 @@ var router = express.Router();
 var Poll = require(process.cwd() + '/models/poll');
 
 router.get('/create', function(req, res) {
-
     res.render('create');
 });
+
+
 // Create poll
 router.post('/create', function(req, res) {
   var numberOfOptions = 0; 
@@ -23,9 +24,7 @@ router.post('/create', function(req, res) {
     }   
     if(numberOfOptions < 2){
       errors.push({msg: 'At least two answers are required'});
-    }
-
-   
+    } 
     if (errors.arrayLength != 0 && errors.arrayLength != undefined) {
         res.render('create', {
             errors: errors
