@@ -24,11 +24,11 @@ router.post('/create', function(req, res) {
     if(numberOfOptions < 2){
       errors.push({msg: 'At least two answers are required'});
     }
-    if (errors.arrayLength == 0) {
-       errors = [];
+    if (errors.arrayLength != 0) {
         res.render('create', {
             errors: errors
         });
+       errors = [];
     } else {
        for (var key in req.body) {
            if(req.body[key] == ''){
