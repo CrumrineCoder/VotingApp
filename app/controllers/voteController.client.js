@@ -68,7 +68,7 @@ window.onload = function() {
         question.innerHTML = pollObject[page].question;
           for(var key in pollObject[page]) {
             if(key != 'question'){
-             var value = pollObject[page][key];
+             var value = key;
               // Make this into a proper form
              replies.innerHTML += value; 
              replies.innerHTML += "<br>"; 
@@ -91,7 +91,10 @@ window.onload = function() {
               values.push(pollObject[i]);
           }
 
-
+         //Remove question from the results
+          keys.shift();
+          values.shift();
+       
           var ctx = document.getElementById("chart").getContext('2d');
           var myChart = new Chart(ctx, {
               type: 'pie',
@@ -99,6 +102,7 @@ window.onload = function() {
                   labels: keys,
                   datasets: [{
                       backgroundColor: [
+                          //Add more colors later
                           "#2ecc71",
                           "#3498db",
                           "#95a5a6",
