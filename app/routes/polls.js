@@ -47,7 +47,16 @@ router.post('/create', function(req, res) {
              delete req.body[key];
            }
         }
-        var newPoll= new Poll(req.body);
+        var parsed={};
+        for(var key in req.body){
+          if(key != 'question'){
+          parsed[req.body[key]] = 0;
+          }
+          else{
+            parsed["question"] = req.body[key];
+          }
+        }
+        var newPoll= new Poll(parsed);
         Poll.createPoll(newPoll, function(err, Poll) {
             if (err) throw err;
             //console.log(Poll);
