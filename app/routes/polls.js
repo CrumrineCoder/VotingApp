@@ -2,10 +2,7 @@ var express = require('express');
 var router = express.Router();
 //var passport = require('passport');
 //var LocalStrategy = require('passport-local').Strategy;
-
 var Poll = require(process.cwd() + '/models/poll');
-
-
 
 router.get('/create', function(req, res) {
     res.render('create');
@@ -15,6 +12,16 @@ router.get('/view', function(req, res) {
     res.render('pollListings');
 });
 
+router.get('/view/:id', function(req, res){
+  console.log(req.params.id); 
+  // TODO: Validation for if the user already voted
+   res.render('vote');
+});
+
+router.get('/view/:id/results', function(req, res){
+ // TODO: Validation for if the user has not voted
+   res.render('vote');
+});
 
 // Create poll
 router.post('/create', function(req, res) {
