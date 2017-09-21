@@ -3,7 +3,7 @@ var router = express.Router();
 //var passport = require('passport');
 //var LocalStrategy = require('passport-local').Strategy;
 var Poll = require(process.cwd() + '/models/poll');
-
+var page; 
 router.get('/create', function(req, res) {
     res.render('create');
 });
@@ -13,8 +13,6 @@ router.get('/view', function(req, res) {
 });
 
 router.get('/view/:id', function(req, res){
-  console.log(req.params.id); 
-  // TODO: Validation for if the user already voted
    res.render('vote');
 });
 

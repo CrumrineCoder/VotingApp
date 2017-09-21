@@ -10,7 +10,7 @@ function voteHandler(db) {
    this.getPolls = function(req,res){
      polls.find({}, {_id: 0, __v:0}).toArray(function(err,documents){
        if(err) throw err
-       res.json(documents, req.param.id);
+       res.json(documents);
      })     
    }
     
