@@ -18,7 +18,7 @@ router.get('/view/:id', function(req, res){
 
 router.get('/view/:id/results', function(req, res){
  // TODO: Validation for if the user has not voted
-   res.render('vote');
+   res.render('result');
 });
 
 // Create poll
