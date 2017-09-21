@@ -13,7 +13,23 @@ function voteHandler(db) {
        res.json(documents);
      })     
    }
-    
+     // Vote on the poll 
+    this.addvote = function(req, res) {
+        var results = req.query.data;
+        polls.findAndModify({ question: req.query.question }, {
+            '_id': 1
+        }, {
+            $inc: {
+                [results]: 1
+            }
+        }, function(err, result) {
+            if (err) {
+                throw err;
+            }
+            res.json(result);
+        });
+
+    };
 
   
     // Get the 'votes' collection
@@ -52,27 +68,7 @@ function voteHandler(db) {
             }
         });
     };
-    // Vote on the poll 
-/*
-    this.addvote = function(req, res) {
-
-        var results = req.query.data;
-        votes.findAndModify({}, {
-            '_id': 1
-        }, {
-            $inc: {
-                [results]: 1
-            }
-        }, function(err, result) {
-            if (err) {
-                throw err;
-            }
-            res.json(result);
-        });
-
-    };
-
-*/
+   
 }
 
 module.exports = voteHandler;
