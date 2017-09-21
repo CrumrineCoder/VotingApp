@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+// This file handles routing when registering and logging in users
 var User = require(process.cwd() + '/models/user');
 // Register
 router.get('/register', function(req, res) {

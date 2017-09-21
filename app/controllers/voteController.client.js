@@ -1,13 +1,6 @@
 //'use strict';
-/*
-This file handles adding votes to a poll as well as displaying the data to the user. 
-It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
-The pie chart is updated on first loading the page as well. 
-*/
+// This file, onload, will handle the listing of polls, the listing of poll voting and event handling when clicked on one of those polls, and the showing of results when a poll is voted on using Chart.js
 window.onload = function() {
-
-
-
     //var poll = document.querySelector('.poll');
     var result = null;
     //var voteNbr = document.querySelector('#vote-nbr');

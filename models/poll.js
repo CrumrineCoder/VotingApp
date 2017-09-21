@@ -1,4 +1,4 @@
-
+// This file handles the backend for the poll mongoose schema
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');

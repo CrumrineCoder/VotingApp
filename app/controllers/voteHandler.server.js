@@ -1,7 +1,5 @@
 'use strict';
-/*
-  This file can find the poll, and if it doesn't, make the poll on the request. This file also handles updating the database
-*/
+// This file gets the polls collection data from the db and handles adding votes to the database
 function voteHandler(db) {
 
     // Get the 'polls' collection
