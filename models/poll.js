@@ -8,13 +8,13 @@ var PollSchema = mongoose.Schema({
 	question: {
 		type: String,
 		index:true
-	},
+	}/*,
 	answer: {
 		type: String
 	},
   answer2:{
     type: String
-  }
+  }*/
 }, {strict: false});
 
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
