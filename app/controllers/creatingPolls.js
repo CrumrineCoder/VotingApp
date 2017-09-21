@@ -19,3 +19,11 @@ window.onload = function() {
         latestInputField.addEventListener("input", handler);
     }
 }
+function toggle(button)
+{
+  if(document.getElementById("linkingAccountButton").value=="I don't want to link my account to the poll"){
+   document.getElementById("linkingAccountButton").value="I do want to link my account to the poll";}
+
+  else if(document.getElementById("linkingAccountButton").value=="I do want to link my account to the poll"){
+   document.getElementById("linkingAccountButton").value="I don't want to link my account to the poll";}
+}
