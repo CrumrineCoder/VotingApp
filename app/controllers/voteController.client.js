@@ -4,11 +4,10 @@ This file handles adding votes to a poll as well as displaying the data to the u
 It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
 The pie chart is updated on first loading the page as well. 
 */
-  
 window.onload = function() {
     console.log("TEST");
-  
-    
+
+
     //var poll = document.querySelector('.poll');
     //var result = null;
     //var voteNbr = document.querySelector('#vote-nbr');
@@ -16,9 +15,9 @@ window.onload = function() {
     //Used to have :vote? on the end of apiUrl, might need it again
 
     function ready(fn) {
-  
+
         // Will do the function once the document is ready
-  
+
         if (typeof fn !== 'function') {
             return;
         }
@@ -29,9 +28,9 @@ window.onload = function() {
 
         document.addEventListener('DOMContentLoaded', fn, false);
     }
-  
+
     function ajaxRequest(method, url, callback) {
-   
+
         var xmlhttp = new XMLHttpRequest();
         // Everytime the readystage changes, we're checking if it's done, and if so this function will do the callback
         xmlhttp.onreadystatechange = function() {
@@ -43,88 +42,71 @@ window.onload = function() {
         xmlhttp.open(method, url, true);
         xmlhttp.send();
     }
-    
-   //Results page
-  /*  function updatevoteCount(data) {
-   
-        var votesObject = JSON.parse(data);
-        var keys = [],
-            values = [];
-        for (var i in votesObject) {
-            keys.push(i);
-            values.push(votesObject[i]);
-        }
+
+    //Results page
+    /*  function updatevoteCount(data) {
+     
+          var votesObject = JSON.parse(data);
+          var keys = [],
+              values = [];
+          for (var i in votesObject) {
+              keys.push(i);
+              values.push(votesObject[i]);
+          }
 
 
-        var ctx = document.getElementById("chart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: keys,
-                datasets: [{
-                    backgroundColor: [
-                        "#2ecc71",
-                        "#3498db",
-                        "#95a5a6",
-                        "#9b59b6",
-                        "#f1c40f",
-                        "#e74c3c",
-                        "#34495e"
-                    ],
-                    data: values
-                }]
-            }
-        });
+          var ctx = document.getElementById("chart").getContext('2d');
+          var myChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                  labels: keys,
+                  datasets: [{
+                      backgroundColor: [
+                          "#2ecc71",
+                          "#3498db",
+                          "#95a5a6",
+                          "#9b59b6",
+                          "#f1c40f",
+                          "#e74c3c",
+                          "#34495e"
+                      ],
+                      data: values
+                  }]
+              }
+          });
 
-    } 
-    */
+      } 
+      */
     // Do updateVoteCount as soon as the document has finished loading
     //ready(ajaxRequest('GET', apiUrl, updatevoteCount));
-  
+
     //Viewing Polls
 
-   function showListings(data) {
+    function showQuestions(data) {
         var listings = document.getElementById('anchor');
         var pollObject = JSON.parse(data);
-        for(var i=0; i<pollObject.length; i++){
-         listings.innerHTML += pollObject[i].question;
-         listings.innerHTML += "<br>";
-       }
-   //    listings.innerHTML = "TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-  //      listings.innerHTML = pollObject;   
- //       console.log(pollObject[0].question);
-     /*
-        var votesObject = JSON.parse(data);
-        var keys = [],
-            values = [];
-        for (var i in votesObject) {
-            keys.push(i);
-            values.push(votesObject[i]);
+        // Add a link to the voting page for each of these once they're set up
+        for (var i = 0; i < pollObject.length; i++) {
+            listings.innerHTML += pollObject[i].question;
+            listings.innerHTML += "<br>";
         }
-
-
-        var ctx = document.getElementById("chart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: keys,
-                datasets: [{
-                    backgroundColor: [
-                        "#2ecc71",
-                        "#3498db",
-                        "#95a5a6",
-                        "#9b59b6",
-                        "#f1c40f",
-                        "#e74c3c",
-                        "#34495e"
-                    ],
-                    data: values
-                }]
-            }
-        });
-   */
-
     }
-  
-      ready(ajaxRequest('GET', apiUrl + "listings", showListings ));
+
+    function showVotingOptions(data, number) {
+        var question = document.getElementById('question');
+        var replies = document.getElementById('responses');
+        var votingButton = document.getElementById('votingButton');
+        var pollObject = JSON.parse(data);
+        console.log("Number: "+ number);
+     //   console.log(pollNumber);
+       // for(var i=0; i<pollObject[])
+    }
+    //Get the name of the current HTML file
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    if (page == "view") {
+        ready(ajaxRequest('GET', apiUrl + "listings", showQuestions));
+    } else if (page == "vote") {
+        ready(ajaxRequest('GET', apiUrl + "listings", showVotingOptions));
+    }
 };
