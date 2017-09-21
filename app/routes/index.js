@@ -1,7 +1,5 @@
 'use strict';
-/*
-This file handles redirecting API calls to the controllers
-*/
+// This file handles the home route along with the API routes
 var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
 module.exports = function(app, db) {
 

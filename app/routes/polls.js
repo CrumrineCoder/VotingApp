@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+// This file handles routing relation to making and viewing polls
 //var passport = require('passport');
 //var LocalStrategy = require('passport-local').Strategy;
 var Poll = require(process.cwd() + '/models/poll');

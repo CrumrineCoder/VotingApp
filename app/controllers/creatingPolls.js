@@ -1,6 +1,6 @@
 //Creating polls 
 
-// Might want to change latestInputField to not exist by name but rather by ID and give each the same name of 'answer', or perhaps add a class called answer. Depends on how I want to retrieve the data from mongodb. 
+// This file creates polls in the create.handlebars file procedurely by making an event listener on the second reply and removing it so that only the third response is made, which itself has the same event listener so the user can make as many replies as they want
 var i = 2; 
 window.onload = function() {
   var submitButton = document.getElementsByClassName("submit")[0];
