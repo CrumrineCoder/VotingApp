@@ -4,6 +4,7 @@ This file handles adding votes to a poll as well as displaying the data to the u
 It adds an event listener to the vote button to update the poll, and everytime the event happens the pie chart is also updated.
 The pie chart is updated on first loading the page as well. 
 */
+
 window.onload = function() {
     console.log("TEST");
 
@@ -87,26 +88,34 @@ window.onload = function() {
         var pollObject = JSON.parse(data);
         // Add a link to the voting page for each of these once they're set up
         for (var i = 0; i < pollObject.length; i++) {
-            listings.innerHTML += pollObject[i].question;
+            listings.innerHTML += '<form action=' +apiUrl+ '/polls/view/'+ i +' method="post">'
+            listings.innerHTML +=  "<button type='button'>" + pollObject[i].question + "</button>";
             listings.innerHTML += "<br>";
         }
     }
 
-    function showVotingOptions(data, number) {
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+  
+    function showVotingOptions(data) {
+        console.log("Working");
         var question = document.getElementById('question');
         var replies = document.getElementById('responses');
         var votingButton = document.getElementById('votingButton');
         var pollObject = JSON.parse(data);
-        console.log("Number: "+ number);
-     //   console.log(pollNumber);
-       // for(var i=0; i<pollObject[])
-    }
-    //Get the name of the current HTML file
-    var path = window.location.pathname;
-    var page = path.split("/").pop();
+        question.innerHTML = pollObject[page].question;
+          for(var key in pollObject[page]) {
+            if(key != 'question'){
+             var value = pollObject[page][key];
+              // Make this into a proper form
+             replies.innerHTML += value; 
+             replies.innerHTML += "<br>"; 
+            }
+         }
+    }   
     if (page == "view") {
         ready(ajaxRequest('GET', apiUrl + "listings", showQuestions));
-    } else if (page == "vote") {
+    } else if (!isNaN(page)) {
         ready(ajaxRequest('GET', apiUrl + "listings", showVotingOptions));
     }
 };
