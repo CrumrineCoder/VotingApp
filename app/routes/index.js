@@ -17,7 +17,7 @@ module.exports = function(app, db) {
     // If routed here and there's a get or post method, do these  things  inside of the server file
     app.route('/api/listings')
       .get(voteHandler.getPolls)
- //   app.route('/api/:vote?')
+    app.route('/api/:vote?')
   //      .get(voteHandler.getvotes)
-    //    .post(voteHandler.addvote)
+        .post(voteHandler.addvote)
 };
