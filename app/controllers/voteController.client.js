@@ -44,44 +44,6 @@ window.onload = function() {
         xmlhttp.send();
     }
 
-    //Results page
-    /*  function updatevoteCount(data) {
-     
-          var votesObject = JSON.parse(data);
-          var keys = [],
-              values = [];
-          for (var i in votesObject) {
-              keys.push(i);
-              values.push(votesObject[i]);
-          }
-
-
-          var ctx = document.getElementById("chart").getContext('2d');
-          var myChart = new Chart(ctx, {
-              type: 'pie',
-              data: {
-                  labels: keys,
-                  datasets: [{
-                      backgroundColor: [
-                          "#2ecc71",
-                          "#3498db",
-                          "#95a5a6",
-                          "#9b59b6",
-                          "#f1c40f",
-                          "#e74c3c",
-                          "#34495e"
-                      ],
-                      data: values
-                  }]
-              }
-          });
-
-      } 
-      */
-    // Do updateVoteCount as soon as the document has finished loading
-    //ready(ajaxRequest('GET', apiUrl, updatevoteCount));
-
-    //Viewing Polls
 
     function showQuestions(data) {
         var listings = document.getElementById('anchor');
@@ -113,9 +75,54 @@ window.onload = function() {
             }
          }
     }   
+  
+  
+    //Results page
+     function updatevoteCount(data) {
+       var number = path.split("/")[3];
+     
+     
+          var pollObject = JSON.parse(data);
+           pollObject = pollObject[number];
+          var keys = [],
+              values = [];
+          for (var i in pollObject) {
+              keys.push(i);
+              values.push(pollObject[i]);
+          }
+
+
+          var ctx = document.getElementById("chart").getContext('2d');
+          var myChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                  labels: keys,
+                  datasets: [{
+                      backgroundColor: [
+                          "#2ecc71",
+                          "#3498db",
+                          "#95a5a6",
+                          "#9b59b6",
+                          "#f1c40f",
+                          "#e74c3c",
+                          "#34495e"
+                      ],
+                      data: values
+                  }]
+              }
+          });
+
+      } 
+      
+    // Do updateVoteCount as soon as the document has finished loading
+    //ready(ajaxRequest('GET', apiUrl, updatevoteCount));
+
+ 
     if (page == "view") {
         ready(ajaxRequest('GET', apiUrl + "listings", showQuestions));
     } else if (!isNaN(page)) {
         ready(ajaxRequest('GET', apiUrl + "listings", showVotingOptions));
-    }
+    } else if (page == "results") {
+        ready(ajaxRequest('GET', apiUrl + "listings", updatevoteCount));
+    } 
 };
