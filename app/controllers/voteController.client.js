@@ -74,7 +74,7 @@ window.onload = function() {
         }, false);
 
         for (var key in pollObject[page]) {
-            if (key != 'question') {
+            if (key != 'question' && key!="user") {
                 var value = key;
                 // Make this into a proper form
               //   <label><input type="radio" value="Yes" name="question">Yes</label>
