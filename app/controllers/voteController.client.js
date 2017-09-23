@@ -47,6 +47,11 @@ window.onload = function() {
         }
 
     }
+  
+   function showSearchResults(data){
+     var listings = document.getElementById('anchor');
+     var pollObject = JSON.parse(data);
+   }
 
     var path = window.location.pathname;
     var page = path.split("/").pop();
@@ -64,7 +69,7 @@ window.onload = function() {
             // Check if a radio is checked
 
             result = document.querySelector('input[name= "reply"]:checked').value;
-            console.log(result);
+           // console.log(result);
             // Make a post request to change the votes, and then a get request to update the browser side
            ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {
    
@@ -125,9 +130,34 @@ window.onload = function() {
             }
         });
     }
+    
+   var searchTerm = document.getElementById("findPolls");
+var submitButton = document.getElementsByClassName("submitButton")[0];
+
+ submitButton.addEventListener('click', function() {
+            // Check if a radio is checked
+
+             result = searchTerm.value;
+            console.log("Search term client side: " +result);
+            // Make a post request to change the votes, and then a get request to update the browser side
+   
+   //ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {
+           ajaxRequest('POST', "https://joinordie.glitch.me/api/search/?searchTerm=" + result, function() {
+             // console.log("GET request made");
+            //   ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
+               // ajaxRequest('GET', apiUrl + "/polls/view/" + page +"/results", updatevoteCount);
+           });
+}, false);
+  /*  console.log("Path cut: " +path.split("/")[2]);
+    console.log("Page: " + page);
+    console.log("Path uncut: " + path); */
     if (page == "view") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
-    } else if (!isNaN(page)) {
+      // This is for the page being a number for the poll, the first poll ever made is poll '0', and so on
+    } else if(path.split("/")[2] == ":search"){
+       ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=" + result, showQuestions));
+    } 
+    else if (!isNaN(page) && page!="") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
     } else if (page == "results") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", updatevoteCount));

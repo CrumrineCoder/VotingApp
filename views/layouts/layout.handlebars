@@ -14,12 +14,16 @@
               <li role="presentation"><a href="/">Dashboard</a></li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>
               <li role="presentation"><a href="/polls/create">Create Poll</a></li>
-              <li role="presentation"><a href="/polls/view">View Polls</a></li>
             {{else}}
               <li role="presentation"><a href="/users/login">Login</a></li>
               <li role="presentation"><a href="/users/register">Register</a></li>
-              <li role="presentation"><a href="/polls/view">View Polls</a></li>
             {{/if}}
+               <li role="presentation"><a href="/polls/view">View Polls</a></li>
+                <form method="post" action="/polls/:search?"+document.getElementById("findPolls").value>
+               
+               <input type="search" id="findPolls" placeholder="Search for polls" value ="">
+               <input type="submit" value="Search" class="submitButton">
+               </form>
           </ul>
         </nav>
         <h3 class="text-muted">Polling App</h3>
@@ -51,5 +55,6 @@
       </footer>
 
     </div> <!-- /container -->
+    <script type="text/javascript" src="/controllers/voteController.client.js"></script>
 </body>
 </html>
