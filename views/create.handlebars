@@ -10,7 +10,14 @@
     <link href="/public/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <form method="post" action="/polls/create" class="poll">      
+        {{#if user}}
+        {{else}}
+            <p> <a href="/users/login">Login</a> if you wish to link this poll with your account. </p>
+        {{/if}}
+    <form method="post" action="/polls/create" class="poll">
+        {{#if user}}
+          <input type="checkbox" name="user" id="linkingAccountButton" value="I don't want to link my account to the poll" style="color:blue" onclick="toggle(this);"> 
+         {{/if}}
         <input type="text" name="question" placeholder="Write the Question here">
         <input type="text" name="answer" placeholder="Enter reply">
         <input type="text" name="answer2" placeholder="Enter reply">

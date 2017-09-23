@@ -5,6 +5,9 @@ var bcrypt = require('bcryptjs');
 
 // User Schema
 var PollSchema = mongoose.Schema({
+  user: {
+    type: String
+  },
 	question: {
 		type: String,
 		index:true
