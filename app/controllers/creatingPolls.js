@@ -27,3 +27,20 @@ function toggle(button)
   else if(document.getElementById("linkingAccountButton").value=="I do want to link my account to the poll"){
    document.getElementById("linkingAccountButton").value="I don't want to link my account to the poll";}
 }
+
+var votingButton = document.getElementsByClass("submit")[0];
+  votingButton.addEventListener('click', function() {
+    
+  if(document.getElementById("linkingAccountButton").value=="I do want to link my account to the poll"){
+    }
+            // Check if a radio is checked
+
+        //    result = document.querySelector('input[name= "reply"]:checked').value;
+  //          console.log(result);
+            // Make a post request to change the votes, and then a get request to update the browser side
+  //         ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {
+   
+               // ajaxRequest('GET', apiUrl + "/polls/view/" + page +"/results", updatevoteCount);
+
+       //    });
+}, false);

@@ -26,6 +26,7 @@ router.get('/view/:id/results', function(req, res){
 router.post('/create', function(req, res) {
   var numberOfOptions = 0; 
   var errors = [];
+  console.log(req.body);
     for (var key in req.body) {
       if(req.body[key] != '' && key!='question'){
         numberOfOptions++;
@@ -37,7 +38,7 @@ router.post('/create', function(req, res) {
     if(numberOfOptions < 2){
       errors.push({msg: 'At least two answers are required'});
     } 
-    if (errors.arrayLength != 0 && errors.arrayLength != undefined) {
+    if (errors.length != 0 && errors.length != undefined) {
         res.render('create', {
             errors: errors
         });
