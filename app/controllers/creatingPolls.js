@@ -19,13 +19,14 @@ window.onload = function() {
         latestInputField.addEventListener("input", handler);
     }
 }
+/*
 function toggle(button)
 {
-  if(document.getElementById("linkingAccountButton").value=="I don't want to link my account to the poll"){
-   document.getElementById("linkingAccountButton").value="I do want to link my account to the poll";}
+  if(document.getElementById("linkingAccountButton").value=="no link"){
+   document.getElementById("linkingAccountButton").value="link";}
 
-  else if(document.getElementById("linkingAccountButton").value=="I do want to link my account to the poll"){
-   document.getElementById("linkingAccountButton").value="I don't want to link my account to the poll";}
+  else if(document.getElementById("linkingAccountButton").value=="link"){
+   document.getElementById("linkingAccountButton").value="no link";}
 }
 
 var votingButton = document.getElementsByClass("submit")[0];
@@ -44,3 +45,4 @@ var votingButton = document.getElementsByClass("submit")[0];
 
        //    });
 }, false);
+*/

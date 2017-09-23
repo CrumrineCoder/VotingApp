@@ -16,7 +16,9 @@
         {{/if}}
     <form method="post" action="/polls/create" class="poll">
         {{#if user}}
-          <input type="checkbox" name="user" id="linkingAccountButton" value="I don't want to link my account to the poll" style="color:blue" onclick="toggle(this);"> 
+          <input type="checkbox" name="user" value="link">
+          <label>Link this poll to my account?</label>
+        <!--  <input type="checkbox" name="user" id="linkingAccountButton" value="I don't want to link my account to the poll" style="color:blue" onclick="toggle(this);"> -->
          {{/if}}
         <input type="text" name="question" placeholder="Write the Question here">
         <input type="text" name="answer" placeholder="Enter reply">

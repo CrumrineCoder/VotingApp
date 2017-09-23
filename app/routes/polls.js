@@ -26,9 +26,11 @@ router.get('/view/:id/results', function(req, res){
 router.post('/create', function(req, res) {
   var numberOfOptions = 0; 
   var errors = [];
-  console.log(req.body);
+  if(Object.hasOwnProperty.call(req.body, "user")){
+    req.body.user = req.user.name;
+  };
     for (var key in req.body) {
-      if(req.body[key] != '' && key!='question'){
+      if(req.body[key] != '' && key!='question' && key!='user'){
         numberOfOptions++;
       }  
       if(key=='question' && req.body[key] == ''){
@@ -51,11 +53,13 @@ router.post('/create', function(req, res) {
         }
         var parsed={};
         for(var key in req.body){
-          if(key != 'question'){
+          if(key != 'question' && key!='user'){
           parsed[req.body[key]] = 0;
           }
-          else{
+          else if(key== 'question'){
             parsed["question"] = req.body[key];
+          } else{
+            parsed["user"] = req.body[key];
           }
         }
         var newPoll= new Poll(parsed);
