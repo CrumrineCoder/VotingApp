@@ -18,4 +18,6 @@ module.exports = function(app, db) {
     app.route('/api/:vote?')
   //      .get(voteHandler.getvotes)
         .post(voteHandler.addvote)
+    app.route('/api/search/?')
+      .post(voteHandler.searchPolls)
 };
