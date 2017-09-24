@@ -30,11 +30,12 @@ router.get('/view/:id/results', function(req, res){
 router.post('/create', function(req, res) {
   var numberOfOptions = 0; 
   var errors = [];
+  console.log(req.body);
   if(Object.hasOwnProperty.call(req.body, "user")){
     req.body.user = req.user.name;
   };
     for (var key in req.body) {
-      if(req.body[key] != '' && key!='question' && key!='user'){
+      if(req.body[key] != '' && key!='question' && key!='user' && key!="Open"){
         numberOfOptions++;
       }  
       if(key=='question' && req.body[key] == ''){
@@ -57,12 +58,16 @@ router.post('/create', function(req, res) {
         }
         var parsed={};
         for(var key in req.body){
-          if(key != 'question' && key!='user'){
+          if(key != 'question' && key!='user' && key!="Open"){
           parsed[req.body[key]] = 0;
           }
           else if(key== 'question'){
             parsed["question"] = req.body[key];
-          } else{
+          }
+          else if(key=="Open"){
+            parsed["Open"] = req.body[key]
+          }
+          else{
             parsed["user"] = req.body[key];
           }
         }

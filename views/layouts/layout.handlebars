@@ -13,11 +13,11 @@
             {{#if user}}
               <li role="presentation"><a href="/">Dashboard</a></li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>
-              <li role="presentation"><a href="/polls/create">Create Poll</a></li>
             {{else}}
               <li role="presentation"><a href="/users/login">Login</a></li>
               <li role="presentation"><a href="/users/register">Register</a></li>
             {{/if}}
+               <li role="presentation"><a href="/polls/create">Create Poll</a></li>
                <li role="presentation"><a href="/polls/view">View Polls</a></li>
                <form method="post" action="/polls/search/">
                <input name="searchTerm" type="search" id="findPolls" placeholder="Search for polls" value ="">

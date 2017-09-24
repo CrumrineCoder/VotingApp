@@ -12,18 +12,21 @@
 <body>
         {{#if user}}
         {{else}}
-            <p> <a href="/users/login">Login</a> if you wish to link this poll with your account. </p>
+            <p> <a href="/users/login">Login</a> if you wish to link this poll with your account and be able to edit the poll after creation. </p>
         {{/if}}
     <form method="post" action="/polls/create" class="poll">
         {{#if user}}
           <input type="checkbox" name="user" value="link">
           <label>Link this poll to my account?</label>
-        <!--  <input type="checkbox" name="user" id="linkingAccountButton" value="I don't want to link my account to the poll" style="color:blue" onclick="toggle(this);"> -->
          {{/if}}
+         <p> Options </p>
+          <input type="checkbox" name="Open" value="Open">
+          <label>Allow User Created Answers</label>
         <input type="text" name="question" placeholder="Write the Question here">
         <input type="text" name="answer" placeholder="Enter reply">
         <input type="text" name="answer2" placeholder="Enter reply">
         <button type="submit" class="submitButton" value="Send order">Submit</button>
+       
     </form>
     <script type="text/javascript" src="/controllers/creatingPolls.js">
     </script>
