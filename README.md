@@ -6,7 +6,7 @@ To Do Next:
 
 1. Option to link a poll to a user account [DONE]
 
-2. Search  functionality
+2. Search  functionality [DONE]
 
 3. Other options during poll creation 
 
