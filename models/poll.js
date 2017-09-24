@@ -10,6 +10,9 @@ var db = mongoose.connection;
 autoIncrement.initialize(db);
 // User Schema
 var PollSchema = mongoose.Schema({
+  Open: {
+    type: String
+  },
   user: {
     type: String
   },

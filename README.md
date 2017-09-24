@@ -22,4 +22,16 @@ To Do Next:
 
 4. Reworking routing depending on how I want the flow of the site to change
 
-5. CSS touch up
+4a. Validating that the user has voted / the poll creator has allowed users to see the results before voting
+
+4b. Return to questions screen on the Results page
+
+4c. User can edit their polls after creating them if they link them to their account
+
+5. Fluff up Results page with a bar graph and such 
+
+6. CSS touch up
+
+Issues:
+1. Replies with the same answer turn into one answer in the database
+2. I suspect issues with  naming a reply something like null, user, question, or Open

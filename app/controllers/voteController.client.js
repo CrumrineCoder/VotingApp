@@ -75,10 +75,13 @@ window.onload = function() {
             values.push(pollObject[i]);
         }
         //Remove ID, user, and question from the results
+       
         keys.shift();
         values.shift();
+      if(keys[0]=='user'){
         keys.shift();
         values.shift();
+      }
         keys.shift();
         values.shift();
         var ctx = document.getElementById("chart").getContext('2d');
