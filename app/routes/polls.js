@@ -14,19 +14,14 @@ router.get('/view', function(req, res) {
 });
 
 router.post('/search/', function(req, res) {
-  console.log(req.body.searchTerm);
-//  console.log("Query: " + JSON.stringify(req.query));
- // console.log("Body: " + JSON.stringify(req.body));
   res.render(process.cwd() + '/views/pollListings.handlebars');
-  // res.send(req.body.searchTerm);
-  //res.render('searchListings');
 });
 
 router.get('/view/:id', function(req, res){
    res.render('vote');
 });
 
-router.post('/view/:id/results', function(req, res){
+router.get('/view/:id/results', function(req, res){
  // TODO: Validation for if the user has not voted
    res.render('result');
 });
