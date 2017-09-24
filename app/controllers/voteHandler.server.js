@@ -6,15 +6,10 @@ function voteHandler(db) {
     // Send the collection in a function
    var polls = db.collection('polls');
   
-  //set up counters
-  
-  
-  
   // get all polls
    this.getPolls = function(req,res){
      polls.find({}, {__v:0}).toArray(function(err,documents){
        if(err) throw err
-       console.log("Documents: " + documents);
        res.json(documents);
      })     
    }
@@ -38,13 +33,9 @@ function voteHandler(db) {
    //find specific polls
  // console.log("Vote Handler Running");
     this.searchPolls = function(req,res){
-      console.log("Search Polls Running");
       var searchTerm = req.query.searchTerm; 
-      console.log("Search term server side: " + searchTerm);
       polls.find( { $text: { $search: "  "+searchTerm+" " } }, {__v:0} ).toArray(function(err,documents){
        if(err) throw err
-        console.log("docs found");
-         console.log(documents);
          res.json(documents);
        })     
     }
