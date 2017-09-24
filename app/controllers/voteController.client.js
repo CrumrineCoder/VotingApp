@@ -102,9 +102,6 @@ var buttonToSubmit = document.getElementsByClassName("buttonToSubmit")[0];
      var searchText = searchTerm.value; 
      localStorage.setItem("searchText", searchText);
 });
-    /*console.log("Path cut: " +path.split("/")[2]);
-    console.log("Page: " + page);
-    console.log("Path uncut: " + path);  */
     if (page == "view") {
        console.log("View");
         ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
