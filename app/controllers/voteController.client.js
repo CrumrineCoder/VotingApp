@@ -41,12 +41,16 @@ window.onload = function() {
 
     function showQuestions(data) {
         var listings = document.getElementById('anchor');
+       console.log(listings.innerHTML);
+        console.log(data);
         var pollObject = JSON.parse(data);
+        console.log(pollObject);
         // Add a link to the voting page for each of these once they're set up
         for (var i = 0; i < pollObject.length; i++) {
             listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + i + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "</button>" + "<br>" + "</form>";
 
         }
+         console.log(listings.innerHTML);
 
     }
   
@@ -134,12 +138,12 @@ window.onload = function() {
     }
     
  var searchTerm = document.getElementById("findPolls");
-var submitButton = document.getElementsByClassName("submitButton")[0];
+var buttonToSubmit = document.getElementsByClassName("buttonToSubmit")[0];
 
- submitButton.addEventListener('click', function() {
+ buttonToSubmit.addEventListener('click', function() {
             // Check if a radio is checked
      var searchText = searchTerm.value; 
- //  localStorage.setItem("searchText", searchText);
+     localStorage.setItem("searchText", searchText);
        //      result = searchTerm.value;
       //      console.log("Search term client side: " +result);
             // Make a post request to change the votes, and then a get request to update the browser side
@@ -163,22 +167,27 @@ var submitButton = document.getElementsByClassName("submitButton")[0];
                // ajaxRequest('GET', apiUrl + "/polls/view/" + page +"/results", updatevoteCount);
         //   });
 //}, false);
-/*    console.log("Path cut: " +path.split("/")[2]);
+    /*console.log("Path cut: " +path.split("/")[2]);
     console.log("Page: " + page);
     console.log("Path uncut: " + path);  */
     if (page == "view") {
+       console.log("View");
         ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
       // This is for the page being a number for the poll, the first poll ever made is poll '0', and so on
     } //else if(path.split("/")[2] == ":search"){
       // ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=" + result, showQuestions));
    // } 
-  //  else if(path.split("/")[2] == "search"){
+    else if(path.split("/")[2] == "search"){
+      console.log("Search");
       //?searchTerm="+localStorage.getItem("searchText")
-     //   ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=Element", showQuestions));
-   // }
-    else if (!isNaN(page) && page!="") {
-        ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
-    } else if (page == "results") {
+        ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm="+localStorage.getItem("searchText"), showQuestions));
+    }
+    else if (page == "results") {
+      console.log("Results");
         ready(ajaxRequest('GET', apiUrl + "api/listings", updatevoteCount));
     }
+    else if (!isNaN(page) && page!="" && page!="create") {
+      console.log("Number");
+        ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
+    } 
 };

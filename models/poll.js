@@ -20,6 +20,8 @@ var PollSchema = mongoose.Schema({
   }*/
 }, {strict: false});
 
+PollSchema.index({question:'text'});
+
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
 
 module.exports.createPoll = function(newPoll, callback){

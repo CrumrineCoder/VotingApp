@@ -30,13 +30,15 @@ function voteHandler(db) {
 
     };   
    //find specific polls
-  console.log("Vote Handler Running");
+ // console.log("Vote Handler Running");
     this.searchPolls = function(req,res){
       console.log("Search Polls Running");
       var searchTerm = req.query.searchTerm; 
       console.log("Search term server side: " + searchTerm);
-      db.stores.find( { $text: { $search: " \"" +searchTerm+ "\"" } }, {_id: 0, __v:0} ).toArray(function(err,documents){
+      polls.find( { $text: { $search: "  "+searchTerm+" " } }, {_id: 0, __v:0} ).toArray(function(err,documents){
        if(err) throw err
+        console.log("docs found");
+         console.log(documents);
          res.json(documents);
        })     
     }
