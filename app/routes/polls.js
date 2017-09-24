@@ -74,7 +74,7 @@ router.post('/create', function(req, res) {
 
         req.flash('success_msg', 'Your poll was created.');
 
-       res.redirect('/');
+       res.redirect('/polls/view');
     }
 });
 

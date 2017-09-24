@@ -10,7 +10,7 @@ module.exports = function(app, db) {
     // Later probably redirect to the poll create page first
     app.route('/')
         .get(function(req, res) {
-            res.render(process.cwd() + '/views/index.handlebars');
+            res.render(process.cwd() + '/views/create.handlebars');
         });
     // If routed here and there's a get or post method, do these  things  inside of the server file
     app.route('/api/listings')

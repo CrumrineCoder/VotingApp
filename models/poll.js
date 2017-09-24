@@ -24,9 +24,9 @@ var PollSchema = mongoose.Schema({
     type: String
   }*/
 }, {strict: false});
- 
+  
 PollSchema.index({question:'text'});
-PollSchema.plugin(autoIncrement.plugin, 'Number');
+PollSchema.plugin(autoIncrement.plugin, {model: 'Poll', startAt: 0});
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
 
 module.exports.createPoll = function(newPoll, callback){
