@@ -13,7 +13,8 @@ router.get('/view', function(req, res) {
     res.render('pollListings');
 });
 
-router.post('/:search?', function(req, res) {
+router.post('/search/', function(req, res) {
+  console.log(req.body.searchTerm);
 //  console.log("Query: " + JSON.stringify(req.query));
  // console.log("Body: " + JSON.stringify(req.body));
   res.render(process.cwd() + '/views/pollListings.handlebars');

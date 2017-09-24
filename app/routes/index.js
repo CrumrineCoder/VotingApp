@@ -19,5 +19,5 @@ module.exports = function(app, db) {
   //      .get(voteHandler.getvotes)
         .post(voteHandler.addvote)
     app.route('/api/search/?')
-      .post(voteHandler.searchPolls)
+      .get(voteHandler.searchPolls)
 };

@@ -1,12 +1,14 @@
 //'use strict';
 // This file, onload, will handle the listing of polls, the listing of poll voting and event handling when clicked on one of those polls, and the showing of results when a poll is voted on using Chart.js
+
 window.onload = function() {
+ //  var searchText; 
     //var poll = document.querySelector('.poll');
     var result = null;
     //var voteNbr = document.querySelector('#vote-nbr');
     var apiUrl = 'https://joinordie.glitch.me/';
     //Used to have :vote? on the end of apiUrl, might need it again
-
+   
     function ready(fn) {
 
         // Will do the function once the document is ready
@@ -131,32 +133,49 @@ window.onload = function() {
         });
     }
     
-   var searchTerm = document.getElementById("findPolls");
+ var searchTerm = document.getElementById("findPolls");
 var submitButton = document.getElementsByClassName("submitButton")[0];
 
  submitButton.addEventListener('click', function() {
             // Check if a radio is checked
-
-             result = searchTerm.value;
-            console.log("Search term client side: " +result);
+     var searchText = searchTerm.value; 
+ //  localStorage.setItem("searchText", searchText);
+       //      result = searchTerm.value;
+      //      console.log("Search term client side: " +result);
             // Make a post request to change the votes, and then a get request to update the browser side
    
    //ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {
-           ajaxRequest('POST', "https://joinordie.glitch.me/api/search/?searchTerm=" + result, function() {
+           
+     //      window.location.href = "polls/search/"+result;
+   
+   
+   
+//   ajaxRequest('GET', "https://joinordie.glitch.me/polls/search/:find?searchTerm=" + result, function(){
+          //    console.log("test");
+    });
+   
+   
+   
+   
+        //   ajaxRequest('POST', "https://joinordie.glitch.me/api/search/?searchTerm=" + result, function() {
              // console.log("GET request made");
             //   ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
                // ajaxRequest('GET', apiUrl + "/polls/view/" + page +"/results", updatevoteCount);
-           });
-}, false);
-  /*  console.log("Path cut: " +path.split("/")[2]);
+        //   });
+//}, false);
+/*    console.log("Path cut: " +path.split("/")[2]);
     console.log("Page: " + page);
-    console.log("Path uncut: " + path); */
+    console.log("Path uncut: " + path);  */
     if (page == "view") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
       // This is for the page being a number for the poll, the first poll ever made is poll '0', and so on
-    } else if(path.split("/")[2] == ":search"){
-       ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=" + result, showQuestions));
-    } 
+    } //else if(path.split("/")[2] == ":search"){
+      // ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=" + result, showQuestions));
+   // } 
+  //  else if(path.split("/")[2] == "search"){
+      //?searchTerm="+localStorage.getItem("searchText")
+     //   ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=Element", showQuestions));
+   // }
     else if (!isNaN(page) && page!="") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
     } else if (page == "results") {
