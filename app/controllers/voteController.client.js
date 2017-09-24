@@ -110,17 +110,13 @@ window.onload = function() {
         localStorage.setItem("searchText", searchText);
     });
     if (page == "view") {
-        console.log("View");
         ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
         // This is for the page being a number for the poll, the first poll ever made is poll '0', and so on
     } else if (path.split("/")[2] == "search") {
-        console.log("Search");
         ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=" + localStorage.getItem("searchText"), showQuestions));
     } else if (page == "results") {
-        console.log("Results");
         ready(ajaxRequest('GET', apiUrl + "api/listings", updatevoteCount));
     } else if (!isNaN(page) && page != "" && page != "create") {
-        console.log("Number");
         ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
     }
-};
+}; 

@@ -1,27 +1,25 @@
 {
-  "name": "clementinejs",
+  "name": "Voting App",
   "version": "1.0.2",
-  "description": "A light-weight MEAN stack boilerplate.",
+  "description": "A voting App",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/johnstonbl01/clementinejs"
+    "url": "git+https://github.com/CrumrineCoder/VotingApp/"
   },
-  "homepage": "http://johnstonbl01.github.io/clementinejs/",
-  "bugs": "https://github.com/johnstonbl01/clementinejs/issues",
+  "bugs": "https://github.com/CrumrineCoder/VotingApp/issues",
   "keywords": [
     "MEAN",
     "MongoDB",
     "Express",
-    "Angular",
     "Node",
     "javascript",
     "boilerplate"
   ],
-  "author": "Blake Johnston",
+  "author": "Nicolas Crumrine",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
