@@ -1,8 +1,13 @@
 // This file handles the backend for the poll mongoose schema
 
 var mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');;
 var bcrypt = require('bcryptjs');
-
+mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
+    useMongoClient: true
+});
+var db = mongoose.connection;
+autoIncrement.initialize(db);
 // User Schema
 var PollSchema = mongoose.Schema({
   user: {
@@ -19,9 +24,9 @@ var PollSchema = mongoose.Schema({
     type: String
   }*/
 }, {strict: false});
-
+ 
 PollSchema.index({question:'text'});
-
+PollSchema.plugin(autoIncrement.plugin, 'Number');
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
 
 module.exports.createPoll = function(newPoll, callback){

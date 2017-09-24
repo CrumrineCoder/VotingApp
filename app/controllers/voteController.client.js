@@ -41,13 +41,12 @@ window.onload = function() {
 
     function showQuestions(data) {
         var listings = document.getElementById('anchor');
-       console.log(listings.innerHTML);
-        console.log(data);
+
         var pollObject = JSON.parse(data);
-        console.log(pollObject);
+       
         // Add a link to the voting page for each of these once they're set up
         for (var i = 0; i < pollObject.length; i++) {
-            listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + i + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "</button>" + "<br>" + "</form>";
+            listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + pollObject[i]._id + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "</button>" + "<br>" + "</form>";
 
         }
          console.log(listings.innerHTML);
@@ -85,7 +84,7 @@ window.onload = function() {
         }, false);
 
         for (var key in pollObject[page]) {
-            if (key != 'question' && key!="user") {
+            if (key != 'question' && key!="user" && key!="_id") {
                 var value = key;
                 // Make this into a proper form
               //   <label><input type="radio" value="Yes" name="question">Yes</label>

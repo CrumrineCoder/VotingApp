@@ -24,14 +24,15 @@
   "author": "Blake Johnston",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.1",
+    "body-parser": "^1.18.2",
     "chart.js": "^2.7.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
     "jsonwebtoken": "^8.0.1",
     "mongodb": "^2.2.31",
-    "mongoose": "^4.11.11",
+    "mongoose": "^4.11.12",
     "morgan": "^1.8.2",
+    "mongoose-auto-increment": "*",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.4.4",
@@ -40,7 +41,7 @@
     "express-handlebars": "^3.0.0",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.5",
-    "express-validator": "^4.1.1",
+    "express-validator": "^4.2.0",
     "passport-http": "^0.3.0"
   }
 }
