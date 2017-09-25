@@ -40,7 +40,15 @@ window.onload = function() {
 
     var path = window.location.pathname;
     var page = path.split("/").pop();
-
+function getOpenValue (){
+              var txt;
+              var answer = prompt("Please enter your answer:");
+              if (answer == null || answer == "") {
+                  txt = "User cancelled the prompt.";
+              } else {
+                  document.getElementById('open').value = txt;
+              }
+      }
     function showVotingOptions(data) {
         var question = document.getElementById('question');
         var replies = document.getElementById('responses');
@@ -54,11 +62,27 @@ window.onload = function() {
             // Make a post request to change the votes, and then a get request to update the browser side
             ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
         }, false);
+        console.log(pollObject[page]);
+        if (Object.hasOwnProperty.call(pollObject[page], "Open")) {
+            document.getElementById("openRadio").innerHTML = "<label><input type='radio' value = '' name='reply' id='open' /> Write your own answer here.</label>";
+            document.getElementById("openRadio").innerHTML += "<br>";
+       //     document.getElementById('open').onclick = getOpenValue();
+       //  document.getElementById('open').addEventListener ('onfocus', getOpenValue()); 
+          document.getElementById('open').onclick = function(){  var txt;
+              var answer = prompt("Please enter your answer:");
+              if (answer == null || answer == "") {
+                  txt = "User cancelled the prompt.";
+              } else {
+                  document.getElementById('open').value = txt;
+              } };
+        }
+    
         for (var key in pollObject[page]) {
-            if (key != 'question' && key != "user" && key != "_id") {
+            if (key != 'question' && key != "user" && key != "_id" && key != "Open") {
                 var value = key;
-                replies.innerHTML += "<label><input type='radio' value = '" + value + "' name='reply'>" + value + "</label>";
+                replies.innerHTML += "<label><input type='radio' value = '" + value + "' name='reply' />" + value + "</label>"
                 replies.innerHTML += "<br>";
+                console.log(replies.innerHTML);
             }
         }
     }
@@ -75,13 +99,13 @@ window.onload = function() {
             values.push(pollObject[i]);
         }
         //Remove ID, user, and question from the results
-       
+
         keys.shift();
         values.shift();
-      if(keys[0]=='user'){
-        keys.shift();
-        values.shift();
-      }
+        if (keys[0] == 'user') {
+            keys.shift();
+            values.shift();
+        }
         keys.shift();
         values.shift();
         var ctx = document.getElementById("chart").getContext('2d');
@@ -122,4 +146,4 @@ window.onload = function() {
     } else if (!isNaN(page) && page != "" && page != "create") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
     }
-}; 
+};
