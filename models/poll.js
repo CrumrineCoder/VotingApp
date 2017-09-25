@@ -13,6 +13,9 @@ var PollSchema = mongoose.Schema({
   Open: {
     type: String
   },
+  Multiple: {
+    type: String
+  },
   user: {
     type: String
   },

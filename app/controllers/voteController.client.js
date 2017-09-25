@@ -57,14 +57,15 @@ window.onload = function() {
         var votingButton = document.getElementById('votingButton');
         votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
         var pollObject = JSON.parse(data);
- 
+
         question.innerHTML = pollObject[page].question;
         votingButton.addEventListener('click', function() {
-            // Check if a radio is checked
+            // Get the value that was selected by the user
             result = document.querySelector('input[name= "reply"]:checked').value;
+            // If the user selected an option that wasn't already there, ie making his own option, then the answer gets a tag
             if (!Object.hasOwnProperty.call(pollObject[page], result)) {
-              console.log("tru tru");
-              result = "[Open Answer] " + result; 
+
+                result = "[User Answer] " + result;
             }
 
             // Make a post request to change the votes, and then a get request to update the browser side
@@ -79,13 +80,13 @@ window.onload = function() {
                     answer = "User cancelled the prompt.";
                 } else {
                     document.getElementById('open').value = answer;
-                   document.getElementById('placeholder').innerHTML = answer;
+                    document.getElementById('placeholder').innerHTML = answer;
                 }
             };
         }
 
         for (var key in pollObject[page]) {
-            if (key != 'question' && key != "user" && key != "_id" && key != "Open") {
+            if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple") {
                 var value = key;
                 replies.innerHTML += "<label><input type='radio' value = '" + value + "' name='reply' />" + value + "</label>"
                 replies.innerHTML += "<br>";
