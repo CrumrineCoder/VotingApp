@@ -40,15 +40,17 @@ window.onload = function() {
 
     var path = window.location.pathname;
     var page = path.split("/").pop();
-function getOpenValue (){
-              var txt;
-              var answer = prompt("Please enter your answer:");
-              if (answer == null || answer == "") {
-                  txt = "User cancelled the prompt.";
-              } else {
-                  document.getElementById('open').value = txt;
-              }
-      }
+
+    function getOpenValue() {
+        var txt;
+        var answer = prompt("Please enter your answer:");
+        if (answer == null || answer == "") {
+            txt = "User cancelled the prompt.";
+        } else {
+            document.getElementById('open').value = txt;
+        }
+    }
+
     function showVotingOptions(data) {
         var question = document.getElementById('question');
         var replies = document.getElementById('responses');
@@ -58,29 +60,24 @@ function getOpenValue (){
         question.innerHTML = pollObject[page].question;
         votingButton.addEventListener('click', function() {
             // Check if a radio is checked
-           
             result = document.querySelector('input[name= "reply"]:checked').value;
-          console.log("Result: " + result);
-          console.log(document.getElementsByClassName("radio-toolbar")[0]);
             // Make a post request to change the votes, and then a get request to update the browser side
-      ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
+            ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
         }, false);
         if (Object.hasOwnProperty.call(pollObject[page], "Open")) {
-            document.getElementById("openRadio").innerHTML = "<label><input type='radio' value = '' name='reply' id='open' /> Write your own answer here.</label>";
+            document.getElementById("openRadio").innerHTML = "<label><input type='radio' value = '' name='reply' id='open' /> <span id='placeholder'>Write your own answer here.</span></label>";
             document.getElementById("openRadio").innerHTML += "<br>";
-          document.getElementById('open').onclick = function(){ 
-
-              var answer = prompt("Please enter your answer:");
-             console.log("Answer: " + answer)
-              if (answer == null || answer == "") {
-                  answer = "User cancelled the prompt.";
-              } else {
-                  document.getElementById('open').value = answer;
-              } 
-            console.log(document.getElementsByClassName("radio-toolbar")[0]);
-          };
+            document.getElementById('open').onclick = function() {
+                var answer = prompt("Please enter your answer:");
+                if (answer == null || answer == "") {
+                    answer = "User cancelled the prompt.";
+                } else {
+                    document.getElementById('open').value = answer;
+                   document.getElementById('placeholder').innerHTML = answer;
+                }
+            };
         }
-    
+
         for (var key in pollObject[page]) {
             if (key != 'question' && key != "user" && key != "_id" && key != "Open") {
                 var value = key;
@@ -95,7 +92,6 @@ function getOpenValue (){
         var number = path.split("/")[3];
         var pollObject = JSON.parse(data);
         pollObject = pollObject[number];
-       console.log(pollObject);
         var keys = [],
             values = [];
         for (var i in pollObject) {
@@ -106,17 +102,17 @@ function getOpenValue (){
         keys.shift();
         values.shift();
         if (keys[0] == 'user') {
-           console.log(keys);
+            console.log(keys);
             keys.shift();
             values.shift();
         }
-       if (keys[0] == 'Open') {
+        if (keys[0] == 'Open') {
             keys.shift();
             values.shift();
         }
         keys.shift();
         values.shift();
-      
+
         var ctx = document.getElementById("chart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'pie',

@@ -10,7 +10,7 @@ To Do Next:
 
 3. Other options during poll creation 
 
-3a. Fixed vs open answers
+3a. Fixed vs open answers [DONE]
 
 3b. Multiple replies to a question from the user
 
