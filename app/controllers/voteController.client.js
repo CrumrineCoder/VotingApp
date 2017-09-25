@@ -57,10 +57,16 @@ window.onload = function() {
         var votingButton = document.getElementById('votingButton');
         votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
         var pollObject = JSON.parse(data);
+ 
         question.innerHTML = pollObject[page].question;
         votingButton.addEventListener('click', function() {
             // Check if a radio is checked
             result = document.querySelector('input[name= "reply"]:checked').value;
+            if (!Object.hasOwnProperty.call(pollObject[page], result)) {
+              console.log("tru tru");
+              result = "[Open Answer] " + result; 
+            }
+
             // Make a post request to change the votes, and then a get request to update the browser side
             ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
         }, false);
