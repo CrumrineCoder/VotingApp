@@ -58,23 +58,27 @@ function getOpenValue (){
         question.innerHTML = pollObject[page].question;
         votingButton.addEventListener('click', function() {
             // Check if a radio is checked
+           
             result = document.querySelector('input[name= "reply"]:checked').value;
+          console.log("Result: " + result);
+          console.log(document.getElementsByClassName("radio-toolbar")[0]);
             // Make a post request to change the votes, and then a get request to update the browser side
-            ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
+      ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
         }, false);
-        console.log(pollObject[page]);
         if (Object.hasOwnProperty.call(pollObject[page], "Open")) {
             document.getElementById("openRadio").innerHTML = "<label><input type='radio' value = '' name='reply' id='open' /> Write your own answer here.</label>";
             document.getElementById("openRadio").innerHTML += "<br>";
-       //     document.getElementById('open').onclick = getOpenValue();
-       //  document.getElementById('open').addEventListener ('onfocus', getOpenValue()); 
-          document.getElementById('open').onclick = function(){  var txt;
+          document.getElementById('open').onclick = function(){ 
+
               var answer = prompt("Please enter your answer:");
+             console.log("Answer: " + answer)
               if (answer == null || answer == "") {
-                  txt = "User cancelled the prompt.";
+                  answer = "User cancelled the prompt.";
               } else {
-                  document.getElementById('open').value = txt;
-              } };
+                  document.getElementById('open').value = answer;
+              } 
+            console.log(document.getElementsByClassName("radio-toolbar")[0]);
+          };
         }
     
         for (var key in pollObject[page]) {
@@ -82,7 +86,6 @@ function getOpenValue (){
                 var value = key;
                 replies.innerHTML += "<label><input type='radio' value = '" + value + "' name='reply' />" + value + "</label>"
                 replies.innerHTML += "<br>";
-                console.log(replies.innerHTML);
             }
         }
     }
@@ -92,22 +95,28 @@ function getOpenValue (){
         var number = path.split("/")[3];
         var pollObject = JSON.parse(data);
         pollObject = pollObject[number];
+       console.log(pollObject);
         var keys = [],
             values = [];
         for (var i in pollObject) {
             keys.push(i);
             values.push(pollObject[i]);
         }
-        //Remove ID, user, and question from the results
-
+        //Remove ID, user, open and question from the results
         keys.shift();
         values.shift();
         if (keys[0] == 'user') {
+           console.log(keys);
+            keys.shift();
+            values.shift();
+        }
+       if (keys[0] == 'Open') {
             keys.shift();
             values.shift();
         }
         keys.shift();
         values.shift();
+      
         var ctx = document.getElementById("chart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'pie',
