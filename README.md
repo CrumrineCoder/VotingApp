@@ -12,7 +12,7 @@ To Do Next:
 
 3a. Fixed vs open answers [DONE]
 
-3b. Multiple replies to a question from the user
+3b. Multiple replies to a question from the user [DONE]
 
 3c. Allowing change of vote
 
