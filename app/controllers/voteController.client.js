@@ -52,27 +52,24 @@ window.onload = function() {
     }
 
     function showVotingOptions(data) {
+        
         var question = document.getElementById('question');
         var replies = document.getElementById('responses');
         var votingButton = document.getElementById('votingButton');
         votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
+        // Get the Data
         var pollObject = JSON.parse(data);
-
+       // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
+        if (Object.hasOwnProperty.call(pollObject[page], "Multiple")) {
+            var votingOption = "checkbox";
+        } else {
+            var votingOption = "radio";
+        }
+      // Format Question
         question.innerHTML = pollObject[page].question;
-        votingButton.addEventListener('click', function() {
-            // Get the value that was selected by the user
-            result = document.querySelector('input[name= "reply"]:checked').value;
-            // If the user selected an option that wasn't already there, ie making his own option, then the answer gets a tag
-            if (!Object.hasOwnProperty.call(pollObject[page], result)) {
-
-                result = "[User Answer] " + result;
-            }
-
-            // Make a post request to change the votes, and then a get request to update the browser side
-            ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
-        }, false);
+      // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
         if (Object.hasOwnProperty.call(pollObject[page], "Open")) {
-            document.getElementById("openRadio").innerHTML = "<label><input type='radio' value = '' name='reply' id='open' /> <span id='placeholder'>Write your own answer here.</span></label>";
+            document.getElementById("openRadio").innerHTML = "<label><input type=" + votingOption + " value = '' name='reply' id='open' /> <span id='placeholder'>Write your own answer here.</span></label>";
             document.getElementById("openRadio").innerHTML += "<br>";
             document.getElementById('open').onclick = function() {
                 var answer = prompt("Please enter your answer:");
@@ -84,14 +81,45 @@ window.onload = function() {
                 }
             };
         }
-
+     // Format the rest of the replies
         for (var key in pollObject[page]) {
             if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple") {
                 var value = key;
-                replies.innerHTML += "<label><input type='radio' value = '" + value + "' name='reply' />" + value + "</label>"
+                replies.innerHTML += "<label><input type=" + votingOption + " value = '" + value + "' name='reply' />" + value + "</label>"
                 replies.innerHTML += "<br>";
             }
         }
+     // On finishing the form
+        votingButton.addEventListener('click', function() {
+            // Get the value that was selected by the user
+          
+           result = document.querySelector('input[name= "reply"]:checked').value;
+          
+          // Check if the user selected more than 1 checkbox
+          // If it's radios, it's not posible
+          if(votingOption !="radio"){
+            var checkboxes = document.getElementsByName('reply');
+                result = [];
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        result.push(checkboxes[i].value);
+                    }
+            }
+             // Check if the user made an option
+              if(!Object.hasOwnProperty.call(pollObject[page], result[0])){
+                // If so, brand it
+                 result[0] = "[User Answer] " + result[0];
+            }   
+            // If the user selected one option, get rid of the array
+            if(result.length == 1){
+              result = result[0];
+            }
+          }
+    
+       
+            // Make a post request to change the votes, and then a get request to update the browser side
+            ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
+        }, false); 
     }
 
     //Results page
