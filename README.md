@@ -35,3 +35,4 @@ To Do Next:
 Issues:
 1. Replies with the same answer turn into one answer in the database
 2. I suspect issues with  naming a reply something like null, user, question, or Open
+3. Check if the user selected an option before submitting the form
