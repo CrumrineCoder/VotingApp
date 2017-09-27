@@ -16,6 +16,7 @@ function voteHandler(db) {
      // Vote on the poll 
     this.addvote = function(req, res) {
         var results = req.query.data;
+      if (results != undefined){
         results = results.split(",");
       if(!Array.isArray(results)){
         polls.findAndModify({ question: req.query.question }, {
@@ -51,7 +52,7 @@ function voteHandler(db) {
         });
        }
       }
-      
+      }
     };   
    //find specific polls
  // console.log("Vote Handler Running");
