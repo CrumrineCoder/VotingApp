@@ -18,7 +18,7 @@ To Do Next:
 
 3d. Allowing seeing the results before voting
 
-3e. Captcha
+3e. Captcha [On Hold]
 
 4. Reworking routing depending on how I want the flow of the site to change
 

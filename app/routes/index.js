@@ -1,13 +1,15 @@
 'use strict';
 // This file handles the home route along with the API routes
 var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
+var ValidationHandler = require(process.cwd() + "/app/controllers/clientValidation.server.js");
 module.exports = function(app, db) {
 
     // Creates an object from the server controller
     var voteHandler = new VoteHandler(db);
-
+    var validationHandler = new ValidationHandler();
     // If routed here and there's a get method, send the index.html file
     // Later probably redirect to the poll create page first
+    console.log("API Called");
     app.route('/')
         .get(function(req, res) {
             res.render(process.cwd() + '/views/create.handlebars');
@@ -20,4 +22,6 @@ module.exports = function(app, db) {
         .post(voteHandler.addvote)
     app.route('/api/search/?')
       .get(voteHandler.searchPolls)
+    app.route('/api/validate/?')
+      .get(validationHandler.validateCaptcha)
 };
