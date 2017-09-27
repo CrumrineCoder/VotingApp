@@ -60,6 +60,21 @@ window.onload = function() {
         // Get the Data
         var pollObject = JSON.parse(data);
        // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
+      if(Object.hasOwnProperty.call(pollObject[page], "Captcha")){
+    
+         var captchaContainer = null;
+        var loadCaptcha = function() {
+      captchaContainer = grecaptcha.render('captcha_container', {
+        'sitekey' : '6LeXKjIUAAAAAHPLmWex3-TJ4XEWgw3NDBUFyNvZ',
+        'callback' : function(response) {
+          console.log(response);
+        }
+      });
+    };
+    loadCaptcha(); 
+        
+        // <div class="g-recaptcha" data-sitekey="6LeXKjIUAAAAAHPLmWex3-TJ4XEWgw3NDBUFyNvZ"></div>
+      }
         if (Object.hasOwnProperty.call(pollObject[page], "Multiple")) {
             var votingOption = "checkbox";
         } else {
@@ -83,12 +98,15 @@ window.onload = function() {
         }
      // Format the rest of the replies
         for (var key in pollObject[page]) {
-            if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple") {
+            if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple" && key != "Captcha") {
                 var value = key;
                 replies.innerHTML += "<label><input type=" + votingOption + " value = '" + value + "' name='reply' />" + value + "</label>"
                 replies.innerHTML += "<br>";
             }
         }
+    
+      
+      
      // On finishing the form
         votingButton.addEventListener('click', function() {
             // Get the value that was selected by the user
@@ -134,6 +152,8 @@ window.onload = function() {
             values.push(pollObject[i]);
         }
         //Remove ID, user, open and question from the results
+      
+      // At the end of doing all of these options, I have to go back through and do If statements. 
         keys.shift();
         values.shift();
         if (keys[0] == 'user') {
