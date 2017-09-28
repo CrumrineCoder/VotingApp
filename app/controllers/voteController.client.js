@@ -77,13 +77,8 @@ window.onload = function() {
                     'sitekey': '6LeXKjIUAAAAAHPLmWex3-TJ4XEWgw3NDBUFyNvZ',
                     'callback': function(response) {
                     ajaxRequest('GET', apiUrl + "api/validate/?response=" + response + "&ip="+ip, function(data) {
-                        console.log(data)
-                        if(data == true){
+                        console.log("Data: " + data);
                           captchaFinished = true; 
-                        }
-                        else{
-                          // Error message
-                        }
                       });
                     }
                 });
@@ -126,17 +121,24 @@ window.onload = function() {
         // On finishing the form
         votingButton.addEventListener('click', function(e) {
             // Get the value that was selected by the user
+      
+            console.log("True if Captcha is required: " + Object.hasOwnProperty.call(pollObject[page], "Captcha"))
+            console.log("True if Captcha is completed: " + captchaFinished);
+            console.log("True if a reply is NOT selected: " + (document.querySelector('input[name= "reply"]:checked').value == null));
            if((Object.hasOwnProperty.call(pollObject[page], "Captcha") && !captchaFinished)){
            // If Captch is required but not filled out
+             console.log("Captcha not filled out");
              e.preventDefault();
              grecaptcha.execute();
            }
            else if(document.querySelector('input[name= "reply"]:checked').value == null){
              // If there is nothing checked
+             console.log("Nothing selected");
              e.preventDefault();
  
            }
            else{
+             console.log("All according to Keikaru");
             result = document.querySelector('input[name= "reply"]:checked').value;
             // Check if the user selected more than 1 checkbox
             // If it's radios, it's not posible
