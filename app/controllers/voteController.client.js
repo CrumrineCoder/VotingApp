@@ -166,6 +166,7 @@ window.onload = function() {
               }
           } else{
             // Error message for voting on the same poll and show them to the results page
+            console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
           }
         }, false);
        
@@ -173,9 +174,14 @@ window.onload = function() {
 
     //Results page
     function updatevoteCount(data) {
-        var number = path.split("/")[3];
-        var pollObject = JSON.parse(data);
+      console.log("UpdateVoteCounter is running");
+       var number = path.split("/")[3];
+       var pollObject = JSON.parse(data);
         pollObject = pollObject[number];
+       if(pollObject.IP.includes(ip)){
+         console.log("The IP is included");
+       
+       
         var keys = [],
             values = [];
         for (var i in pollObject) {
@@ -219,6 +225,10 @@ window.onload = function() {
                 }]
             }
         });
+       } else{
+         // Error handling to be done
+         console.log("you must vote before seeing the results");
+       }
     }
 
     var searchTerm = document.getElementById("findPolls");
