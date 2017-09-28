@@ -54,6 +54,23 @@ function voteHandler(db) {
       }
       }
     };   
+   this.addVoter = function(req, res) {
+     var user = req.query.IP; 
+      polls.findAndModify({ question: req.query.question }, {
+            '_id': 1
+        }, {
+             
+              $push: {
+                IP: user
+              }  
+            
+        }, function(err, result) {
+            if (err) {
+                throw err;
+            }
+            res.json(result);
+        });
+   }
    //find specific polls
  // console.log("Vote Handler Running");
     this.searchPolls = function(req,res){

@@ -35,7 +35,7 @@ router.post('/create', function(req, res) {
     req.body.user = req.user.name;
   };
     for (var key in req.body) {
-      if(req.body[key] != '' && key!='question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha"){
+      if(req.body[key] != '' && key!='question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP"){
         numberOfOptions++;
       }  
       if(key=='question' && req.body[key] == ''){
@@ -58,7 +58,7 @@ router.post('/create', function(req, res) {
         }
         var parsed={};
         for(var key in req.body){
-          if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha"){
+          if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP"){
           parsed[req.body[key]] = 0;
           }
           else if(key== 'question'){
