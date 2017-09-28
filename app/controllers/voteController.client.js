@@ -66,8 +66,9 @@ window.onload = function() {
         //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
         // Get the Data
         var pollObject = JSON.parse(data);
-        if (!pollObject[page].IP.includes(ip)) {
+        if (!pollObject[page].IP.includes(ip) ||  Object.hasOwnProperty.call(pollObject[page], "Change")) {
             // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
+      
             if (Object.hasOwnProperty.call(pollObject[page], "Captcha")) {
                 //var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -110,7 +111,7 @@ window.onload = function() {
             }
             // Format the rest of the replies
             for (var key in pollObject[page]) {
-                if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple" && key != "Captcha" && key != "IP") {
+                if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple" && key != "Captcha" && key != "IP" && key !="SeeResults" && key!="Change") {
                     var value = key;
                     replies.innerHTML += "<label><input type=" + votingOption + " value = '" + value + "' name='reply' />" + value + "</label>"
                     replies.innerHTML += "<br>";
@@ -177,12 +178,12 @@ window.onload = function() {
 
     //Results page
     function updatevoteCount(data) {
-        console.log("UpdateVoteCounter is running");
         var number = path.split("/")[3];
         var pollObject = JSON.parse(data);
         pollObject = pollObject[number];
-        if (pollObject.IP.includes(ip)) {
-            console.log("The IP is included");
+
+        if (pollObject.IP.includes(ip) || Object.hasOwnProperty.call(pollObject, "SeeResults")) {
+            
 
 
             var keys = [],

@@ -23,6 +23,12 @@ var PollSchema = mongoose.Schema({
   user: {
     type: String
   },
+  Change: {
+    type: String
+  },
+  SeeResults: {
+    type: String
+  },
 	question: {
 		type: String,
 		index:true
