@@ -2,7 +2,8 @@
 // This file, onload, will handle the listing of polls, the listing of poll voting and event handling when clicked on one of those polls, and the showing of results when a poll is voted on using Chart.js
 //var ip = "";
 var ip;
-var captchaFinished = false; 
+var captchaFinished = false;
+
 function getIP(json) {
     ip = json.ip;
 }
@@ -62,173 +63,176 @@ window.onload = function() {
         var question = document.getElementById('question');
         var replies = document.getElementById('responses');
         var votingButton = document.getElementById('votingButton');
-    //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
+        //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
         // Get the Data
         var pollObject = JSON.parse(data);
-        // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
-        if (Object.hasOwnProperty.call(pollObject[page], "Captcha")) {
-            //var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-          
-        
-            var secret = "6LeXKjIUAAAAAJoaHILx2XTGAl9R0wtXmxypOqPN";
-            var captchaContainer = null;
-            var loadCaptcha = function() {
-                captchaContainer = grecaptcha.render('captcha_container', {
-                    'sitekey': '6LeXKjIUAAAAAHPLmWex3-TJ4XEWgw3NDBUFyNvZ',
-                    'callback': function(response) {
-                    ajaxRequest('GET', apiUrl + "api/validate/?response=" + response + "&ip="+ip, function(data) {
-                          captchaFinished = true; 
-                      });
-                    }
-                });
-            };
-            loadCaptcha();
-        }
+        if (!pollObject[page].IP.includes(ip)) {
+            // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
+            if (Object.hasOwnProperty.call(pollObject[page], "Captcha")) {
+                //var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-        if (Object.hasOwnProperty.call(pollObject[page], "Multiple")) {
-            var votingOption = "checkbox";
-        } else {
-            var votingOption = "radio";
-        }
-        // Format Question
-        question.innerHTML = pollObject[page].question;
-        // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
-        if (Object.hasOwnProperty.call(pollObject[page], "Open")) {
-            document.getElementById("openRadio").innerHTML = "<label><input type=" + votingOption + " value = '' name='reply' id='open' /> <span id='placeholder'>Write your own answer here.</span></label>";
-            document.getElementById("openRadio").innerHTML += "<br>";
-            document.getElementById('open').onclick = function() {
-                var answer = prompt("Please enter your answer:");
-                if (answer == null || answer == "") {
-                    answer = "User cancelled the prompt.";
+
+                var secret = "6LeXKjIUAAAAAJoaHILx2XTGAl9R0wtXmxypOqPN";
+                var captchaContainer = null;
+                var loadCaptcha = function() {
+                    captchaContainer = grecaptcha.render('captcha_container', {
+                        'sitekey': '6LeXKjIUAAAAAHPLmWex3-TJ4XEWgw3NDBUFyNvZ',
+                        'callback': function(response) {
+                            ajaxRequest('GET', apiUrl + "api/validate/?response=" + response + "&ip=" + ip, function(data) {
+                                captchaFinished = true;
+                            });
+                        }
+                    });
+                };
+                loadCaptcha();
+            }
+
+            if (Object.hasOwnProperty.call(pollObject[page], "Multiple")) {
+                var votingOption = "checkbox";
+            } else {
+                var votingOption = "radio";
+            }
+            // Format Question
+            question.innerHTML = pollObject[page].question;
+            // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
+            if (Object.hasOwnProperty.call(pollObject[page], "Open")) {
+                document.getElementById("openRadio").innerHTML = "<label><input type=" + votingOption + " value = '' name='reply' id='open' /> <span id='placeholder'>Write your own answer here.</span></label>";
+                document.getElementById("openRadio").innerHTML += "<br>";
+                document.getElementById('open').onclick = function() {
+                    var answer = prompt("Please enter your answer:");
+                    if (answer == null || answer == "") {
+                        answer = "User cancelled the prompt.";
+                    } else {
+                        document.getElementById('open').value = answer;
+                        document.getElementById('placeholder').innerHTML = answer;
+                    }
+                };
+            }
+            // Format the rest of the replies
+            for (var key in pollObject[page]) {
+                if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple" && key != "Captcha" && key != "IP") {
+                    var value = key;
+                    replies.innerHTML += "<label><input type=" + votingOption + " value = '" + value + "' name='reply' />" + value + "</label>"
+                    replies.innerHTML += "<br>";
+                }
+            }
+
+
+
+            // On finishing the form
+            votingButton.addEventListener('click', function(e) {
+                // Check if the same voter has voted on this
+
+                //     pollObject[page].IP.push(ip);
+                //'/api/addVoter/?'
+                ajaxRequest('GET', "https://joinordie.glitch.me/api/addVoter/?IP=" + ip + "&question=" + pollObject[page].question, function() {});
+                if ((Object.hasOwnProperty.call(pollObject[page], "Captcha") && !captchaFinished)) {
+                    // If Captch is required but not filled out
+
+                    e.preventDefault();
+                    grecaptcha.execute();
+                } else if (document.querySelector('input[name= "reply"]:checked').value == null) {
+                    // If there is nothing checked
+
+                    e.preventDefault();
+
                 } else {
-                    document.getElementById('open').value = answer;
-                    document.getElementById('placeholder').innerHTML = answer;
-                }
-            };
-        }
-        // Format the rest of the replies
-        for (var key in pollObject[page]) {
-            if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple" && key != "Captcha" && key != "IP") {
-                var value = key;
-                replies.innerHTML += "<label><input type=" + votingOption + " value = '" + value + "' name='reply' />" + value + "</label>"
-                replies.innerHTML += "<br>";
-            }
-        }
 
-
-
-        // On finishing the form
-        votingButton.addEventListener('click', function(e) {
-           // Check if the same voter has voted on this
-          if(!pollObject[page].IP.includes(ip)){
-       //     pollObject[page].IP.push(ip);
-            //'/api/addVoter/?'
-            ajaxRequest('GET', "https://joinordie.glitch.me/api/addVoter/?IP=" + ip + "&question=" + pollObject[page].question, function() {});
-           if((Object.hasOwnProperty.call(pollObject[page], "Captcha") && !captchaFinished)){
-           // If Captch is required but not filled out
-        
-             e.preventDefault();
-             grecaptcha.execute();
-           }
-           else if(document.querySelector('input[name= "reply"]:checked').value == null){
-             // If there is nothing checked
-            
-             e.preventDefault();
- 
-           }
-           else{
-         
-            result = document.querySelector('input[name= "reply"]:checked').value;
-            // Check if the user selected more than 1 checkbox
-            // If it's radios, it's not posible
-            if (votingOption != "radio") {
-                var checkboxes = document.getElementsByName('reply');
-                result = [];
-                for (var i = 0; i < checkboxes.length; i++) {
-                    if (checkboxes[i].checked) {
-                        result.push(checkboxes[i].value);
+                    result = document.querySelector('input[name= "reply"]:checked').value;
+                    // Check if the user selected more than 1 checkbox
+                    // If it's radios, it's not posible
+                    if (votingOption != "radio") {
+                        var checkboxes = document.getElementsByName('reply');
+                        result = [];
+                        for (var i = 0; i < checkboxes.length; i++) {
+                            if (checkboxes[i].checked) {
+                                result.push(checkboxes[i].value);
+                            }
+                        }
+                        // Check if the user made an option
+                        if (!Object.hasOwnProperty.call(pollObject[page], result[0])) {
+                            // If so, brand it
+                            result[0] = "[User Answer] " + result[0];
+                        }
+                        // If the user selected one option, get rid of the array
+                        if (result.length == 1) {
+                            result = result[0];
+                        }
                     }
-                }
-                // Check if the user made an option
-                if (!Object.hasOwnProperty.call(pollObject[page], result[0])) {
-                    // If so, brand it
-                    result[0] = "[User Answer] " + result[0];
-                }
-                // If the user selected one option, get rid of the array
-                if (result.length == 1) {
-                    result = result[0];
-                }
-            }
 
-            // Make a post request to change the votes, and then a get request to update the browser side
-            ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
-                window.location.replace(apiUrl + "polls/view/" + page + "/results");
-              }
-          } else{
+                    // Make a post request to change the votes, and then a get request to update the browser side
+                    ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
+                    window.location.replace(apiUrl + "polls/view/" + page + "/results");
+                }
+            }, false);
+
+        } else {
             // Error message for voting on the same poll and show them to the results page
             console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
-          }
-        }, false);
-       
+            window.location.replace(apiUrl + "polls/view/" + page + "/results");
+        }
+
+
     }
 
     //Results page
     function updatevoteCount(data) {
-      console.log("UpdateVoteCounter is running");
-       var number = path.split("/")[3];
-       var pollObject = JSON.parse(data);
+        console.log("UpdateVoteCounter is running");
+        var number = path.split("/")[3];
+        var pollObject = JSON.parse(data);
         pollObject = pollObject[number];
-       if(pollObject.IP.includes(ip)){
-         console.log("The IP is included");
-       
-       
-        var keys = [],
-            values = [];
-        for (var i in pollObject) {
-            keys.push(i);
-            values.push(pollObject[i]);
-        }
-        //Remove ID, user, open and question from the results
+        if (pollObject.IP.includes(ip)) {
+            console.log("The IP is included");
 
-        // At the end of doing all of these options, I have to go back through and do If statements. Make a function that finds an element in the keys, gets it index and removes it from the keys and values arrays
-        keys.shift();
-        values.shift();
-        if (keys[0] == 'user') {
-       //     console.log(keys);
-            keys.shift();
-            values.shift();
-        }
-        if (keys[0] == 'Open') {
-            keys.shift();
-            values.shift();
-        }
-        keys.shift();
-        values.shift();
 
-        var ctx = document.getElementById("chart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: keys,
-                datasets: [{
-                    backgroundColor: [
-                        //Add more colors later
-                        "#2ecc71",
-                        "#3498db",
-                        "#95a5a6",
-                        "#9b59b6",
-                        "#f1c40f",
-                        "#e74c3c",
-                        "#34495e"
-                    ],
-                    data: values
-                }]
+            var keys = [],
+                values = [];
+            for (var i in pollObject) {
+                keys.push(i);
+                values.push(pollObject[i]);
             }
-        });
-       } else{
-         // Error handling to be done
-         console.log("you must vote before seeing the results");
-       }
+            //Remove ID, user, open and question from the results
+
+            // At the end of doing all of these options, I have to go back through and do If statements. Make a function that finds an element in the keys, gets it index and removes it from the keys and values arrays
+            keys.shift();
+            values.shift();
+            if (keys[0] == 'user') {
+                //     console.log(keys);
+                keys.shift();
+                values.shift();
+            }
+            if (keys[0] == 'Open') {
+                keys.shift();
+                values.shift();
+            }
+            keys.shift();
+            values.shift();
+
+            var ctx = document.getElementById("chart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: keys,
+                    datasets: [{
+                        backgroundColor: [
+                            //Add more colors later
+                            "#2ecc71",
+                            "#3498db",
+                            "#95a5a6",
+                            "#9b59b6",
+                            "#f1c40f",
+                            "#e74c3c",
+                            "#34495e"
+                        ],
+                        data: values
+                    }]
+                }
+            });
+        } else {
+            // Error handling to be done
+            console.log("you must vote before seeing the results");
+            window.location.replace(apiUrl + "polls/view/" + number + "?/");
+        }
     }
 
     var searchTerm = document.getElementById("findPolls");
