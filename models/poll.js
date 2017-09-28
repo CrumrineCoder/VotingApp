@@ -10,6 +10,7 @@ var db = mongoose.connection;
 autoIncrement.initialize(db);
 // User Schema
 var PollSchema = mongoose.Schema({
+  IP: [String],
   Captcha:{
     type: String
   },

@@ -109,7 +109,7 @@ window.onload = function() {
         }
         // Format the rest of the replies
         for (var key in pollObject[page]) {
-            if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple" && key != "Captcha") {
+            if (key != 'question' && key != "user" && key != "_id" && key != "Open" && key != "Multiple" && key != "Captcha" && key != "IP") {
                 var value = key;
                 replies.innerHTML += "<label><input type=" + votingOption + " value = '" + value + "' name='reply' />" + value + "</label>"
                 replies.innerHTML += "<br>";
@@ -121,24 +121,21 @@ window.onload = function() {
         // On finishing the form
         votingButton.addEventListener('click', function(e) {
             // Get the value that was selected by the user
-      
-            console.log("True if Captcha is required: " + Object.hasOwnProperty.call(pollObject[page], "Captcha"))
-            console.log("True if Captcha is completed: " + captchaFinished);
-            console.log("True if a reply is NOT selected: " + (document.querySelector('input[name= "reply"]:checked').value == null));
+           console.log(pollObject[page].IP);
            if((Object.hasOwnProperty.call(pollObject[page], "Captcha") && !captchaFinished)){
            // If Captch is required but not filled out
-             console.log("Captcha not filled out");
+        
              e.preventDefault();
              grecaptcha.execute();
            }
            else if(document.querySelector('input[name= "reply"]:checked').value == null){
              // If there is nothing checked
-             console.log("Nothing selected");
+            
              e.preventDefault();
  
            }
            else{
-             console.log("All according to Keikaru");
+         
             result = document.querySelector('input[name= "reply"]:checked').value;
             // Check if the user selected more than 1 checkbox
             // If it's radios, it's not posible
