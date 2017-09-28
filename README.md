@@ -22,7 +22,7 @@ To Do Next:
 
 4. Reworking routing depending on how I want the flow of the site to change
 
-4a. Validating that the user has voted / the poll creator has allowed users to see the results before voting [In Progress]
+4a. Validating that the user has voted / the poll creator has allowed users to see the results before voting [DONE]
 
 4b. Return to questions screen on the Results page
 

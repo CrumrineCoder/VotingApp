@@ -7,7 +7,6 @@ var latestInputField = document.getElementsByName("answer2")[0];
 latestInputField.addEventListener("input", handler);
 
 function handler(e) {
-    console.log(latestInputField.innerHTML);
     i++;
     e.target.removeEventListener(e.type, arguments.callee);
     var input = document.createElement("input");
