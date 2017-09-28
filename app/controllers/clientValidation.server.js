@@ -3,7 +3,6 @@ var https = require('https');
 
 function validationHandler() {
     this.validateCaptcha = function(req, res) {
-        console.log("Validate Captcha Running");
         var secret = process.env.SECRET;
         var response = req.query.response;
         var ip = req.query.ip;
@@ -18,7 +17,7 @@ function validationHandler() {
 
             });
             response.on('end', function() {
-                console.log(JSON.parse(body)["success"]);
+                res.send(JSON.parse(body)["success"]);
             });
 
             //  ajaxRequest('POST', apiCall, function() {});

@@ -2,7 +2,7 @@
 // This file, onload, will handle the listing of polls, the listing of poll voting and event handling when clicked on one of those polls, and the showing of results when a poll is voted on using Chart.js
 //var ip = "";
 var ip;
-
+var captchaFinished = false; 
 function getIP(json) {
     ip = json.ip;
 }
@@ -62,7 +62,7 @@ window.onload = function() {
         var question = document.getElementById('question');
         var replies = document.getElementById('responses');
         var votingButton = document.getElementById('votingButton');
-        votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
+    //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
         // Get the Data
         var pollObject = JSON.parse(data);
         // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
@@ -76,15 +76,15 @@ window.onload = function() {
                 captchaContainer = grecaptcha.render('captcha_container', {
                     'sitekey': '6LeXKjIUAAAAAHPLmWex3-TJ4XEWgw3NDBUFyNvZ',
                     'callback': function(response) {
-                        //console.log(response);
-                      
-                      ajaxRequest('GET', apiUrl + "api/validate/?response=" + response + "&ip="+ip, function() {});
-                      console.log("Did it work?");
-                        // make a call to clientValidation
-               //         console.log("IP: " + ip);
-                   //     var apiCall = " https://www.google.com/recaptcha/api/siteverify?secret=" + secret + "&response=" + response + "&remoteip=" + ip;
-                 //       console.log(apiCall);
-               //         ajaxRequest('POST', apiCall, function() {});
+                    ajaxRequest('GET', apiUrl + "api/validate/?response=" + response + "&ip="+ip, function(data) {
+                        console.log(data)
+                        if(data == true){
+                          captchaFinished = true; 
+                        }
+                        else{
+                          // Error message
+                        }
+                      });
                     }
                 });
             };
@@ -124,11 +124,20 @@ window.onload = function() {
 
 
         // On finishing the form
-        votingButton.addEventListener('click', function() {
+        votingButton.addEventListener('click', function(e) {
             // Get the value that was selected by the user
-           
+           if((Object.hasOwnProperty.call(pollObject[page], "Captcha") && !captchaFinished)){
+           // If Captch is required but not filled out
+             e.preventDefault();
+             grecaptcha.execute();
+           }
+           else if(document.querySelector('input[name= "reply"]:checked').value == null){
+             // If there is nothing checked
+             e.preventDefault();
+ 
+           }
+           else{
             result = document.querySelector('input[name= "reply"]:checked').value;
-             console.log(result);
             // Check if the user selected more than 1 checkbox
             // If it's radios, it's not posible
             if (votingOption != "radio") {
@@ -152,7 +161,10 @@ window.onload = function() {
 
             // Make a post request to change the votes, and then a get request to update the browser side
             ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
+                window.location.replace(apiUrl + "polls/view/" + page + "/results");
+              }
         }, false);
+       
     }
 
     //Results page
@@ -172,7 +184,7 @@ window.onload = function() {
         keys.shift();
         values.shift();
         if (keys[0] == 'user') {
-            console.log(keys);
+       //     console.log(keys);
             keys.shift();
             values.shift();
         }

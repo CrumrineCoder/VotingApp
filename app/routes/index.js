@@ -9,7 +9,6 @@ module.exports = function(app, db) {
     var validationHandler = new ValidationHandler();
     // If routed here and there's a get method, send the index.html file
     // Later probably redirect to the poll create page first
-    console.log("API Called");
     app.route('/')
         .get(function(req, res) {
             res.render(process.cwd() + '/views/create.handlebars');
