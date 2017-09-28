@@ -89,12 +89,12 @@ MongoClient.connect(mLab, function(err, db) {
     if (err) {
         throw new Error('Database failed to connect!');
     } else {
-        console.log('MongoDB successfully connected on port 27017.');
+      //  console.log('MongoDB successfully connected on port 27017.');
     }
  
     //Exports the routes to app and db
     routes(app, db);
     app.listen(3000, function() {
-        console.log('Listening on port 3000...');
+    //    console.log('Listening on port 3000...');
     });
 });
