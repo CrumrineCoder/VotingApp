@@ -77,7 +77,6 @@ window.onload = function() {
                     'sitekey': '6LeXKjIUAAAAAHPLmWex3-TJ4XEWgw3NDBUFyNvZ',
                     'callback': function(response) {
                     ajaxRequest('GET', apiUrl + "api/validate/?response=" + response + "&ip="+ip, function(data) {
-                        console.log("Data: " + data);
                           captchaFinished = true; 
                       });
                     }
@@ -120,8 +119,11 @@ window.onload = function() {
 
         // On finishing the form
         votingButton.addEventListener('click', function(e) {
-            // Get the value that was selected by the user
-           console.log(pollObject[page].IP);
+           // Check if the same voter has voted on this
+          if(!pollObject[page].IP.includes(ip)){
+       //     pollObject[page].IP.push(ip);
+            //'/api/addVoter/?'
+            ajaxRequest('GET', "https://joinordie.glitch.me/api/addVoter/?IP=" + ip + "&question=" + pollObject[page].question, function() {});
            if((Object.hasOwnProperty.call(pollObject[page], "Captcha") && !captchaFinished)){
            // If Captch is required but not filled out
         
@@ -162,6 +164,9 @@ window.onload = function() {
             ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
                 window.location.replace(apiUrl + "polls/view/" + page + "/results");
               }
+          } else{
+            // Error message for voting on the same poll and show them to the results page
+          }
         }, false);
        
     }
@@ -179,7 +184,7 @@ window.onload = function() {
         }
         //Remove ID, user, open and question from the results
 
-        // At the end of doing all of these options, I have to go back through and do If statements. 
+        // At the end of doing all of these options, I have to go back through and do If statements. Make a function that finds an element in the keys, gets it index and removes it from the keys and values arrays
         keys.shift();
         values.shift();
         if (keys[0] == 'user') {
