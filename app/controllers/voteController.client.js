@@ -62,7 +62,7 @@ window.onload = function() {
         var question = document.getElementById('question');
         var replies = document.getElementById('responses');
         var votingButton = document.getElementById('votingButton');
-        votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
+    //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
         // Get the Data
         var pollObject = JSON.parse(data);
         // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
@@ -126,10 +126,6 @@ window.onload = function() {
         // On finishing the form
         votingButton.addEventListener('click', function(e) {
             // Get the value that was selected by the user
-      
-            console.log(Object.hasOwnProperty.call(pollObject[page], "Captcha"))
-            console.log(!captchaFinished);
-            console.log(result == null);
            if((Object.hasOwnProperty.call(pollObject[page], "Captcha") && !captchaFinished)){
            // If Captch is required but not filled out
              e.preventDefault();
@@ -165,7 +161,7 @@ window.onload = function() {
 
             // Make a post request to change the votes, and then a get request to update the browser side
             ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
-             
+                window.location.replace(apiUrl + "polls/view/" + page + "/results");
               }
         }, false);
        
@@ -188,7 +184,7 @@ window.onload = function() {
         keys.shift();
         values.shift();
         if (keys[0] == 'user') {
-            console.log(keys);
+       //     console.log(keys);
             keys.shift();
             values.shift();
         }
