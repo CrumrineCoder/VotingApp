@@ -32,15 +32,14 @@ PollSchema.plugin(autoIncrement.plugin, {model: 'Poll', startAt: 0});
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
 
 module.exports.createPoll = function(newPoll, callback){
+  console.log(newPoll);
   newPoll.save(callback);
-	/*bcrypt.genSalt(10, function(err, salt) {
-	    bcrypt.hash(newUser.password, salt, function(err, hash) {
-	        newUser.password = hash;
-	        newUser.save(callback);
-	    });
-	});*/
+}
+module.exports.replace = function(newPoll, callback){
+  console.log(newPoll);
 }
 
+/*
 module.exports.getPollByQuestion = function(question, callback){
 	var query = {question: question};
 	Poll.findOne(query, callback);
@@ -49,6 +48,7 @@ module.exports.getPollByQuestion = function(question, callback){
 module.exports.getPollById = function(id, callback){
 	Poll.findById(id, callback);
 }
+*/
 /*
 module.exports.comparePassword = function(candidatePassword, hash, callback){
 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {

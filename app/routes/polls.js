@@ -87,17 +87,20 @@ router.get('/edit/:id', function(req, res) {
 });
 
 router.post('/edit/', function(req, res) {
-  //var numberOfOptions = 0; 
+ var numberOfOptions;
   var errors = [];
-  console.log(req.body);
-  //req.body.user = req.user.name; 
-  
-  
-  /*if(Object.hasOwnProperty.call(req.body, "user")){
+
+  if(Object.hasOwnProperty.call(req.body, "user")){
     req.body.user = req.user.username;
   };
+
+    for (var i=0; i<req.body["reply"].length; i++) {
+      req.body["addedAnswer" + i] = req.body["reply"][i];
+    }
+   delete req.body["reply"];
+
     for (var key in req.body) {
-      if(req.body[key] != '' && key!='question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
+      if(req.body[key] != '' && key!='question' && key!='user'  && key != "IP" && key != "Options"){
         numberOfOptions++;
       }  
       if(key=='question' && req.body[key] == ''){
@@ -108,7 +111,7 @@ router.post('/edit/', function(req, res) {
       errors.push({msg: 'At least two answers are required'});
     } 
     if (errors.length != 0 && errors.length != undefined) {
-        res.render('create', {
+        res.render('edit', {
             errors: errors
         });
        errors = [];
@@ -118,43 +121,36 @@ router.post('/edit/', function(req, res) {
              delete req.body[key];
            }
         }
-        var parsed={};
+        var parsed={Options: []};
         for(var key in req.body){
           if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
           parsed[req.body[key]] = 0;
           }
-          else if(key== 'question'){
+          else if(key != 'question' && ( key=="Open" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
+            parsed["Options"].push(req.body[key])
+          }
+          else if(key=="question"){
             parsed["question"] = req.body[key];
-          }
-          else if(key=="Open"){
-            parsed["Open"] = req.body[key]
-          }
-          else if(key=="Multiple"){
-            parsed["Multiple"] = req.body[key];
-          }
-          else if(key=="Captcha"){
-            parsed["Captcha"] = req.body[key];
-          }
-          else if(key=="Change"){
-            parsed["Change"] = req.body[key];
-          }
-          else if(key=="SeeResults"){
-            parsed["SeeResults"] = req.body[key];
           }
           else{
             parsed["user"] = req.body[key];
           }
         }
+      console.log(parsed);
         var newPoll= new Poll(parsed);
-        Poll.createPoll(newPoll, function(err, Poll) {
-            if (err) throw err;
+        Poll.replace(newPoll, function(err, Poll) {
+           if (err) throw err;
+            console.log(Poll);
+       });
+      //  Poll.createPoll(newPoll, function(err, Poll) {
+        //    if (err) throw err;
             //console.log(Poll);
-        });
+      //  });
 
         req.flash('success_msg', 'Changes Saved.');
 
        res.redirect('/polls/view');
-    }*/
+    } 
 });
 
 module.exports = router;
