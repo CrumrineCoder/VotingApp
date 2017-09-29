@@ -21,6 +21,8 @@ module.exports = function(app, db) {
         .post(voteHandler.addvote)
     app.route('/api/search/?')
       .get(voteHandler.searchPolls)
+    app.route('/api/userSearch/')
+      .get(voteHandler.searchPollsByUser)
    app.route('/api/addVoter/?')
       .get(voteHandler.addVoter)
     app.route('/api/validate/?')

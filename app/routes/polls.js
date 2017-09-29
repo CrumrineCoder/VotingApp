@@ -32,7 +32,7 @@ router.post('/create', function(req, res) {
   var errors = [];
   console.log(req.body);
   if(Object.hasOwnProperty.call(req.body, "user")){
-    req.body.user = req.user.name;
+    req.body.user = req.user.username;
   };
     for (var key in req.body) {
       if(req.body[key] != '' && key!='question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){

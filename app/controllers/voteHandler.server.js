@@ -80,6 +80,22 @@ function voteHandler(db) {
          res.json(documents);
        })     
     }
+    
+    this.searchPollsByUser = function(req,res){
+      var user = req.user["username"];
+       console.log(user);
+      polls.find({user: user}, {_v:0}).toArray(function(err, documents){
+        if(err) throw err
+        console.log(documents);
+        res.json(documents);
+      })
+      
+      /*
+      polls.find( { $text: { $search: "  "+searchTerm+" " } }, {__v:0} ).toArray(function(err,documents){
+       if(err) throw err
+         res.json(documents);
+       })*/     
+    }
 }
 
 module.exports = voteHandler;

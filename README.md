@@ -36,6 +36,8 @@ To Do Next:
 
 7. On polllistings, perhaps have some options to sort by like most recent, most popular, and most controversial. Perhaps polls can have topics as well like Gaming, Politics, etc. but  I'm not sure. 
 
+8. Options are an array rather than separate properties, similar to IP duplication checking
+
 Issues:
 1. Replies with the same answer turn into one answer in the database. This should be done, but still require the user to make more than 1 reply when creating the poll, or if there's only 1 answer than make users able to write their own answers.
 2. I suspect issues with  naming a reply something like null, user, question, or Open
