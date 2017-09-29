@@ -11,22 +11,8 @@ autoIncrement.initialize(db);
 // User Schema
 var PollSchema = mongoose.Schema({
   IP: [String],
-  Captcha:{
-    type: String
-  },
-  Open: {
-    type: String
-  },
-  Multiple: {
-    type: String
-  },
+  Options: [String],
   user: {
-    type: String
-  },
-  Change: {
-    type: String
-  },
-  SeeResults: {
     type: String
   },
 	question: {
