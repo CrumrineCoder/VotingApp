@@ -47,7 +47,7 @@ app.use('/views', express.static(process.cwd() + '/views'));
 app.use(session({
     secret: process.env.PASSKEY,
     saveUninitialized: true,
-    resave: true
+    resave: false
 }));
 
 app.use(passport.initialize());

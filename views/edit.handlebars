@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<h2 class="page-header">Create Poll</h2> {{#if errors}} {{#each errors}}
+<h2 class="page-header">Edit Poll</h2> {{#if errors}} {{#each errors}}
 <div class="alert alert-danger">{{msg}}</div>
 {{/each}} {{/if}}
 <html>
@@ -10,13 +10,10 @@
     <link href="/public/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-        {{#if user}}
-        {{else}}
-            <p> <a href="/users/login">Login</a> if you wish to link this poll with your account and be able to edit the poll after creation. </p>
-        {{/if}}
+      
     <form method="post" action="/polls/edit" class="poll">
         {{#if user}}
-          <input type="checkbox" name="user" value="link">
+          <input type="checkbox" name="user" value="link" checked onclick="return false;">
           <label>Link this poll to my account?</label>
          {{/if}}
          <p> Options </p>
@@ -30,10 +27,10 @@
           <label>Allow Users to vote more than once.</label>
           <input id="SeeResults" type="checkbox" name="SeeResults" value="SeeResults" >
           <label>Allow Users to see the results before voting.</label>
-        <p id="question"> </p>
+        <input id="question"> </input>
         Leave Answers unticked if you wish to delete them. They will still be viewable, but users will not be able to vote on them.
         <div id="alreadyDoneAnswers"></div>
-        <input type="text" id="Notes" name="Notes" placeholder="While you cannot edit answers, you can write notes here for typos or other mistakes.">
+      <!--  <input type="text" id="Notes" name="Notes" placeholder="While you cannot edit answers, you can write notes here for typos or other mistakes."> -->
         
         <input type="text" name="answer" placeholder="Enter reply">
         <input type="text" name="answer2" placeholder="Enter reply">
