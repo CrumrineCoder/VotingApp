@@ -8,15 +8,15 @@ To Do Next:
 
 2. Search  functionality [DONE]
 
-3. Other options during poll creation 
+3. Other options during poll creation [DONE]
 
 3a. Fixed vs open answers [DONE]
 
 3b. Multiple replies to a question from the user [DONE]
 
-3c. Allowing change of vote
+3c. Allowing change of vote [DONE]
 
-3d. Allowing seeing the results before voting
+3d. Allowing seeing the results before voting [DONE]
 
 3e. Captcha [DONE]
 

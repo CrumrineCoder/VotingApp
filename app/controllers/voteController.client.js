@@ -67,6 +67,25 @@ window.onload = function() {
         // Get the Data
         var pollObject = JSON.parse(data);
         if (!pollObject[page].IP.includes(ip) ||  Object.hasOwnProperty.call(pollObject[page], "Change")) {
+          function seeResults() {
+              window.location.replace(apiUrl + "polls/view/" + page + "/results");
+          }
+          var status = document.getElementById("status");
+          if(Object.hasOwnProperty.call(pollObject[page], "Change") && Object.hasOwnProperty.call(pollObject[page, "SeeResults"])){
+            status.innerHTML = "You will  be able to change your vote after submitting it and to see the results before voting."
+               document.getElementById("results").addEventListener('click', seeResults());
+            
+          }
+          else if(Object.hasOwnProperty.call(pollObject[page], "Change")){
+            status.innerHTML = "You will be able to change your vote after submitting it, but you cannot see the results before doing so.";
+          }
+          else if(Object.hasOwnProperty.call(pollObject[page], "SeeResults")){
+            status.innerHTML = "You will be able to see the results of the poll before voting, but you cannot change your vote after doing so.";
+              document.getElementById("results").addEventListener('click', seeResults());
+          }
+          else{
+            status.innerHTML = "You will not be able to change your vote after submitting it or to see the results before voting.";
+          }
             // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
       
             if (Object.hasOwnProperty.call(pollObject[page], "Captcha")) {
