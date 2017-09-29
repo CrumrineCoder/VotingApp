@@ -30,7 +30,6 @@ router.get('/view/:id/results', function(req, res){
 router.post('/create', function(req, res) {
   var numberOfOptions = 0; 
   var errors = [];
-  console.log(req.body);
   if(Object.hasOwnProperty.call(req.body, "user")){
     req.body.user = req.user.username;
   };
@@ -56,28 +55,16 @@ router.post('/create', function(req, res) {
              delete req.body[key];
            }
         }
-        var parsed={};
+        var parsed={Options: []};
         for(var key in req.body){
           if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
           parsed[req.body[key]] = 0;
           }
-          else if(key== 'question'){
+          else if(key != 'question' && ( key=="Open" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
+            parsed["Options"].push(req.body[key])
+          }
+          else if(key=="question"){
             parsed["question"] = req.body[key];
-          }
-          else if(key=="Open"){
-            parsed["Open"] = req.body[key]
-          }
-          else if(key=="Multiple"){
-            parsed["Multiple"] = req.body[key];
-          }
-          else if(key=="Captcha"){
-            parsed["Captcha"] = req.body[key];
-          }
-          else if(key=="Change"){
-            parsed["Change"] = req.body[key];
-          }
-          else if(key=="SeeResults"){
-            parsed["SeeResults"] = req.body[key];
           }
           else{
             parsed["user"] = req.body[key];
