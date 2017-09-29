@@ -14,7 +14,7 @@ To Do Next:
 
 3b. Multiple replies to a question from the user [DONE]
 
-3c. Allowing change of vote [DONE]
+3c. Allowing change of vote [DONE] (changed to allowing multiple voting)
 
 3d. Allowing seeing the results before voting [DONE]
 
@@ -26,7 +26,7 @@ To Do Next:
 
 4a. Validating that the user has voted / the poll creator has allowed users to see the results before voting [DONE]
 
-4b. If voted, the user can go to the results screen after voting. 
+4b. If voted, the user can go to the results screen after voting. [DONE]
 
 4c. User can edit their polls after creating them if they link them to their account
 
