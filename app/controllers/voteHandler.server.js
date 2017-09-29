@@ -83,10 +83,8 @@ function voteHandler(db) {
     
     this.searchPollsByUser = function(req,res){
       var user = req.user["username"];
-       console.log(user);
       polls.find({user: user}, {_v:0}).toArray(function(err, documents){
         if(err) throw err
-        console.log(documents);
         res.json(documents);
       })
       
