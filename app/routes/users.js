@@ -86,6 +86,12 @@ passport.use(new LocalStrategy(
         });
     }));
 
+// Login
+router.get('/dashboard', function(req, res) {
+
+    res.render('dashboard');
+});
+
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });

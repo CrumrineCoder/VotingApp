@@ -67,21 +67,23 @@ window.onload = function() {
         // Get the Data
         var pollObject = JSON.parse(data);
         if (!pollObject[page].IP.includes(ip) ||  Object.hasOwnProperty.call(pollObject[page], "Change")) {
+          
           function seeResults() {
               window.location.replace(apiUrl + "polls/view/" + page + "/results");
           }
           var status = document.getElementById("status");
-          if(Object.hasOwnProperty.call(pollObject[page], "Change") && Object.hasOwnProperty.call(pollObject[page, "SeeResults"])){
+          if(Object.hasOwnProperty.call(pollObject[page], "Change") && Object.hasOwnProperty.call(pollObject[page], "SeeResults")){
+            console.log("Made it");
             status.innerHTML = "You will  be able to vote more than once and to see the results before voting."
-               document.getElementById("results").addEventListener('click', seeResults());
-            
+              document.getElementById("results").addEventListener('click', seeResults, false);
+            console.log("Made it later");
           }
           else if(Object.hasOwnProperty.call(pollObject[page], "Change")){
             status.innerHTML = "You will be able to vote more than once, but you cannot see the results before doing so.";
           }
           else if(Object.hasOwnProperty.call(pollObject[page], "SeeResults")){
             status.innerHTML = "You will be able to see the results of the poll before voting, but you vote more than once.";
-              document.getElementById("results").addEventListener('click', seeResults());
+              document.getElementById("results").addEventListener('click', seeResults, false);
           }
           else{
             status.innerHTML = "You will not be able to vote more than once or to see the results before voting.";
@@ -268,7 +270,11 @@ window.onload = function() {
         ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=" + localStorage.getItem("searchText"), showQuestions));
     } else if (page == "results") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", updatevoteCount));
-    } else if (!isNaN(page) && page != "" && page != "create") {
+    }
+    else if (page == "dashboard") {
+       ready(ajaxRequest('GET', apiUrl + "api/userSearch/", showQuestions));
+    } 
+    else if (!isNaN(page) && page != "" && page != "create") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
     }
 };
