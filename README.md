@@ -38,6 +38,8 @@ To Do Next:
 
 8. Options are an array rather than separate properties, similar to IP duplication checking
 
+9. Keep user logged in and check if it's the right user when in dashboard or in editing pages.
+
 Issues:
 1. Replies with the same answer turn into one answer in the database. This should be done, but still require the user to make more than 1 reply when creating the poll, or if there's only 1 answer than make users able to write their own answers.
 2. I suspect issues with  naming a reply something like null, user, question, or Open
