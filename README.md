@@ -20,7 +20,7 @@ To Do Next:
 
 3e. Captcha [DONE]
 
--- Change Options to be Boolean rather than Strings -- 
+-- Change Options to be Boolean rather than Strings -- [DONE]
 
 4. Reworking routing depending on how I want the flow of the site to change
 
@@ -28,15 +28,15 @@ To Do Next:
 
 4b. If voted, the user can go to the results screen after voting. [DONE]
 
-4c. User can edit their polls after creating them if they link them to their account
+4c. User can edit their polls after creating them if they link them to their account [done]
 
-5. Fluff up Results page with a bar graph and such 
+5. Fluff up Results page with a bar graph and such [DONE]
 
 6. CSS touch up
 
-7. On polllistings, perhaps have some options to sort by like most recent, most popular, and most controversial. Perhaps polls can have topics as well like Gaming, Politics, etc. but  I'm not sure. 
+7. On polllistings, perhaps have some options to sort by like most recent, most popular, and most controversial. Perhaps polls can have topics as well like Gaming, Politics, etc. but  I'm not sure. [I DON'T THINK I WANT THIS TO BE A FEATURE]
 
-8. Options are an array rather than separate properties, similar to IP duplication checking
+8. Options are an array rather than separate properties, similar to IP duplication checking [DONE]
 
 9. Keep user logged in and check if it's the right user when in dashboard or in editing pages.
 

@@ -1,7 +1,7 @@
 'use strict';
 // This file gets the polls collection data from the db and handles adding votes to the database
 function voteHandler(db) {
-
+//
     // Get the 'polls' collection
     // Send the collection in a function
    var polls = db.collection('polls');

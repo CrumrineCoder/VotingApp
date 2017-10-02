@@ -38,7 +38,8 @@ var polls = db.collection('polls');
 module.exports.replace = function(newPoll, callback){
   
   polls.replaceOne(
-     { $text: { $search: newPoll.question} }, newPoll
+    
+    { $text: { $search: newPoll.question} }, newPoll
   );
 
   

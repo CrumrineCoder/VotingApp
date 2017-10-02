@@ -1,6 +1,5 @@
 //'use strict';
 // This file, onload, will handle the listing of polls, the listing of poll voting and event handling when clicked on one of those polls, and the showing of results when a poll is voted on using Chart.js
-//var ip = "";
 var ip;
 var captchaFinished = false;
 
@@ -241,9 +240,29 @@ window.onload = function() {
             keys.pop();
             values.pop();
           // console.log)keys
-            var ctx = document.getElementById("chart").getContext('2d');
-            var myChart = new Chart(ctx, {
+            var ctx = document.getElementById("pie").getContext('2d');
+            var pie = new Chart(ctx, {
                 type: 'pie',
+                data: {
+                    labels: keys,
+                    datasets: [{
+                        backgroundColor: [
+                            //Add more colors later
+                            "#2ecc71",
+                            "#3498db",
+                            "#95a5a6",
+                            "#9b59b6",
+                            "#f1c40f",
+                            "#e74c3c",
+                            "#34495e"
+                        ],
+                        data: values
+                    }]
+                }
+            });
+           var ctx = document.getElementById("bar").getContext('2d');
+           var bar = new Chart(ctx, {
+                type: 'horizontalBar',
                 data: {
                     labels: keys,
                     datasets: [{
