@@ -1,3 +1,4 @@
+
 'use strict';
 // This file handles the home route along with the API routes
 var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
