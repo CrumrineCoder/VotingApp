@@ -178,10 +178,8 @@ window.onload = function() {
 
                 // On finishing the form
                 votingButton.addEventListener('click', function(e) {
-                    // Check if the same voter has voted on this
-
-                    //     pollObject[page].IP.push(ip);
-                    //'/api/addVoter/?'
+                  
+                   
                     ajaxRequest('GET', "https://joinordie.glitch.me/api/addVoter/?IP=" + ip + "&question=" + pollObject[page].question, function() {});
                     if (pollObject[page]["Options"].includes("Captcha") && !captchaFinished) {
                         // If Captch is required but not filled out
@@ -196,6 +194,8 @@ window.onload = function() {
                     } else {
 
                         result = document.querySelector('input[name= "reply"]:checked').value;
+                       localStorage.setItem("question", pollObject[page].question);
+                       localStorage.setItem("result", result);
                         // Check if the user selected more than 1 checkbox
                         // If it's radios, it's not posible
                         if (votingOption != "radio") {
@@ -239,7 +239,12 @@ window.onload = function() {
         pollObject = pollObject[number];
 
         if (pollObject.IP.includes(ip) || Object.hasOwnProperty.call(pollObject, "SeeResults")) {
-
+            console.log(localStorage.getItem("result"));
+            console.log(localStorage.getItem("question"));
+          
+            if(localStorage.getItem("question") == pollObject.question){
+              console.log("I never got over those blue eyes");
+            }
             delete pollObject.IP;
             delete pollObject.Options;
             delete pollObject.question;
@@ -348,4 +353,6 @@ window.onload = function() {
     } else if (!isNaN(page) && page != "" && page != "create") {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
     }
+
+  
 };
