@@ -110,7 +110,7 @@ router.post('/login',
         failureFlash: true
     }),
     function(req, res) {
-        res.redirect('/');
+ //       res.redirect('/');
     });
 
 router.get('/logout', function(req, res) {
