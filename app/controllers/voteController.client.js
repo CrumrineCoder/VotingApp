@@ -284,7 +284,7 @@ window.onload = function() {
 
     function editPoll(data) {
         var pollObject = JSON.parse(data);
-      
+       
         // Display the question
         document.getElementById('question').outerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "'> </input>";
         // Display the already made answers

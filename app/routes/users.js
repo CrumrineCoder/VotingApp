@@ -5,6 +5,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 // This file handles routing when registering and logging in users
 var User = require(process.cwd() + '/models/user');
+var RememberMeStrategy = require('passport-remember-me').Strategy;
 // Register
 router.get('/register', function(req, res) {
 
@@ -87,6 +88,23 @@ passport.use(new LocalStrategy(
         });
     }));
 
+passport.use(new RememberMeStrategy(
+  function(token, done) {
+    Token.consume(token, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      return done(null, user);
+    });
+  }, 
+  function(user, done) {
+    var token = utils.generateToken(64);
+    Token.save(token, { userId: user.id }, function(err) {
+      if (err) { return done(err); }
+      return done(null, token);
+    });
+  }
+)); 
+
 // Login
 router.get('/dashboard', function(req, res) {
 
@@ -109,6 +127,17 @@ router.post('/login',
         failureRedirect: '/users/login',
         failureFlash: true
     }),
+    function(req, res, next) {
+    // issue a remember me cookie if the option was checked
+    if (!req.body.remember_me) { return next(); }
+
+    var token = utils.generateToken(64);
+    Token.save(token, { userId: req.user.id }, function(err) {
+      if (err) { return done(err); }
+      res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }); // 7 days
+      return next();
+    });
+  },
     function(req, res) {
  //       res.redirect('/');
     });

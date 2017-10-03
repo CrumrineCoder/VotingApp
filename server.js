@@ -14,6 +14,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
     useMongoClient: true
@@ -53,6 +54,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate('remember-me'));
 
 app.use(expressValidator({
     errorFormatter: function(param, msg, value) {
@@ -70,6 +72,9 @@ app.use(expressValidator({
         };
     }
 }));
+
+
+
 
 
 app.use(flash());
