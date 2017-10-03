@@ -215,31 +215,26 @@ window.onload = function() {
 
         if (pollObject.IP.includes(ip) || Object.hasOwnProperty.call(pollObject, "SeeResults")) {
   
+           delete pollObject.IP; 
+           delete pollObject.Options; 
+           delete pollObject.question; 
+           delete pollObject._id;
+          
+          var datum = [];
+          for (var i in pollObject) {
+              datum.push([i, pollObject[i]]);
+          }
 
-            var keys = [],
-                values = [];
-            for (var i in pollObject) {
-                keys.push(i);
-                values.push(pollObject[i]);
-            }
+          datum.sort(function(a, b) {
+              return b[1] - a[1];
+          });
+           
+          var keys = [], values = [];
+          for(var i=0; i<datum.length; i++){
+            keys.push(datum[i][0]);
+            values.push(datum[i][1]);
+          }
             
-            //Remove ID, user, open and question from the results
-
-            // At the end of doing all of these options, I have to go back through and do If statements. Make a function that finds an element in the keys, gets it index and removes it from the keys and values arrays
-            keys.shift();
-            values.shift();
-            if (keys[0] == 'user') {
-                //     console.log(keys);
-                keys.shift();
-                values.shift();
-            }
-            keys.shift();
-            values.shift();
-            keys.pop();
-            values.pop();
-            keys.pop();
-            values.pop();
-          // console.log)keys
             var ctx = document.getElementById("pie").getContext('2d');
             var pie = new Chart(ctx, {
                 type: 'pie',
