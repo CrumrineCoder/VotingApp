@@ -53,7 +53,47 @@ function voteHandler(db) {
        }
       }
       }
-    };   
+    }; 
+  this.rescindVote = function(req, res) {
+      var results = req.query.data;
+      if (results != undefined){
+        results = results.split(",");
+      if(!Array.isArray(results)){
+        polls.findAndModify({ question: req.query.question }, {
+            '_id': 1
+        }, {
+             
+              $inc: {
+                [results]: -1
+              }  
+            
+        }, function(err, result) {
+            if (err) {
+                throw err;
+            }
+            res.json(result);
+        });
+      }
+      else{
+       for(var i=0; i<results.length; i++){
+        polls.findAndModify({ question: req.query.question }, {
+            '_id': 1
+        }, {
+             
+              $inc: {
+               [results[i]]: -1
+              }  
+            
+        }, function(err, result) {
+            if (err) {
+                throw err;
+            }
+            res.json(result);
+        });
+       }
+      }
+      }
+  }
    this.addVoter = function(req, res) {
      var user = req.query.IP; 
       polls.findAndModify({ question: req.query.question }, {
