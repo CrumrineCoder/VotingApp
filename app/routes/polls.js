@@ -84,7 +84,12 @@ router.post('/create', function(req, res) {
 });
 
 router.get('/edit/:id', function(req, res) {
+  if(req.user){
       res.render('edit');
+  }
+  else{
+    res.render('login');
+  }
 });
 
 router.post('/edit/', function(req, res) {

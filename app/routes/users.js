@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
@@ -22,6 +21,18 @@ router.get('/login', function(req, res) {
 router.get('/index', function(req, res) {
 
     res.render('index');
+});
+
+router.get('/user_data', function(req, res) {
+
+    if (req.user === undefined) {
+        // The user is not logged in
+        res.json({});
+    } else {
+        res.json({
+            username: req.user.username
+        });
+    }
 });
 
 // Register User
@@ -89,21 +100,29 @@ passport.use(new LocalStrategy(
     }));
 
 passport.use(new RememberMeStrategy(
-  function(token, done) {
-    Token.consume(token, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      return done(null, user);
-    });
-  }, 
-  function(user, done) {
-    var token = utils.generateToken(64);
-    Token.save(token, { userId: user.id }, function(err) {
-      if (err) { return done(err); }
-      return done(null, token);
-    });
-  }
-)); 
+    function(token, done) {
+        Token.consume(token, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            return done(null, user);
+        });
+    },
+    function(user, done) {
+        var token = utils.generateToken(64);
+        Token.save(token, {
+            userId: user.id
+        }, function(err) {
+            if (err) {
+                return done(err);
+            }
+            return done(null, token);
+        });
+    }
+));
 
 // Login
 router.get('/dashboard', function(req, res) {
@@ -128,18 +147,28 @@ router.post('/login',
         failureFlash: true
     }),
     function(req, res, next) {
-    // issue a remember me cookie if the option was checked
-    if (!req.body.remember_me) { return next(); }
+        // issue a remember me cookie if the option was checked
+        if (!req.body.remember_me) {
+            return next();
+        }
 
-    var token = utils.generateToken(64);
-    Token.save(token, { userId: req.user.id }, function(err) {
-      if (err) { return done(err); }
-      res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }); // 7 days
-      return next();
-    });
-  },
+        var token = utils.generateToken(64);
+        Token.save(token, {
+            userId: req.user.id
+        }, function(err) {
+            if (err) {
+                return done(err);
+            }
+            res.cookie('remember_me', token, {
+                path: '/',
+                httpOnly: true,
+                maxAge: 604800000
+            }); // 7 days
+            return next();
+        });
+    },
     function(req, res) {
- //       res.redirect('/');
+        //       res.redirect('/');
     });
 
 router.get('/logout', function(req, res) {
