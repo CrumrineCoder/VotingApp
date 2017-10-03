@@ -73,10 +73,6 @@ app.use(expressValidator({
     }
 }));
 
-
-
-
-
 app.use(flash());
 
 app.use(function(req, res, next) {

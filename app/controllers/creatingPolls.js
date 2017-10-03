@@ -6,7 +6,7 @@ var i = 2;
 var submitButton = document.getElementsByClassName("submitButton")[0];
 var latestInputField = document.getElementsByName("answer2")[0];
 latestInputField.addEventListener("input", handler);
-document.getElementById("question").setAttribute('size', document.getElementById("question").getAttribute('placeholder').length);
+//document.getElementById("question").setAttribute('size', document.getElementById("question").getAttribute('placeholder').length);
 function handler(e) {
     i++;
     e.target.removeEventListener(e.type, arguments.callee);

@@ -2,7 +2,7 @@
 
 Built for FreeCodecamp. Currently have the voting and viewing a poll done, and am now working on authentication. 
 
-1. Validate that the poll's owner is the one editing the poll and on the user's dashboard. 
+1. Validate that the poll's owner is the one editing the poll and on the user's dashboard. [DONE]
 
 2. I think the user will stay logged in, but use passport to keep the user logged in with cookies [I think this works]
 
