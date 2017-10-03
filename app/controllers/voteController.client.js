@@ -47,34 +47,34 @@ window.onload = function() {
 
     function showUserQuestions(data) {
         var user;
-      var listings = document.getElementById('anchor');
-      function getUser(callback){
-        ajaxRequest('GET', apiUrl + "users/user_data", function(data) {
-          data = JSON.parse(data);
-           if (data.hasOwnProperty('username')) {
-              user = data.username;
-           }
-           callback();
-        });
-      }
+        var listings = document.getElementById('anchor');
 
-      getUser(function(){
-       
-        var pollObject = JSON.parse(data);
+        function getUser(callback) {
+            ajaxRequest('GET', apiUrl + "users/user_data", function(data) {
+                data = JSON.parse(data);
+                if (data.hasOwnProperty('username')) {
+                    user = data.username;
+                }
+                callback();
+            });
+        }
 
-        if(pollObject[0].user == user){
-         
-        if (pollObject.length != 0) {
-            listings.innerHTML = "";
-            for (var i = 0; i < pollObject.length; i++) {
-                listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i]._id + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "</button>" + "<br>" + "</form>";
+        getUser(function() {
+
+            var pollObject = JSON.parse(data);
+
+            if (pollObject[0].user == user) {
+
+                if (pollObject.length != 0) {
+                    listings.innerHTML = "";
+                    for (var i = 0; i < pollObject.length; i++) {
+                        listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i]._id + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "</button>" + "<br>" + "</form>";
+                    }
+                }
+            } else {
+                listings.innerHTML = "Your account does not have access to edit this poll."
             }
-        }
-        }
-        else{
-          listings.innerHTML = "Your account does not have access to edit this poll."
-        }
-      });
+        });
     }
 
     var path = window.location.pathname;
@@ -102,7 +102,8 @@ window.onload = function() {
         if (Object.keys(pollObject).length < page) {
             votingButton.innerHTML = "We could not find a poll by that numerical value. 404, and such."
         } else {
-            if (!pollObject[page].IP.includes(ip) || pollObject[page]["Options"].includes("Change")) {
+          //|| pollObject[page]["Options"].includes("Change")
+            if (!pollObject[page].IP.includes(ip)) {
 
                 function seeResults() {
                     window.location.replace(apiUrl + "polls/view/" + page + "/results");
@@ -110,18 +111,18 @@ window.onload = function() {
                 var status = document.getElementById("status");
                 if (pollObject[page]["Options"].includes("Change") && pollObject[page]["Options"].includes("SeeResults")) {
 
-                    status.innerHTML = "You will  be able to vote more than once and to see the results before voting."
+                    status.innerHTML = "You will  be able to recind your vote and to see the results before voting."
                     document.getElementById("results").innerHTML = "<Button>Results</Button>";
                     document.getElementById("results").addEventListener('click', seeResults, false);
 
                 } else if (pollObject[page]["Options"].includes("Change")) {
-                    status.innerHTML = "You will be able to vote more than once, but you cannot see the results before doing so.";
+                    status.innerHTML = "You will be able to recind your vote, but you cannot see the results before doing so.";
                 } else if (pollObject[page]["Options"].includes("SeeResults")) {
-                    status.innerHTML = "You will be able to see the results of the poll before voting, but you cannot vote more than once.";
+                    status.innerHTML = "You will be able to see the results of the poll before voting, but you cannot recind your vote.";
                     document.getElementById("results").innerHTML = "<Button>Results</Button>";
                     document.getElementById("results").addEventListener('click', seeResults, false);
                 } else {
-                    status.innerHTML = "You will not be able to vote more than once or to see the results before voting.";
+                    status.innerHTML = "You will not be able to recind your vote or to see the results before voting.";
                 }
                 // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
 
@@ -178,8 +179,8 @@ window.onload = function() {
 
                 // On finishing the form
                 votingButton.addEventListener('click', function(e) {
-                  
-                   
+
+
                     ajaxRequest('GET', "https://joinordie.glitch.me/api/addVoter/?IP=" + ip + "&question=" + pollObject[page].question, function() {});
                     if (pollObject[page]["Options"].includes("Captcha") && !captchaFinished) {
                         // If Captch is required but not filled out
@@ -194,8 +195,8 @@ window.onload = function() {
                     } else {
 
                         result = document.querySelector('input[name= "reply"]:checked').value;
-                       localStorage.setItem("question", pollObject[page].question);
-                       localStorage.setItem("result", result);
+                        localStorage.setItem("question", pollObject[page].question);
+                        localStorage.setItem("result", result);
                         // Check if the user selected more than 1 checkbox
                         // If it's radios, it's not posible
                         if (votingOption != "radio") {
@@ -218,7 +219,7 @@ window.onload = function() {
                         }
 
                         // Make a post request to change the votes, and then a get request to update the browser side
-                        ajaxRequest('POST', "https://joinordie.glitch.me/api/:vote?data=" + result + "&question=" + pollObject[page].question, function() {});
+                        ajaxRequest('POST', "https://joinordie.glitch.me/api/vote/?data=" + result + "&question=" + pollObject[page].question, function() {});
                         window.location.replace(apiUrl + "polls/view/" + page + "/results");
                     }
                 }, false);
@@ -238,17 +239,24 @@ window.onload = function() {
         var pollObject = JSON.parse(data);
         pollObject = pollObject[number];
 
-        if (pollObject.IP.includes(ip) || Object.hasOwnProperty.call(pollObject, "SeeResults")) {
-            console.log(localStorage.getItem("result"));
-            console.log(localStorage.getItem("question"));
-          
-            if(localStorage.getItem("question") == pollObject.question){
-              console.log("I never got over those blue eyes");
+        if (pollObject.IP.includes(ip) || pollObject[page]["Options"].includes("SeeResults")) {
+            if (localStorage.getItem("question") == pollObject.question && pollObject[page]["Options"].includes("Change")) {
+              
+                document.getElementById("rescind").addEventListener('click', function(e) {
+                  console.log("Event Listener toggled");
+                    ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {});
+                    window.location.replace(apiUrl + "polls/view/" + number);
+                    localStorage.clear();
+                });
+            }
+            else{
+              document.getElementById("rescind").innerHTML = "";
             }
             delete pollObject.IP;
             delete pollObject.Options;
             delete pollObject.question;
             delete pollObject._id;
+            delete pollObject.user;
 
             var datum = [];
             for (var i in pollObject) {
@@ -287,8 +295,18 @@ window.onload = function() {
                 }
             });
             var ctx = document.getElementById("bar").getContext('2d');
+            var options = {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
             var bar = new Chart(ctx, {
                 type: 'horizontalBar',
+                options,
                 data: {
                     labels: keys,
                     datasets: [{
@@ -354,5 +372,5 @@ window.onload = function() {
         ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
     }
 
-  
+
 };
