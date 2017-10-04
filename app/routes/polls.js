@@ -74,7 +74,7 @@ router.post('/create', function(req, res) {
         var newPoll= new Poll(parsed);
         Poll.createPoll(newPoll, function(err, Poll) {
             if (err) throw err;
-            console.log(Poll);
+        //    console.log(Poll);
         });
 
         req.flash('success_msg', 'Your poll was created.');
@@ -95,7 +95,7 @@ router.get('/edit/:id', function(req, res) {
 router.post('/edit/', function(req, res) {
  var numberOfOptions;
   var errors = [];
-
+  //console.log(req.body);
   if(Object.hasOwnProperty.call(req.body, "user")){
     req.body.user = req.user.username;
   };
@@ -146,7 +146,7 @@ router.post('/edit/', function(req, res) {
         var newPoll= new Poll(parsed);
         Poll.replace(newPoll, function(err, Poll) {
            if (err) throw err;
-           console.log(Poll);
+      //     console.log(Poll);
        });
       //  Poll.createPoll(newPoll, function(err, Poll) {
         //    if (err) throw err;

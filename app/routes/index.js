@@ -28,6 +28,8 @@ module.exports = function(app, db) {
       .get(voteHandler.searchPollsByUser)
    app.route('/api/addVoter/?')
       .get(voteHandler.addVoter)
+   app.route('/api/removeVoter/?')
+      .get(voteHandler.addVoter)
     app.route('/api/validate/?')
       .get(validationHandler.validateCaptcha)
     
