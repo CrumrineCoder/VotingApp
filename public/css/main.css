@@ -2,12 +2,41 @@
 /* Have to go back through this and make the site look nice */
 /****** Main Styling ******/
 
+/*.leftNav > li{
+  float: left;
+  clear: right; 
+}*/
+/*
+.navbar-header{
+  margin-left:5px;
+  width:100%;
+}*/
+
+.navbar-center
+{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+.midNav{
+  margin-top: 10px; 
+}
+/*
+.centerNav{
+  margin: 0 auto; 
+}*/
+
+
+
+/*
 
 
 .radio-toolbar label {
   color: red;
 }
+*/
 
-input{
+input:not(.midNav){
   display: block;
 }
