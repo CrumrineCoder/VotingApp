@@ -99,8 +99,8 @@ module.exports.replace = function(newPoll, callback){
     });
   }
 );*/
-  console.log("Katsup");
-  console.log(newPoll);
+  //console.log("Katsup");
+ // console.log(newPoll);
 }
 
 /*

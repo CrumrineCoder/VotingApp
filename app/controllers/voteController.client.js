@@ -226,7 +226,7 @@ window.onload = function() {
 
             } else {
                 // Error message for voting on the same poll and show them to the results page
-                console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
+          //      console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
                 window.location.replace(apiUrl + "polls/view/" + page + "/results");
             }
 
@@ -237,16 +237,16 @@ window.onload = function() {
     function updatevoteCount(data) {
         var number = path.split("/")[3];
         var pollObject = JSON.parse(data);
+       
         pollObject = pollObject[number];
-
-        if (pollObject.IP.includes(ip) || pollObject[page]["Options"].includes("SeeResults")) {
-            if (localStorage.getItem("question") == pollObject.question && pollObject[page]["Options"].includes("Change")) {
+        if (pollObject.IP.includes(ip) || pollObject.Options.includes("SeeResults")) {
+            if (localStorage.getItem("question") == pollObject.question && pollObject["Options"].includes("Change")) {
               
                 document.getElementById("rescind").addEventListener('click', function(e) {
-                  console.log("Event Listener toggled");
                     ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {});
                     window.location.replace(apiUrl + "polls/view/" + number);
                     localStorage.clear();
+                        ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + pollObject.question, function() {});
                 });
             }
             else{
@@ -326,7 +326,7 @@ window.onload = function() {
             });
         } else {
             // Error handling to be done
-            console.log("you must vote before seeing the results");
+           // console.log("you must vote before seeing the results");
             window.location.replace(apiUrl + "polls/view/" + number + "?/");
         }
     }
@@ -349,6 +349,8 @@ window.onload = function() {
         for (var i = 0; i < pollObject[page]["Options"].length; i++) {
             document.getElementById(pollObject[page]["Options"][i]).checked = true;
         }
+      
+    
     }
 
     var searchTerm = document.getElementById("findPolls");

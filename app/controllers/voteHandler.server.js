@@ -15,6 +15,7 @@ function voteHandler(db) {
    }
      // Vote on the poll 
     this.addvote = function(req, res) {
+      console.log("Test");
         var results = req.query.data;
       if (results != undefined){
         results = results.split(",");
@@ -101,6 +102,24 @@ function voteHandler(db) {
         }, {
              
               $push: {
+                IP: user
+              }  
+            
+        }, function(err, result) {
+            if (err) {
+                throw err;
+            }
+            res.json(result);
+        });
+   }
+    this.removeVoter = function(req, res) {
+      console.log("Remove Voter running");
+     var user = req.query.IP; 
+      polls.findAndModify({ question: req.query.question }, {
+            '_id': 1
+        }, {
+             
+              $pull: {
                 IP: user
               }  
             

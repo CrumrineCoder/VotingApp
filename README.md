@@ -6,7 +6,7 @@ Built for FreeCodecamp. Currently have the voting and viewing a poll done, and a
 
 2. I think the user will stay logged in, but use passport to keep the user logged in with cookies [I think this works]
 
-3. If possible, make a way to rescind votes rather than having it be the user can vote more than once, but I'm not sure how. 
+3. If possible, make a way to rescind votes rather than having it be the user can vote more than once, but I'm not sure how. [DONE]
 
 4. CSS Styling 
 
