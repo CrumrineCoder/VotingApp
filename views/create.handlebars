@@ -1,8 +1,6 @@
 
 <!DOCTYPE html>
-<h2 class="page-header">Create Poll</h2> {{#if errors}} {{#each errors}}
-<div class="alert alert-danger">{{msg}}</div>
-{{/each}} {{/if}}
+<h2 class="page-header">Create Poll</h2> 
 <html>
 
 <head>
@@ -13,34 +11,38 @@
 <body>
         
     <form method="post" action="/polls/create" class="poll">
-      <div class="right">
-         <p> Options </p>
-          <input id="Open" type="checkbox" name="Open" value="Open">
-          <label>Allow Users to write their own answers.</label>
-          <input id="Multiple" type="checkbox" name="Multiple" value="Multiple">
-          <label>Allow Users to reply with multiple answers.</label>
-          <input id="Captcha" type="checkbox" name="Captcha" value="Captcha">
-          <label>Add reCaptcha to Voting Form to prevent spam and vote tampering.</label>
-          <input id="Change" type="checkbox" name="Change" value="Change" >
-          <label>Allow Users to rescind their Vote. </label>
-          <input id="SeeResults" type="checkbox" name="SeeResults" value="SeeResults" >
-          <label>Allow Users to see the results before voting.</label>
-      </div>
-      <div class="left">
-        <input type="text" name="question" id="question" placeholder="Write the Question here">
-        <input type="text" name="answer" placeholder="Enter reply">
-        <input type="text" name="answer2" placeholder="Enter reply">
-      </div>
-      
-        <button type="submit" class="submitButton" value="Send order">Submit</button>
-         {{#if user}}
+      <div id="right">
+         <h4> Options </h4>
+          {{#if user}}
         {{else}}
             <p> <a href="/users/login">Login</a> if you wish to link this poll with your account and be able to edit the poll after creation. </p>
         {{/if}}
           {{#if user}}
-          <input type="checkbox" name="user" value="link">
-          <label>Link this poll to my account?</label>
+          <input id="link" type="checkbox" name="user" value="link" class="vis-hidden">
+          <label for="link" class="fullWidthButton">Link this poll to my account?</label>
          {{/if}}
+          <input id="Open" type="checkbox" name="Open" value="Open" class="vis-hidden">
+          <label for="Open" class="fullWidthButton">Allow Users to write their own answers.</label>
+          <input id="Multiple" type="checkbox" name="Multiple" value="Multiple" class="vis-hidden fullWidthButton">
+          <label for="Multiple" class="fullWidthButton">Allow Users to reply with multiple answers.</label>
+          <input id="Change" type="checkbox" name="Change" value="Change" class="vis-hidden fullWidthButton">
+          <label for="Change" class="fullWidthButton">Allow Users to rescind their Vote. </label>
+          <input id="SeeResults" type="checkbox" name="SeeResults" value="SeeResults" class="vis-hidden fullWidthButton">
+          <label for="SeeResults" class="fullWidthButton">Allow Users to see the results before voting.</label>
+           <input id="Captcha" type="checkbox" name="Captcha" value="Captcha" class="vis-hidden fullWidthButton">
+          <label for="Captcha" class="fullWidthButton">Add reCaptcha to Voting Form to prevent spam and vote tampering.</label>
+      </div>
+      <div id="left">
+      {{#if errors}} {{#each errors}}
+<div class="alert alert-danger">{{msg}}</div>
+{{/each}} {{/if}}
+        <input type="text" name="question" id="question" placeholder="Write the Question here" style="font-size:20px; width: 100%; padding: 5px 0px 0px 0px; ">
+        <br />
+        <input type="text" name="answer" placeholder="Enter reply" class="reply">
+        <input type="text" name="answer2" placeholder="Enter reply" class="reply">
+        <button type="submit" class="submitButton" style="margin-top: 10px" value="Send order">Submit</button>
+        <br />
+      </div>
     </form>
     <script type="text/javascript" src="/controllers/creatingPolls.js">
     </script>

@@ -17,15 +17,81 @@ input:not(.midNav){
   display: block;
 }
 
-
-.left {
-    overflow: hidden;
-    min-height: 50px;
+body{
+  background: #E0E0E0;
 }
 
-.right {
+#left {
+    overflow: hidden;
+    min-height: 50px;
+   background: white; 
+  padding: 30px; 
+}
+
+#right {
     float: right;
-    width: 50%;
+    width: 30%;
     min-height: 50px;
     margin-left: 10px;
+  background: white;
+  padding: 5px;
+}
+
+.vis-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+label {
+  margin: 10px 0px 10px 0px; 
+  background: #E39C98;
+  color: #422D2B;
+}
+
+input[type="checkbox"]:checked + label {
+  background: #E35B50;
+}
+
+input[type="checkbox"]:hover + label {
+  background: #E32F22;
+}
+
+.fullWidthButton{
+  width: 100%;
+  text-align: center; 
+}
+
+.reply{
+  font-size: 15px; 
+  width: 100%;
+  margin: 5px 0px 5px 0px; 
+  padding: 5px 0px 0px 0px; 
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.submitButton{
+
+    background-color: #708773; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}
+
+.submitButton:hover{
+   background-color: #3E5C42;
 }
