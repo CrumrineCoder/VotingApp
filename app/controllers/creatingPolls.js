@@ -11,9 +11,10 @@ function handler(e) {
     i++;
     e.target.removeEventListener(e.type, arguments.callee);
     var input = document.createElement("input");
-    var form = document.getElementsByClassName('poll')[0];
+    var form = document.getElementById('left');
     input.type = "text";
     input.name = "answer" + i;
+    input.className = "reply";
     input.placeholder = "Enter reply";
     form.insertBefore(input, submitButton);
     latestInputField = document.getElementsByName("answer" + i)[0];
