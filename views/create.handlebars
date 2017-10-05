@@ -11,15 +11,9 @@
     <link href="/public/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-        {{#if user}}
-        {{else}}
-            <p> <a href="/users/login">Login</a> if you wish to link this poll with your account and be able to edit the poll after creation. </p>
-        {{/if}}
+        
     <form method="post" action="/polls/create" class="poll">
-        {{#if user}}
-          <input type="checkbox" name="user" value="link">
-          <label>Link this poll to my account?</label>
-         {{/if}}
+      <div class="right">
          <p> Options </p>
           <input id="Open" type="checkbox" name="Open" value="Open">
           <label>Allow Users to write their own answers.</label>
@@ -31,11 +25,22 @@
           <label>Allow Users to rescind their Vote. </label>
           <input id="SeeResults" type="checkbox" name="SeeResults" value="SeeResults" >
           <label>Allow Users to see the results before voting.</label>
+      </div>
+      <div class="left">
         <input type="text" name="question" id="question" placeholder="Write the Question here">
         <input type="text" name="answer" placeholder="Enter reply">
         <input type="text" name="answer2" placeholder="Enter reply">
+      </div>
+      
         <button type="submit" class="submitButton" value="Send order">Submit</button>
-       
+         {{#if user}}
+        {{else}}
+            <p> <a href="/users/login">Login</a> if you wish to link this poll with your account and be able to edit the poll after creation. </p>
+        {{/if}}
+          {{#if user}}
+          <input type="checkbox" name="user" value="link">
+          <label>Link this poll to my account?</label>
+         {{/if}}
     </form>
     <script type="text/javascript" src="/controllers/creatingPolls.js">
     </script>

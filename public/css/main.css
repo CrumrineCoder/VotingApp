@@ -1,42 +1,31 @@
-
-/* Have to go back through this and make the site look nice */
-/****** Main Styling ******/
-
-/*.leftNav > li{
-  float: left;
-  clear: right; 
-}*/
-/*
-.navbar-header{
-  margin-left:5px;
-  width:100%;
-}*/
-
-.navbar-center
-{
-    position: absolute;
+ .navbar-nav {
     width: 100%;
     text-align: center;
-    margin: auto;
-}
-.midNav{
-  margin-top: 10px; 
-}
-/*
-.centerNav{
-  margin: 0 auto; 
-}*/
-
-
-
-/*
-
-
-.radio-toolbar label {
-  color: red;
-}
-*/
-
+  }
+  .navbar-nav > li {
+    float: none;
+    display: inline-block;
+  }
+  .navbar-nav > li.navbar-right {
+    float: right !important;
+  }
+form{
+    float: none;
+    display: inline-block;
+  }
 input:not(.midNav){
   display: block;
+}
+
+
+.left {
+    overflow: hidden;
+    min-height: 50px;
+}
+
+.right {
+    float: right;
+    width: 50%;
+    min-height: 50px;
+    margin-left: 10px;
 }
