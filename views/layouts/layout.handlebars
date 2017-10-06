@@ -19,8 +19,12 @@
                   </div>
                   <!-- Collect the nav links, forms, and other content for toggling -->
                      <form method="post" action="/polls/search/" class="navbar-form midNav">
+                     <span class="col">
                         <input class="midNav" name="searchTerm" type="search" id="findPolls" placeholder="Search for polls" value ="">
-                        <input type="submit" value="Search" class="buttonToSubmit midNav">
+                    </span>
+                    <span class="col">
+                        <input type="image" alt="submit" src="https://image.flaticon.com/icons/png/512/49/49116.png"value="Search" class="buttonToSubmit midNav" >
+                     </span>
                      </form>
                      <ul class="nav nav-pills navbar-right">
                         {{#if user}}
