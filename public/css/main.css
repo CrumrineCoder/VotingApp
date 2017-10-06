@@ -11,15 +11,13 @@
    border: none; 
  }
 
- #right label {
+ label {
      margin: 10px 0px 10px 0px;
      background: #E3C5C3;
      color: #241413;
  }
 
- input:focus {
-     outline: none;
- }
+ 
 
 /* Document spanning Classes */
 
@@ -86,7 +84,7 @@
      padding: 30px;
  }
 
-#question, .reply {
+#writeQuestion, .reply {
      display: block;
  }
 
@@ -134,7 +132,14 @@
  input[type="checkbox"]:checked + label {
      background: #E32F22;
  }
+ input[type="radio"]:checked + label {
+     background: #E32F22;
+ }
+
  input[type="checkbox"]:hover + label {
+     background: #E35B50;
+ }
+input[type="radio"]:hover + label {
      background: #E35B50;
  }
 
@@ -174,9 +179,30 @@ margin: 10px 0px 10px 0px;
   vertical-align: bottom;
   margin-top: 10px; 
 }
+
 #anchor form button:hover{
   background: #9195E3;
 }
- 
 
- 
+
+
+ input:focus {
+     outline: none;
+ }
+
+/* Voting */
+#results button{
+    background: #E3DCB2;
+   border: none; 
+  padding: 10px; 
+  text-align: left; 
+    border-radius: 10px; 
+}
+#results button:hover{
+  background: #E3D56B;
+}
+
+.voteButton{
+  width: 50%;
+  padding: 10px; 
+}

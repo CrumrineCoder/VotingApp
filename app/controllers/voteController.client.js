@@ -162,7 +162,8 @@ window.onload = function() {
                 question.innerHTML = pollObject[page].question;
                 // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
                 if (pollObject[page]["Options"].includes("Open")) {
-                    document.getElementById("openRadio").innerHTML = "<label><input type=" + votingOption + " value = '' name='reply' id='open' /> <span id='placeholder'>Write your own answer here.</span></label>";
+                    document.getElementById("openRadio").innerHTML = "<input id='open' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='open'> <span id='placeholder'>Write your own answer here. </span></label>"
+                     
                     document.getElementById("openRadio").innerHTML += "<br>";
                     document.getElementById('open').onclick = function() {
                         var answer = prompt("Please enter your answer:");
@@ -178,8 +179,8 @@ window.onload = function() {
                 for (var key in pollObject[page]) {
                     if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP") {
                         var value = key;
-                        replies.innerHTML += "<label><input type=" + votingOption + " value = '" + value + "' name='reply' />" + value + "</label>"
-                        replies.innerHTML += "<br>";
+                        replies.innerHTML += "<input id='" + value  +"' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='"+value+"'>" + value + "</label>"
+                        replies.innerHTML += "<br>"; 
                     }
                 }
 
