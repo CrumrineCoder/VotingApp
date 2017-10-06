@@ -37,12 +37,20 @@ window.onload = function() {
     function showQuestions(data) {
         var listings = document.getElementById('anchor');
         var pollObject = JSON.parse(data);
+       var number; 
         if (pollObject.length != 0) {
             listings.innerHTML = "";
             for (var i = 0; i < pollObject.length; i++) {
-                listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + pollObject[i]._id + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "</button>" + "<br>" + "</form>";
+              number = 0;
+              for (var key in pollObject[i]) {
+                  if(!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key!="IP"){
+                    number += pollObject[i][key];
+                 }
+              }
+                listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + pollObject[i]._id + "' method='get'>" + "<button type='submit' style='width: 75%;'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
             }
         }
+      console.log(listings.outerHTML);
     }
 
     function showUserQuestions(data) {

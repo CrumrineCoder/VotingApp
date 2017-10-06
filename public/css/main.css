@@ -1,4 +1,36 @@
- .navbar-nav {
+/* Entire Document */
+
+ body {
+     background: #EBEBEB;
+ }
+
+ form {
+     float: none;
+     display: inline-block;
+    text-decoration: none;
+   border: none; 
+ }
+
+ #right label {
+     margin: 10px 0px 10px 0px;
+     background: #E3C5C3;
+     color: #241413;
+ }
+
+ input:focus {
+     outline: none;
+ }
+
+/* Document spanning Classes */
+
+.fullWidthButton {
+     width: 100%;
+     text-align: center;
+ }
+
+/* Navigation Bar */
+
+.navbar-nav {
      width: 100%;
      text-align: center;
  }
@@ -9,79 +41,26 @@
  .navbar-nav > li.navbar-right {
      float: right !important;
  }
- form {
-     float: none;
-     display: inline-block;
+
+.midnav {
+     display: table;
  }
- input:not(.midNav) {
-     display: block;
+
+ .col {
+     vertical-align: top;
+     display: table-cell;
  }
- body {
-     background: #EBEBEB;
- }
- #left {
-     overflow: hidden;
-     min-height: 50px;
-     background: white;
-     padding: 30px;
- }
- #right {
-     float: right;
-     width: 30%;
-     min-height: 50px;
-     margin-left: 10px;
-     background: white;
-     padding: 5px;
- }
- .vis-hidden {
-     border: 0;
-     clip: rect(0 0 0 0);
-     height: 1px;
-     margin: -1px;
-     overflow: hidden;
-     padding: 0;
-     position: absolute;
-     width: 1px;
- }
- label {
-     margin: 10px 0px 10px 0px;
-     background: #E3C5C3;
-     color: #241413;
- }
- input[type="checkbox"]:checked + label {
-     background: #E32F22;
- }
- input[type="checkbox"]:hover + label {
-     background: #E35B50;
- }
- .fullWidthButton {
-     width: 100%;
-     text-align: center;
- }
- .reply {
-     font-size: 15px;
-     width: 100%;
-     margin: 5px 0px 5px 0px;
-     padding: 5px 0px 0px 0px;
- }
- .disabled {
-     opacity: 0.6;
-     cursor: not-allowed;
- }
- .submitButton {
-     background-color: #708773;
-     border: none;
-     color: white;
-     padding: 15px 32px;
+
+#findPolls {
      text-align: center;
      text-decoration: none;
-     display: inline-block;
-     font-size: 16px;
+     border: #474343;
+     border-style: solid;
+     border-width: .5px;
+     vertical-align: middle;
  }
- .submitButton:hover {
-     background-color: #3E5C42;
- }
- .buttonToSubmit {
+
+.buttonToSubmit {
      background: #F7EAE9;
      border: #474343;
      text-align: center;
@@ -96,21 +75,108 @@
  .buttonToSubmit:hover {
      background: #C4BAB9;
  }
- #findPolls {
+
+ 
+
+/* Create Poll */
+ #left {
+     overflow: hidden;
+     min-height: 50px;
+     background: white;
+     padding: 30px;
+ }
+
+#question, .reply {
+     display: block;
+ }
+
+.reply {
+     font-size: 15px;
+     width: 100%;
+     margin: 5px 0px 5px 0px;
+     padding: 5px 0px 0px 0px;
+ }
+
+.submitButton {
+     background-color: #708773;
+     border: none;
+     color: white;
+     padding: 15px 32px;
      text-align: center;
      text-decoration: none;
-     border: #474343;
-     border-style: solid;
-     border-width: .5px;
-     vertical-align: middle;
+     display: inline-block;
+     font-size: 16px;
  }
- input:focus {
-     outline: none;
+ .submitButton:hover {
+     background-color: #3E5C42;
  }
- .midnav {
-     display: table;
+
+#right {
+     float: right;
+     width: 30%;
+     min-height: 50px;
+     margin-left: 10px;
+     background: white;
+     padding: 5px;
  }
- .col {
-     vertical-align: top;
-     display: table-cell;
+ 
+.vis-hidden {
+     border: 0;
+     clip: rect(0 0 0 0);
+     height: 1px;
+     margin: -1px;
+     overflow: hidden;
+     padding: 0;
+     position: absolute;
+     width: 1px;
  }
+
+ input[type="checkbox"]:checked + label {
+     background: #E32F22;
+ }
+ input[type="checkbox"]:hover + label {
+     background: #E35B50;
+ }
+
+ 
+ 
+ .disabled {
+     opacity: 0.6;
+     cursor: not-allowed;
+ }
+ 
+ /* View Polls */
+
+#anchor form{
+ display: block; 
+margin: 10px 0px 10px 0px; 
+ text-align: center; 
+  color: #202126;
+
+}
+
+#anchor form button{
+   background: #C1C1E3;
+   border: none; 
+  padding: 10px; 
+  font-size: 18px; 
+  text-align: left; 
+    border-radius: 10px; 
+}
+
+.smallNumber{
+  background: #565766;
+  color: white; 
+  font-size: 12px;
+  padding: 0px 10px 0px 10px; 
+  border-radius: 8px;
+  float: right; 
+  vertical-align: bottom;
+  margin-top: 10px; 
+}
+#anchor form button:hover{
+  background: #9195E3;
+}
+ 
+
+ 
