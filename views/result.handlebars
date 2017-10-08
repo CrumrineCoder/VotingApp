@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-<h2 class="page-header">View Polls</h2> 
 <html>
 <head>
     <title>Voting App</title>
@@ -9,8 +8,15 @@
 </head>
 <body>
     <div id="rescind"> <button type='submit'> Rescind (note, upon voting another poll you will not be able to rescind your vote on this one)</button> </div>
-    <canvas id="pie"></canvas>
+    <div id="resultsContainer">  
+    <div id="barContainer">
+    <span id="pollQuestion"> </span>
     <canvas id="bar"></canvas>
+      <span id="totalVotes"> </span>
+    </div>
+    
+    <canvas id="pie"></canvas>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
     <script type="text/javascript" src="/controllers/voteController.client.js"></script>
      <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>

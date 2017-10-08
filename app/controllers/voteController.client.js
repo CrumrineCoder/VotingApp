@@ -50,7 +50,6 @@ window.onload = function() {
                 listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + pollObject[i]._id + "' method='get'>" + "<button type='submit' style='width: 75%;'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
             }
         }
-      console.log(listings.outerHTML);
     }
 
     function showUserQuestions(data) {
@@ -261,6 +260,7 @@ window.onload = function() {
             else{
               document.getElementById("rescind").innerHTML = "";
             }
+            document.getElementById('pollQuestion').innerHTML = "<p> " + pollObject.question + " </p>"
             delete pollObject.IP;
             delete pollObject.Options;
             delete pollObject.question;
@@ -282,27 +282,12 @@ window.onload = function() {
                 keys.push(datum[i][0]);
                 values.push(datum[i][1]);
             }
+          
+          var totalVotesHTML = document.getElementById("totalVotes");
+          var sum = values.reduce(function(a,b){ return a + b;}, 0);
+          totalVotesHTML.innerHTML = "<p> Total Votes: " + sum + " </p>"; 
+       
 
-            var ctx = document.getElementById("pie").getContext('2d');
-            var pie = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: keys,
-                    datasets: [{
-                        backgroundColor: [
-                            //Add more colors later
-                            "#2ecc71",
-                            "#3498db",
-                            "#95a5a6",
-                            "#9b59b6",
-                            "#f1c40f",
-                            "#e74c3c",
-                            "#34495e"
-                        ],
-                        data: values
-                    }]
-                }
-            });
             var ctx = document.getElementById("bar").getContext('2d');
             var options = {
                 scales: {
@@ -311,7 +296,11 @@ window.onload = function() {
                             beginAtZero: true
                         }
                     }]
-                }
+                },
+               responsive: false,
+                legend: {
+                    display: false
+                 }
             }
             var bar = new Chart(ctx, {
                 type: 'horizontalBar',
@@ -333,6 +322,31 @@ window.onload = function() {
                     }]
                 }
             });
+            var ctx = document.getElementById("pie").getContext('2d');
+            var pie = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: keys,
+                    datasets: [{
+                        backgroundColor: [
+                            //Add more colors later
+                            "#2ecc71",
+                            "#3498db",
+                            "#95a5a6",
+                            "#9b59b6",
+                            "#f1c40f",
+                            "#e74c3c",
+                            "#34495e"
+                        ],
+                        data: values
+                    }]
+
+                },
+               options: {
+                responsive: false
+               }
+            });
+      
         } else {
             // Error handling to be done
            // console.log("you must vote before seeing the results");

@@ -11,7 +11,7 @@
    border: none; 
  }
 
- label {
+label {
      margin: 10px 0px 10px 0px;
      background: #E3C5C3;
      color: #241413;
@@ -189,6 +189,9 @@ margin: 10px 0px 10px 0px;
  input:focus {
      outline: none;
  }
+ button:focus {
+     outline: none;
+ }
 
 /* Voting */
 #results button{
@@ -205,4 +208,21 @@ margin: 10px 0px 10px 0px;
 .voteButton{
   width: 50%;
   padding: 10px; 
+}
+
+/* Results*/
+
+canvas{
+  display: inline-block; 
+ float: left; 
+}
+#pie{
+  float: right; 
+  width: 20%; 
+}
+
+#barContainer{
+  display: block; 
+  float: left; 
+
 }
