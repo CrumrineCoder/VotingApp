@@ -81,7 +81,7 @@ window.onload = function() {
                                 number += pollObject[i][key];
                             }
                         }
-                        listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i]._id + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
+                        listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i]._id + "' method='get'>" + "<button style='width:75%;' type='submit'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
                     }
                 }
             } else {

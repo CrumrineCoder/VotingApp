@@ -96,9 +96,9 @@ router.post('/edit/', function(req, res) {
  var numberOfOptions;
   var errors = [];
   //console.log(req.body);
-  if(Object.hasOwnProperty.call(req.body, "user")){
+/*  if(Object.hasOwnProperty.call(req.body, "user")){
     req.body.user = req.user.username;
-  };
+  }; */
 
     for (var i=0; i<req.body["reply"].length; i++) {
       req.body["addedAnswer" + i] = req.body["reply"][i];
@@ -139,10 +139,10 @@ router.post('/edit/', function(req, res) {
             parsed["question"] = req.body[key];
           }
           else{
-            parsed["user"] = req.body[key];
+            parsed["user"] = req.user.username;
           }
         }
-    //  console.log(parsed);
+      // console.log(parsed);
         var newPoll= new Poll(parsed);
         Poll.replace(newPoll, function(err, Poll) {
            if (err) throw err;
@@ -157,6 +157,11 @@ router.post('/edit/', function(req, res) {
 
        res.redirect('/polls/view');
     } 
+});
+
+router.post("/delete/", function(req,res){
+  // Get the identityCounters collection and decrease the counter by 1
+  // Connect to the database, get the polls collection, find the poll in question, and delete the document.
 });
 
 module.exports = router;
