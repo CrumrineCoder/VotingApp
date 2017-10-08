@@ -1,45 +1,51 @@
-
 <!DOCTYPE html>
-<h2 class="page-header">Edit Poll</h2> {{#if errors}} {{#each errors}}
+<h2 class="page-header">Edit Poll</h2>
+{{#if errors}} {{#each errors}}
 <div class="alert alert-danger">{{msg}}</div>
 {{/each}} {{/if}}
 <html>
-
-<head>
-    <title>Voting App</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
-    <link href="/public/css/main.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-      
-    <form method="post" action="/polls/edit" class="poll">
-        {{#if user}}
-          <input type="checkbox" name="user" value="link" checked onclick="return false;">
-          <label>Link this poll to my account?</label>
+   <head>
+      <title>Voting App</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+      <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+   </head>
+   <body>
+      <form method="post" action="/polls/edit" class="poll">
+          <div id="right">
+         <h4> Options </h4>
+          {{#if user}}
+          <input id="link" type="checkbox" name="user" value="link" class="vis-hidden">
+          <label for="link" class="fullWidthButton">Link this poll to my account?</label>
          {{/if}}
-         <p> Options </p>
-          <input id="Open" type="checkbox" name="Open" value="Open">
-          <label>Allow Users to write their own answers.</label>
-          <input id="Multiple" type="checkbox" name="Multiple" value="Multiple">
-          <label>Allow Users to reply with multiple answers.</label>
-          <input id="Captcha" type="checkbox" name="Captcha" value="Captcha">
-          <label>Add reCaptcha to Voting Form to prevent spam and vote tampering.</label>
-          <input id="Change" type="checkbox" name="Change" value="Change" >
-          <label>Allow Users to vote more than once.</label>
-          <input id="SeeResults" type="checkbox" name="SeeResults" value="SeeResults" >
-          <label>Allow Users to see the results before voting.</label>
-        <input id="question"> </input>
-        Leave Answers unticked if you wish to delete them.
-        <div id="alreadyDoneAnswers"></div>
-      <!--  <input type="text" id="Notes" name="Notes" placeholder="While you cannot edit answers, you can write notes here for typos or other mistakes."> -->
-        
-        <input type="text" name="answer" placeholder="Enter reply">
-        <input type="text" name="answer2" placeholder="Enter reply">
-        <button type="submit" class="submitButton" value="Send order">Submit</button>
-       
-    </form>
-    <script type="text/javascript" src="/controllers/creatingPolls.js">
-    </script>
-</body>
+          <input id="Open" type="checkbox" name="Open" value="Open" class="vis-hidden">
+          <label for="Open" class="fullWidthButton">Allow Users to write their own answers.</label>
+          <input id="Multiple" type="checkbox" name="Multiple" value="Multiple" class="vis-hidden fullWidthButton">
+          <label for="Multiple" class="fullWidthButton">Allow Users to reply with multiple answers.</label>
+          <input id="Change" type="checkbox" name="Change" value="Change" class="vis-hidden fullWidthButton">
+          <label for="Change" class="fullWidthButton">Allow Users to rescind their Vote. </label>
+          <input id="SeeResults" type="checkbox" name="SeeResults" value="SeeResults" class="vis-hidden fullWidthButton">
+          <label for="SeeResults" class="fullWidthButton">Allow Users to see the results before voting.</label>
+           <input id="Captcha" type="checkbox" name="Captcha" value="Captcha" class="vis-hidden fullWidthButton">
+          <label for="Captcha" class="fullWidthButton">Add reCaptcha to Voting Form to prevent spam and vote tampering.</label>
+      </div>
+	    <div id="left">
+		
+		 {{#if errors}} 
+			{{#each errors}}
+				<div class="alert alert-danger">{{msg}}</div>
+			{{/each}} 
+		{{/if}}
 
+
+         <input id="writeQuestion" style="font-size:20px; width: 100%; padding: 5px 0px 0px 0px; background: red; "> </input>
+         <br>
+         Leave Answers unticked if you wish to delete them.
+         <div id="alreadyDoneAnswers"></div>
+         <!--  <input type="text" id="Notes" name="Notes" placeholder="While you cannot edit answers, you can write notes here for typos or other mistakes."> -->
+         <input type="text" name="answer" placeholder="Enter reply" class="reply">
+        <input type="text" name="answer2" placeholder="Enter reply" class="reply">
+        <button type="submit" class="submitButton" style="margin-top: 10px" value="Send order">Submit</button>
+      </form>
+      <script type="text/javascript" src="/controllers/creatingPolls.js"></script>
+   </body>
 </html>
