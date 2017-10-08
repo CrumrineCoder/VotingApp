@@ -37,16 +37,16 @@ window.onload = function() {
     function showQuestions(data) {
         var listings = document.getElementById('anchor');
         var pollObject = JSON.parse(data);
-       var number; 
+        var number;
         if (pollObject.length != 0) {
             listings.innerHTML = "";
             for (var i = 0; i < pollObject.length; i++) {
-              number = 0;
-              for (var key in pollObject[i]) {
-                  if(!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key!="IP"){
-                    number += pollObject[i][key];
-                 }
-              }
+                number = 0;
+                for (var key in pollObject[i]) {
+                    if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP") {
+                        number += pollObject[i][key];
+                    }
+                }
                 listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + pollObject[i]._id + "' method='get'>" + "<button type='submit' style='width: 75%;'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
             }
         }
@@ -67,7 +67,7 @@ window.onload = function() {
         }
 
         getUser(function() {
-
+            var number;
             var pollObject = JSON.parse(data);
 
             if (pollObject[0].user == user) {
@@ -75,7 +75,13 @@ window.onload = function() {
                 if (pollObject.length != 0) {
                     listings.innerHTML = "";
                     for (var i = 0; i < pollObject.length; i++) {
-                        listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i]._id + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "</button>" + "<br>" + "</form>";
+                        number = 0;
+                        for (var key in pollObject[i]) {
+                            if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP") {
+                                number += pollObject[i][key];
+                            }
+                        }
+                        listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i]._id + "' method='get'>" + "<button type='submit'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
                     }
                 }
             } else {
@@ -109,7 +115,7 @@ window.onload = function() {
         if (Object.keys(pollObject).length < page) {
             votingButton.innerHTML = "We could not find a poll by that numerical value. 404, and such."
         } else {
-          //|| pollObject[page]["Options"].includes("Change")
+            //|| pollObject[page]["Options"].includes("Change")
             if (!pollObject[page].IP.includes(ip)) {
 
                 function seeResults() {
@@ -162,7 +168,7 @@ window.onload = function() {
                 // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
                 if (pollObject[page]["Options"].includes("Open")) {
                     document.getElementById("openRadio").innerHTML = "<input id='open' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='open'> <span id='placeholder'>Write your own answer here. </span></label>"
-                     
+
                     document.getElementById("openRadio").innerHTML += "<br>";
                     document.getElementById('open').onclick = function() {
                         var answer = prompt("Please enter your answer:");
@@ -178,8 +184,8 @@ window.onload = function() {
                 for (var key in pollObject[page]) {
                     if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP") {
                         var value = key;
-                        replies.innerHTML += "<input id='" + value  +"' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='"+value+"'>" + value + "</label>"
-                        replies.innerHTML += "<br>"; 
+                        replies.innerHTML += "<input id='" + value + "' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='" + value + "'>" + value + "</label>"
+                        replies.innerHTML += "<br>";
                     }
                 }
 
@@ -234,7 +240,7 @@ window.onload = function() {
 
             } else {
                 // Error message for voting on the same poll and show them to the results page
-          //      console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
+                //      console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
                 window.location.replace(apiUrl + "polls/view/" + page + "/results");
             }
 
@@ -245,20 +251,19 @@ window.onload = function() {
     function updatevoteCount(data) {
         var number = path.split("/")[3];
         var pollObject = JSON.parse(data);
-       
+
         pollObject = pollObject[number];
         if (pollObject.IP.includes(ip) || pollObject.Options.includes("SeeResults")) {
             if (localStorage.getItem("question") == pollObject.question && pollObject["Options"].includes("Change")) {
-              
+
                 document.getElementById("rescind").addEventListener('click', function(e) {
                     ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {});
                     window.location.replace(apiUrl + "polls/view/" + number);
                     localStorage.clear();
-                        ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + pollObject.question, function() {});
+                    ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + pollObject.question, function() {});
                 });
-            }
-            else{
-              document.getElementById("rescind").innerHTML = "";
+            } else {
+                document.getElementById("rescind").innerHTML = "";
             }
             document.getElementById('pollQuestion').innerHTML = "<p> " + pollObject.question + " </p>"
             delete pollObject.IP;
@@ -282,11 +287,13 @@ window.onload = function() {
                 keys.push(datum[i][0]);
                 values.push(datum[i][1]);
             }
-          
-          var totalVotesHTML = document.getElementById("totalVotes");
-          var sum = values.reduce(function(a,b){ return a + b;}, 0);
-          totalVotesHTML.innerHTML = "<p> Total Votes: " + sum + " </p>"; 
-       
+
+            var totalVotesHTML = document.getElementById("totalVotes");
+            var sum = values.reduce(function(a, b) {
+                return a + b;
+            }, 0);
+            totalVotesHTML.innerHTML = "<p> Total Votes: " + sum + " </p>";
+
 
             var ctx = document.getElementById("bar").getContext('2d');
             var options = {
@@ -297,10 +304,10 @@ window.onload = function() {
                         }
                     }]
                 },
-               responsive: false,
+                responsive: false,
                 legend: {
                     display: false
-                 }
+                }
             }
             var bar = new Chart(ctx, {
                 type: 'horizontalBar',
@@ -342,14 +349,14 @@ window.onload = function() {
                     }]
 
                 },
-               options: {
-                responsive: false
-               }
+                options: {
+                    responsive: false
+                }
             });
-      
+
         } else {
             // Error handling to be done
-           // console.log("you must vote before seeing the results");
+            // console.log("you must vote before seeing the results");
             window.location.replace(apiUrl + "polls/view/" + number + "?/");
         }
     }
@@ -358,13 +365,13 @@ window.onload = function() {
         var pollObject = JSON.parse(data);
 
         // Display the question
-        document.getElementById('question').outerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "'> </input>";
+        document.getElementById('writeQuestion').outerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
         // Display the already made answers
         var completedAnswers = document.getElementById('alreadyDoneAnswers');
         for (var key in pollObject[page]) {
             if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP") {
                 var value = key;
-                completedAnswers.innerHTML += "<label><input type= 'checkbox' value = '" + value + "' name='reply' checked />" + value + "</label>"
+                completedAnswers.innerHTML += "<input id='" + value + "' type= 'checkbox' value = '" + value + "' name='reply' checked class='vis-hidden''/> <label class='voteButton' for='" + value + "'>" + value + "</label>"
                 completedAnswers.innerHTML += "<br>";
             }
         }
@@ -372,8 +379,8 @@ window.onload = function() {
         for (var i = 0; i < pollObject[page]["Options"].length; i++) {
             document.getElementById(pollObject[page]["Options"][i]).checked = true;
         }
-      
-    
+
+
     }
 
     var searchTerm = document.getElementById("findPolls");

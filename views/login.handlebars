@@ -1,13 +1,36 @@
 
+
+
+<!DOCTYPE html>
+
 <h2 class="page-header">Account Login</h2>
+<html>
+<head>
+    <title>Voting App</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+    <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	{{#if errors}}
+      {{#each errors}}
+        <div class="alert alert-danger">{{msg}}</div>
+      {{/each}}
+{{/if}}
+
 <form method="post" action="/users/login" id="loggan">
   <div class="form-group">
-    <label>Username</label>
+    <label class="exclude">Username</label>
     <input type="text" class="form-control" name="username" placeholder="Username">
   </div>
   <div class="form-group">
-    <label>Password</label>
+    <label class="exclude">Password</label>
     <input type="password" class="form-control" name="password" placeholder="Password">
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="submitButton">Submit</button>
 </form>
+    <script type="text/javascript" src="/controllers/voteController.client.js"></script>
+</body>
+</html>
+
+
+
