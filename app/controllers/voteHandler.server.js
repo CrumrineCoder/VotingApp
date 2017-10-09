@@ -15,12 +15,12 @@ function voteHandler(db) {
    }
      // Vote on the poll 
     this.addvote = function(req, res) {
-      console.log("Test");
         var results = req.query.data;
       if (results != undefined){
-        results = results.split(",");
+      
       if(!Array.isArray(results)){
-        polls.findAndModify({ question: req.query.question }, {
+          console.log(req.query.question);
+        polls.findAndModify({ question: req.query.question}, {
             '_id': 1
         }, {
              
@@ -32,10 +32,12 @@ function voteHandler(db) {
             if (err) {
                 throw err;
             }
+          console.log(result);
             res.json(result);
         });
       }
       else{
+       results = results.split(",");
        for(var i=0; i<results.length; i++){
         polls.findAndModify({ question: req.query.question }, {
             '_id': 1

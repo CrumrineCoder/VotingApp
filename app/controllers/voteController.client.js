@@ -256,7 +256,9 @@ window.onload = function() {
         pollObject = pollObject[number];
         if (pollObject.IP.includes(ip) || pollObject.Options.includes("SeeResults")) {
             if (localStorage.getItem("question") == pollObject.question && pollObject["Options"].includes("Change")) {
-
+           //     if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
+                   // document.getElementById("rescind").attributes["type"].value = "text";
+       //         }
                 document.getElementById("rescind").addEventListener('click', function(e) {
                     ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {});
                     window.location.replace(apiUrl + "polls/view/" + number);
