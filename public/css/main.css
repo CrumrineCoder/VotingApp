@@ -98,7 +98,7 @@ label:not(.exclude) {
      padding: 5px 0px 0px 0px;
  }
 
-.submitButton {
+.submitButton{
      background-color: #708773;
      border: none;
      color: white;
@@ -108,7 +108,7 @@ label:not(.exclude) {
      display: inline-block;
      font-size: 16px;
  }
- .submitButton:hover {
+ .submitButton:hover:not(.disabled)  {
      background-color: #3E5C42;
  }
 

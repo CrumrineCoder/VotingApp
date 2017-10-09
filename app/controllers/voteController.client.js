@@ -8,6 +8,7 @@ function getIP(json) {
 }
 window.onload = function() {
 
+
     var result = null;
     var apiUrl = 'https://joinordie.glitch.me/';
 

@@ -13,7 +13,7 @@ Built for FreeCodecamp. Currently have the voting and viewing a poll done. These
 
 2. Close a poll from future voting option.
 
-3. Delete a poll.
+3. Delete a poll. [ Done ]
 
 4. User removing all options in Edit poll. 
 

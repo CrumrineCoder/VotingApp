@@ -47,7 +47,7 @@ router.post('/create', function(req, res) {
     } 
     if (errors.length != 0 && errors.length != undefined) {
         res.render('create', {
-            errors: errors
+            errors: errors,
         });
        errors = [];
     } else {
