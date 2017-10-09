@@ -4,6 +4,10 @@
      background: #EBEBEB;
  }
 
+input[type="checkbox"][readonly] {
+  pointer-events: none;
+}
+
  form {
      float: none;
      display: inline-block;
@@ -17,7 +21,6 @@ label:not(.exclude) {
      color: #241413;
  }
 
- 
 
 /* Document spanning Classes */
 
@@ -206,7 +209,7 @@ margin: 10px 0px 10px 0px;
 }
 
 .voteButton{
-  width: 50%;
+  width: 100%;
   padding: 10px; 
 }
 

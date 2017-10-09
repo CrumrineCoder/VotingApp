@@ -366,12 +366,13 @@ window.onload = function() {
 
         // Display the question
         document.getElementById('writeQuestion').outerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
-        // Display the already made answers
+        document.getElementsByClassName('questionStorage')[0].outerHTML = "<input type='hidden' value= '" + pollObject[page].question + "' name='question'/>" 
+      // Display the already made answers
         var completedAnswers = document.getElementById('alreadyDoneAnswers');
         for (var key in pollObject[page]) {
             if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP") {
                 var value = key;
-                completedAnswers.innerHTML += "<input id='" + value + "' type= 'checkbox' value = '" + value + "' name='reply' checked class='vis-hidden''/> <label class='voteButton' for='" + value + "'>" + value + "</label>"
+                completedAnswers.innerHTML += "<input id='" + value + "' type= 'checkbox' value = '" + value + "' name='reply' checked class='vis-hidden' /> <label class='voteButton' for='" + value + "'>" + value + "</label>"
                 completedAnswers.innerHTML += "<br>";
             }
         }

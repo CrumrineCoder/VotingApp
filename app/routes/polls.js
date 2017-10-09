@@ -159,7 +159,15 @@ router.post('/edit/', function(req, res) {
     } 
 });
 
-router.post("/delete/", function(req,res){
+router.post("/delete", function(req,res){
+
+  var newPoll = new Poll(req.body);
+  Poll.delete(newPoll, function(err, Poll){
+    if(err) throw err; 
+  })
+  req.flash('success_msg', 'Poll Deleted :(');
+
+  res.redirect('/polls/create');
   // Get the identityCounters collection and decrease the counter by 1
   // Connect to the database, get the polls collection, find the poll in question, and delete the document.
 });
