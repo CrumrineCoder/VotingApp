@@ -13,10 +13,6 @@
       <form method="post" action="/polls/edit" class="poll">
           <div id="right">
          <h4> Options </h4>
-          {{#if user}}
-          <input id="link" type="checkbox" name="user" value="link" class="vis-hidden">
-          <label for="link" class="fullWidthButton">Link this poll to my account?</label>
-         {{/if}}
           <input id="Open" type="checkbox" name="Open" value="Open" class="vis-hidden">
           <label for="Open" class="fullWidthButton">Allow Users to write their own answers.</label>
           <input id="Multiple" type="checkbox" name="Multiple" value="Multiple" class="vis-hidden fullWidthButton">
@@ -36,8 +32,8 @@
 			{{/each}} 
 		{{/if}}
 
-          <h5> Note: All votes will be wiped upon editing the poll to prevent vote tampering by the poll creator </h5>
-         <input id="writeQuestion" style="font-size:20px; width: 100%; padding: 5px 0px 0px 0px; background: red; "> </input>
+          <h5> Note: All votes will be wiped upon editing the poll to prevent vote tampering by the poll creator. The  question is also uneditable for this same reason, but is shown here for convenience sake </h5>
+         <input id="writeQuestion" > </input>
          <br>
          <h5> Leave Answers unticked if you wish to delete them. </h5>
          <div id="alreadyDoneAnswers"></div>
@@ -45,7 +41,12 @@
          <input type="text" name="answer" placeholder="Enter reply" class="reply">
         <input type="text" name="answer2" placeholder="Enter reply" class="reply">
         <button type="submit" class="submitButton" style="margin-top: 10px" value="Send order">Submit</button>
-      </form>
+     </form>
+     <br>
+     <form method="post" action="/polls/delete" class="poll">
+       <input class="questionStorage"> </input>
+       <button type="submit" class="deleteButton" style="margin-top: 10px" value="Send order">Delete Poll (this is permanent, and permanent  is a long time!)</button>
+    </form>
       <script type="text/javascript" src="/controllers/creatingPolls.js"></script>
    </body>
 </html>
