@@ -5,7 +5,7 @@ Built for FreeCodecamp. Currently have the voting and viewing a poll done. These
 
 1. CSS Styling 
 
-1a. Have the submit poll button be disabled until the criteria are met.
+1a. Have the submit poll button be disabled until the criteria are met. [Done]
 
 1b. Don't show the vote or rescind buttons until everything is checked. 
 

@@ -65,7 +65,7 @@ router.post('/create', function(req, res) {
             parsed["Options"].push(req.body[key])
           }
           else if(key=="question"){
-            parsed["question"] = req.body[key];
+            parsed["question"] = (req.body[key]).replace(/\s+$/, '');
           }
           else{
             parsed["user"] = req.body[key];
@@ -74,7 +74,6 @@ router.post('/create', function(req, res) {
         var newPoll= new Poll(parsed);
         Poll.createPoll(newPoll, function(err, Poll) {
             if (err) throw err;
-        //    console.log(Poll);
         });
 
         req.flash('success_msg', 'Your poll was created.');
