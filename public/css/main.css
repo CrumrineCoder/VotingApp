@@ -96,10 +96,6 @@ label:not(.exclude) {
     display: table;
 }
 
-.nav-pills li:hover{
-  background: #EBE3CE;
-}
-
 
 .buttonToSubmit {
      background: #F7EAE9;
@@ -323,19 +319,19 @@ margin: 10px 0px 10px 0px;
  
  }
  
- 
-  .navbar-left{
-    width: 100%; 
-  }
-  .navbar-right{
+
+  ul{
     width: 100%; 
   }
   ul * {
-    width: 100%;
+    width: 49%;
     text-align: center; 
-
+    margin: 0 auto; 
+    margin-top: 2px; 
+    margin-bottom: 2px; 
+    font-size: 16px; 
   }
-  
+
   #left{
     float: none; 
   }
@@ -351,6 +347,23 @@ margin: 10px 0px 10px 0px;
   .submitButton{
     width: 100%; 
   }
+  
+  
+  #pie{
+  float: none; 
+  width: 100%; 
+}
+
+#barContainer{
+  display: block; 
+  float: none; 
+  width: 100%;
+
+}
+#bar{
+  float: left; 
+  width: 100%;
+}
   
   
 }

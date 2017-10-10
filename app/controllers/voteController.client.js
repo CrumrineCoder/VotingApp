@@ -313,22 +313,38 @@ window.onload = function() {
                     display: false
                 }
             }
+            var colors = [
+              "#2ecc71",
+              "#3498db",
+              "#95a5a6",
+              "#9b59b6",
+              "#f1c40f",
+              "#e74c3c",
+              "#34495e",
+              "#4ABDAC",
+              "#F7B733",
+              "#007849",
+              "#COB283",
+              "#EEAA7B",
+              "#A239CA",
+              "#4717F6",
+              "#0E0B16",
+              "#6D7993",
+              "#062F4F",
+              "#3CC47C",
+              "#1E392A",
+              "#FEDCD2",
+              "#49274A",
+              "#0B3C5D",
+              "#88D317"
+            ]
             var bar = new Chart(ctx, {
                 type: 'horizontalBar',
                 options,
                 data: {
                     labels: keys,
                     datasets: [{
-                        backgroundColor: [
-                            //Add more colors later
-                            "#2ecc71",
-                            "#3498db",
-                            "#95a5a6",
-                            "#9b59b6",
-                            "#f1c40f",
-                            "#e74c3c",
-                            "#34495e"
-                        ],
+                        backgroundColor: colors, 
                         data: values
                     }]
                 }
@@ -339,16 +355,7 @@ window.onload = function() {
                 data: {
                     labels: keys,
                     datasets: [{
-                        backgroundColor: [
-                            //Add more colors later
-                            "#2ecc71",
-                            "#3498db",
-                            "#95a5a6",
-                            "#9b59b6",
-                            "#f1c40f",
-                            "#e74c3c",
-                            "#34495e"
-                        ],
+                        backgroundColor: colors, 
                         data: values
                     }]
 
