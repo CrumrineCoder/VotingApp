@@ -297,8 +297,79 @@ margin: 10px 0px 10px 0px;
   background: #E3D56B;
 }
 
-.midnav {
-     display: table-cell;
-  background: red; 
-  color: red; 
+
+/* Media Queries */
+@media only screen and (max-width: 800px) {
+    .navbar-center
+      {
+    position: relative;
+     width: 100%; 
+    padding-top: 10px; 
+    display: table;
+    }
+  #findPolls{
+    width: 100%; 
+     text-align: center;
+     text-decoration: none;
+     border: #474343;
+     border-style: solid;
+     border-width: .5px;
+     vertical-align: middle;
+    padding: 5px 0px 5px 0px;
+ 
+  }
+  
+  .buttonToSubmit {
+     background: #F7EAE9;
+     border: #474343;
+     text-align: center;
+     text-decoration: none;
+     margin-left: 0px;
+     border-style: solid;
+     border-width: .5px;
+     width: 33px;
+     padding: 2px;
+     border-radius: 0px 4px 4px 0px;
  }
+ .buttonToSubmit:hover {
+     background: #C4BAB9;
+ }
+  .navbar-left{
+    width: 100%; 
+  }
+  .navbar-right{
+    width: 100%; 
+  }
+  .navbar-left li {
+    width: 49%;
+    text-align: center; 
+  }
+  .navbar-right li {
+    width: 49%;
+    text-align: center; 
+  }
+  #left{
+    float: none; 
+     overflow: hidden;
+     min-height: 50px;
+     background: white;
+     padding: 30px;
+  }
+  #right{
+    float: none; 
+    width: 100%; 
+    padding: 5px; 
+     min-height: 50px;
+     background: white;
+    margin: 0px 0px 10px 0px; 
+      
+  }
+  #right label{
+    padding: 10px 0px 10px 0px; 
+  }
+  .submitButton{
+    width: 100%; 
+  }
+  
+  
+}
