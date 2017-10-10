@@ -29,7 +29,7 @@ module.exports = function(app, db) {
    app.route('/api/addVoter/?')
       .get(voteHandler.addVoter)
    app.route('/api/removeVoter/?')
-      .get(voteHandler.addVoter)
+      .get(voteHandler.removeVoter)
     app.route('/api/validate/?')
       .get(validationHandler.validateCaptcha)
     

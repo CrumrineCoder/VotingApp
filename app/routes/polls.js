@@ -94,11 +94,6 @@ router.get('/edit/:id', function(req, res) {
 router.post('/edit/', function(req, res) {
  var numberOfOptions;
   var errors = [];
-  //console.log(req.body);
-/*  if(Object.hasOwnProperty.call(req.body, "user")){
-    req.body.user = req.user.username;
-  }; */
-
     for (var i=0; i<req.body["reply"].length; i++) {
       req.body["addedAnswer" + i] = req.body["reply"][i];
     }
@@ -141,16 +136,12 @@ router.post('/edit/', function(req, res) {
             parsed["user"] = req.user.username;
           }
         }
-      // console.log(parsed);
+  
         var newPoll= new Poll(parsed);
         Poll.replace(newPoll, function(err, Poll) {
            if (err) throw err;
-      //     console.log(Poll);
+
        });
-      //  Poll.createPoll(newPoll, function(err, Poll) {
-        //    if (err) throw err;
-            //console.log(Poll);
-      //  });
 
         req.flash('success_msg', 'Changes Saved.');
 
