@@ -11,22 +11,24 @@
             <nav class="navbar navbar-default" role="navigation">
                <div class="container-fluid">
                   <!-- Brand and toggle get grouped for better mobile display -->
-                  <div class="navbar-header">
-                     <ul class="nav nav-pills navbar-left">
+                 
+                     <ul class="nav nav-pills navbar-left navbar-nav" >
                         <li role="presentation"><a href="/polls/create">Create Poll</a></li>
                         <li role="presentation"><a href="/polls/view">View Polls</a></li>
                      </ul>
-                  </div>
                   <!-- Collect the nav links, forms, and other content for toggling -->
-                     <form method="post" action="/polls/search/" class="navbar-form midNav">
+               
+                   <form method="post" action="/polls/search/" class="navbar-center" >
                      <span class="col">
-                        <input class="midNav" name="searchTerm" type="search" id="findPolls" placeholder="Search for polls" value ="">
+                        <input style="font-size: 16px;" name="searchTerm" type="search" id="findPolls"  placeholder="Search for polls" value ="">
                     </span>
                     <span class="col">
-                        <input type="image" alt="submit" src="https://image.flaticon.com/icons/png/512/49/49116.png"value="Search" class="buttonToSubmit midNav" >
+                        <input type="image" alt="submit" src="https://image.flaticon.com/icons/png/512/49/49116.png"value="Search" class="buttonToSubmit" >
                      </span>
-                     </form>
-                     <ul class="nav nav-pills navbar-right">
+                    
+                     </form>     
+                
+                  <ul class="nav nav-pills navbar-right navbar-nav">
                         {{#if user}}
                         <li role="presentation"><a href="/users/dashboard">Dashboard</a></li>
                         <li role="presentation"><a href="/users/logout">Logout</a></li>
