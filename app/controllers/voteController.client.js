@@ -257,7 +257,7 @@ window.onload = function() {
         pollObject = pollObject[number];
         if (pollObject.IP.includes(ip) || pollObject.Options.includes("SeeResults")) {
             if (localStorage.getItem("question") == pollObject.question && pollObject["Options"].includes("Change")) {
-              document.getElementById("makeVisible").style.visibility = "visible";
+              
                 document.getElementById("rescind").addEventListener('click', function(e) {
                     ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {
                        ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + localStorage.getItem("question"), function() {
@@ -357,7 +357,7 @@ window.onload = function() {
                     responsive: false
                 }
             });
-
+          document.getElementById("makeVisible").style.visibility = "visible";
         } else {
             // Error handling to be done
             // console.log("you must vote before seeing the results");
