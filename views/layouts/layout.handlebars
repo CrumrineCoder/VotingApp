@@ -12,9 +12,9 @@
                <div class="container-fluid">
                   <!-- Brand and toggle get grouped for better mobile display -->
                  
-                     <ul class="nav nav-pills navbar-left navbar-nav" >
-                        <li role="presentation"><a href="/polls/create">Create Poll</a></li>
-                        <li role="presentation"><a href="/polls/view">View Polls</a></li>
+                     <ul class="nav nav-pills navbar-left " >
+                        <li role="presentation" ><a href="/polls/create">Create Poll</a></li>
+                        <li role="presentation" ><a href="/polls/view">View Polls</a></li>
                      </ul>
                   <!-- Collect the nav links, forms, and other content for toggling -->
                
@@ -22,18 +22,18 @@
                      <span class="col">
                         <input style="font-size: 16px;" name="searchTerm" type="search" id="findPolls"  placeholder="Search for polls" value ="">
                     </span>
-                    <span class="col">
+                    <span class="col" id="searchIcon">
                         <input type="image" alt="submit" src="https://image.flaticon.com/icons/png/512/49/49116.png"value="Search" class="buttonToSubmit" >
                      </span>
                     
                      </form>     
                 
-                  <ul class="nav nav-pills navbar-right navbar-nav">
+                  <ul class="nav nav-pills navbar-right">
                         {{#if user}}
-                        <li role="presentation"><a href="/users/dashboard">Dashboard</a></li>
+                        <li role="presentation" ><a href="/users/dashboard">Dashboard</a></li>
                         <li role="presentation"><a href="/users/logout">Logout</a></li>
                         {{else}}
-                        <li role="presentation"><a href="/users/login">Login</a></li>
+                        <li role="presentation" ><a href="/users/login">Login</a></li>
                         <li role="presentation"><a href="/users/register">Register</a></li>
                         {{/if}}          
                      </ul>

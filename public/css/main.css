@@ -71,8 +71,6 @@ input[type="checkbox"][readonly] {
    border: none; 
  }
 
-
-
 label:not(.exclude) {
      margin: 10px 0px 10px 0px;
      background: #E3C5C3;
@@ -98,6 +96,11 @@ label:not(.exclude) {
     display: table;
 }
 
+.nav-pills li:hover{
+  background: #EBE3CE;
+}
+
+
 .buttonToSubmit {
      background: #F7EAE9;
      border: #474343;
@@ -120,7 +123,7 @@ label:not(.exclude) {
 }
 
 #findPolls {
-     text-align: center;
+     text-align: center; 
      text-decoration: none;
      border: #474343;
      border-style: solid;
@@ -297,8 +300,57 @@ margin: 10px 0px 10px 0px;
   background: #E3D56B;
 }
 
-.midnav {
-     display: table-cell;
-  background: red; 
-  color: red; 
+
+
+/* Media Queries */
+@media only screen and (max-width: 800px) {
+  
+  /* Navbar */
+    .navbar-center
+      {
+    position: relative;
+     width: 100%; 
+
+    }
+  #findPolls{
+    padding: 5px 0px 5px 0px;
+   width: 100%; 
+    margin-Left: 33px; 
+  }
+  
+  .buttonToSubmit {
+     width: 33px;
+ 
  }
+ 
+ 
+  .navbar-left{
+    width: 100%; 
+  }
+  .navbar-right{
+    width: 100%; 
+  }
+  ul * {
+    width: 100%;
+    text-align: center; 
+
+  }
+  
+  #left{
+    float: none; 
+  }
+  #right{
+    float: none; 
+    width: 100%; 
+    margin: 0px 0px 10px 0px; 
+      
+  }
+  #right label{
+    padding: 10px 0px 10px 0px; 
+  }
+  .submitButton{
+    width: 100%; 
+  }
+  
+  
+}
