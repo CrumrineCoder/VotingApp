@@ -19,7 +19,7 @@ function voteHandler(db) {
       if (results != undefined){
       
       if(!Array.isArray(results)){
-          console.log(req.query.question);
+
         polls.findAndModify({ question: req.query.question}, {
             '_id': 1
         }, {
@@ -32,7 +32,6 @@ function voteHandler(db) {
             if (err) {
                 throw err;
             }
-          console.log(result);
             res.json(result);
         });
       }
@@ -115,8 +114,7 @@ function voteHandler(db) {
         });
    }
     this.removeVoter = function(req, res) {
-      console.log("Remove Voter running");
-     var user = req.query.IP; 
+     var user = req.query.IP;
       polls.findAndModify({ question: req.query.question }, {
             '_id': 1
         }, {
@@ -132,8 +130,7 @@ function voteHandler(db) {
             res.json(result);
         });
    }
-   //find specific polls
- // console.log("Vote Handler Running");
+
     this.searchPolls = function(req,res){
       var searchTerm = req.query.searchTerm; 
       polls.find( { $text: { $search: "  "+searchTerm+" " } }, {__v:0} ).toArray(function(err,documents){
@@ -147,13 +144,7 @@ function voteHandler(db) {
       polls.find({user: user}, {_v:0}).toArray(function(err, documents){
         if(err) throw err
         res.json(documents);
-      })
-      
-      /*
-      polls.find( { $text: { $search: "  "+searchTerm+" " } }, {__v:0} ).toArray(function(err,documents){
-       if(err) throw err
-         res.json(documents);
-       })*/     
+      })   
     }
 }
 

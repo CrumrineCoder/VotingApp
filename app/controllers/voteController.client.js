@@ -240,6 +240,7 @@ window.onload = function() {
                 }, false);
 
             } else {
+               console.log("IP is already in directory");
                 // Error message for voting on the same poll and show them to the results page
                 //      console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
                 window.location.replace(apiUrl + "polls/view/" + page + "/results");
@@ -260,10 +261,12 @@ window.onload = function() {
                    // document.getElementById("rescind").attributes["type"].value = "text";
        //         }
                 document.getElementById("rescind").addEventListener('click', function(e) {
-                    ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {});
-                    window.location.replace(apiUrl + "polls/view/" + number);
-                    localStorage.clear();
-                    ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + pollObject.question, function() {});
+                    ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {
+                       ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + localStorage.getItem("question"), function() {
+                           window.location.replace(apiUrl + "polls/view/" + number + "?");
+                           localStorage.clear();
+                       });
+                    });  
                 });
             } else {
                 document.getElementById("rescind").innerHTML = "";
