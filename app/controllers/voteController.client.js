@@ -1,4 +1,4 @@
-//'use strict';
+ //'use strict';
 // This file, onload, will handle the listing of polls, the listing of poll voting and event handling when clicked on one of those polls, and the showing of results when a poll is voted on using Chart.js
 var ip;
 var captchaFinished = false;
@@ -125,7 +125,7 @@ window.onload = function() {
                 var status = document.getElementById("status");
                 if (pollObject[page]["Options"].includes("Change") && pollObject[page]["Options"].includes("SeeResults")) {
 
-                    status.innerHTML = "You will  be able to recind your vote and to see the results before voting."
+                    status.innerHTML = "You will  be able to recind your vote and see the results before voting."
                     document.getElementById("results").innerHTML = "<Button>Results</Button>";
                     document.getElementById("results").addEventListener('click', seeResults, false);
 
@@ -136,7 +136,7 @@ window.onload = function() {
                     document.getElementById("results").innerHTML = "<Button>Results</Button>";
                     document.getElementById("results").addEventListener('click', seeResults, false);
                 } else {
-                    status.innerHTML = "You will not be able to recind your vote or to see the results before voting.";
+                    status.innerHTML = "You will not be able to recind your vote or see the results before voting.";
                 }
                 // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
 
@@ -190,12 +190,12 @@ window.onload = function() {
                     }
                 }
 
-
-
+                document.getElementById("makeVisible").style.visibility = "visible";
+           
                 // On finishing the form
                 votingButton.addEventListener('click', function(e) {
 
-
+    
                     ajaxRequest('GET', "https://joinordie.glitch.me/api/addVoter/?IP=" + ip + "&question=" + pollObject[page].question, function() {});
                     if (pollObject[page]["Options"].includes("Captcha") && !captchaFinished) {
                         // If Captch is required but not filled out
@@ -257,9 +257,7 @@ window.onload = function() {
         pollObject = pollObject[number];
         if (pollObject.IP.includes(ip) || pollObject.Options.includes("SeeResults")) {
             if (localStorage.getItem("question") == pollObject.question && pollObject["Options"].includes("Change")) {
-           //     if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
-                   // document.getElementById("rescind").attributes["type"].value = "text";
-       //         }
+              document.getElementById("makeVisible").style.visibility = "visible";
                 document.getElementById("rescind").addEventListener('click', function(e) {
                     ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {
                        ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + localStorage.getItem("question"), function() {
