@@ -18,15 +18,9 @@ var PollSchema = mongoose.Schema({
 	question: {
 		type: String,
 		index:true
-	}/*,
-	answer: {
-		type: String
-	},
-  answer2:{
-    type: String
-  }*/
+	}
 }, {strict: false});
-  
+ 
 PollSchema.index({question:'text'});
 PollSchema.plugin(autoIncrement.plugin, {model: 'Poll', startAt: 0});
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
@@ -37,9 +31,8 @@ module.exports.createPoll = function(newPoll, callback){
 var polls = db.collection('polls');
 var counter = db.collection('identitycounters');
 module.exports.replace = function(newPoll, callback){
-  
-  polls.replaceOne(
-    
+   console.log(newPoll);   
+  polls.replaceOne(    
     { $text: { $search: newPoll.question} }, newPoll
   );
 }
@@ -53,22 +46,3 @@ module.exports.delete = function(poll, callback){
     }
   });
 }
-
-/*
-module.exports.getPollByQuestion = function(question, callback){
-	var query = {question: question};
-	Poll.findOne(query, callback);
-}
-
-module.exports.getPollById = function(id, callback){
-	Poll.findById(id, callback);
-}
-*/
-/*
-module.exports.comparePassword = function(candidatePassword, hash, callback){
-	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-    	if(err) throw err;
-    	callback(null, isMatch);
-	});
-}
-*/

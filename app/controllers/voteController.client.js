@@ -364,7 +364,9 @@ window.onload = function() {
                     responsive: false
                 }
             });
+      if(document.getElementById("rescind").innerHTML !== ""){
           document.getElementById("makeVisible").style.visibility = "visible";
+      }
         } else {
             // Error handling to be done
             // console.log("you must vote before seeing the results");
@@ -391,7 +393,7 @@ window.onload = function() {
         for (var i = 0; i < pollObject[page]["Options"].length; i++) {
             document.getElementById(pollObject[page]["Options"][i]).checked = true;
         }
-
+    
 
     }
 
