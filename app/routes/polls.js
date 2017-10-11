@@ -59,18 +59,19 @@ router.post('/create', function(req, res) {
         var parsed={Options: []};
         for(var key in req.body){
           if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
-          parsed[req.body[key]] = 0;
+            parsed[req.body[key]] = 0;
           }
           else if(key != 'question' && ( key=="Open" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
             parsed["Options"].push(req.body[key])
           }
           else if(key=="question"){
-            parsed["question"] = (req.body[key]).replace(/\s+$/, '');
+            parsed["question"] = req.body[key].trim();
           }
           else{
             parsed["user"] = req.body[key];
           }
         }
+
         var newPoll= new Poll(parsed);
         Poll.createPoll(newPoll, function(err, Poll) {
             if (err) throw err;
@@ -130,13 +131,10 @@ router.post('/edit/', function(req, res) {
             parsed["Options"].push(req.body[key])
           }
           else if(key=="question"){
-            parsed["question"] = req.body[key];
-          }
-          else{
-            parsed["user"] = req.user.username;
+            parsed["question"] = req.body[key].trim();
           }
         }
-  
+        parsed["user"] = req.user.username; 
         var newPoll= new Poll(parsed);
         Poll.replace(newPoll, function(err, Poll) {
            if (err) throw err;
