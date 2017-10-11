@@ -44,7 +44,7 @@ window.onload = function() {
             for (var i = 0; i < pollObject.length; i++) {
                 number = 0;
                 for (var key in pollObject[i]) {
-                    if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP") {
+                    if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP" && key != "question"){
                         number += pollObject[i][key];
                     }
                 }

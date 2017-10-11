@@ -16,8 +16,7 @@ var PollSchema = mongoose.Schema({
     type: String
   },
 	question: {
-		type: String,
-		index:true
+		type: String
 	}
 }, {strict: false});
  
@@ -30,10 +29,9 @@ module.exports.createPoll = function(newPoll, callback){
 }
 var polls = db.collection('polls');
 var counter = db.collection('identitycounters');
-module.exports.replace = function(newPoll, callback){
-   console.log(newPoll);   
+module.exports.replace = function(newPoll, callback){ 
   polls.replaceOne(    
-    { $text: { $search: newPoll.question} }, newPoll
+    { $text: { $search: '\"'+ newPoll.question + '\"'} }, newPoll
   );
 }
 
