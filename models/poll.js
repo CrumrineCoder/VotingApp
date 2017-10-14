@@ -44,3 +44,18 @@ module.exports.delete = function(poll, callback){
     }
   });
 }
+
+module.exports.checkExistance = function(poll, callback){
+  polls.find({question: poll.question}, {$exists: true}).toArray(function(err, doc) //find if a value exists
+{     
+    if(doc.length != 0 || doc != null) //if it does
+    {
+        console.log("tru tru");
+        console.log(doc); // print out what it sends back
+    }
+    else // if it does not 
+    {
+        console.log("Not in docs");
+    }
+});
+}
