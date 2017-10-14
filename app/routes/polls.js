@@ -34,6 +34,7 @@ router.post('/create', function(req, res) {
   if(Object.hasOwnProperty.call(req.body, "user")){
     req.body.user = req.user.username;
   };
+  function checkErrors (callback){
     for (var key in req.body) {
       if(req.body[key] != '' && key!='question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
         numberOfOptions++;
@@ -45,20 +46,33 @@ router.post('/create', function(req, res) {
     if(numberOfOptions < 2){
       errors.push({msg: 'At least two answers are required'});
     } 
+   
   var dummy = {};
   dummy["question"] = req.body['question'].trim();
    var newQuestion= new Poll(dummy);
-    Poll.checkExistance(newQuestion, function(err, Poll) {
-            if (err) throw err;
+    Poll.checkExistance(newQuestion, res, function(err, result) {
+            if (err) {
+              throw err;
+              } else{
+                if(result != "Not in docs"){
+               //   console.log("ERROR ERROR ERROR");
+                  errors.push({msg: 'Question is  already in the database.'});
+                      callback();
+                }
+           //    console.log(result);
+              }
         });
-    
-  
+
+  }
+  checkErrors(restOfCreate);
+  function restOfCreate(){
     if (errors.length != 0 && errors.length != undefined) {
         res.render('create', {
             errors: errors,
         });
        errors = [];
     } else {
+      console.log("choo choo");
        for (var key in req.body) {
            if(req.body[key] == ''){
              delete req.body[key];
@@ -89,6 +103,7 @@ router.post('/create', function(req, res) {
 
        res.redirect('/polls/view');
     }
+  }
 });
 
 router.get('/edit/:id', function(req, res) {
