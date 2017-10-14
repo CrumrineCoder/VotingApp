@@ -396,7 +396,6 @@
          }
 
          function checkEditPollReplies(callback) {
-            /* console.log("Edit Polls Running");
              var replies = 0;
              var question = document.getElementById('writeQuestion');
              $('input').each(function() {
@@ -405,39 +404,23 @@
                  // Check for already made answers
                  if ($(this).attr('name') == 'reply' && $(this).is(":checked")) {
                      replies++;
-                     console.log("Found existing answer");
-                     console.log($(this).html());
                  }
                  // Check for new answers
                  else if ($(this).val() != '' && $(this).attr('name') != 'question' && $(this).attr('name') != 'searchTerm' && $(this).attr('type') == 'text') {
                      replies++;
-                     console.log("Found new answer");
                  }
              });
-               console.log("Replies: " + replies);
-               console.log("Replies less than 2?: " + (replies < 2));
              if (replies < 2) {
                  $('.submitButton').addClass('disabled');
                  $('.submitButton').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
              } else {
                  $('.submitButton').removeClass('disabled');
                  $('.submitButton').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-             } */
-           var inputElems = document.getElementsByTagName("input"),
-          count = 0;
-
-            for (var i=0; i<inputElems.length; i++) {       
-                 if (inputElems[i].type == "checkbox" && inputElems[i].checked == true){
-                        count++;
-                 }
-              }
-            alert(count);
+             } 
          }
          checkEditPollReplies();
          $('input:not(#findPolls)').change(checkEditPollReplies);
-         //$(document).on('change', '.voteButton', checkEditPollReplies);
-        //  $('.voteButton').change(checkEditPollReplies);
-$(document).on("change", "input[name='reply']", checkEditPollReplies);
+         $(document).on("change", "input[name='reply']", checkEditPollReplies);
      }
 
      var searchTerm = document.getElementById("findPolls");
