@@ -217,13 +217,19 @@
                                  }
                              }
                              // Check if the user made an option
+                            console.log("Check if the user made an answer: " + !Object.hasOwnProperty.call(pollObject[page], result))
                              if (!Object.hasOwnProperty.call(pollObject[page], result[0])) {
-                                 // If so, brand it
-                                 result[0] = "[User Answer] " + result[0];
+                                 // If so, brand it   
+                                     result[0] = "[User Answer] " + result[0];                   
                              }
                              // If the user selected one option, get rid of the array
                              if (result.length == 1) {
                                  result = result[0];
+                             }
+                         }
+                         else{
+                            if (!Object.hasOwnProperty.call(pollObject[page], result)) {
+                                 result = "[User Answer] " + result;                           
                              }
                          }
 

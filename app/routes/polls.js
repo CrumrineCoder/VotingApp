@@ -81,7 +81,7 @@ router.post('/create', function(req, res) {
         }
         var parsed={Options: []};
         for(var key in req.body){
-          if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
+          if(key != 'question' && key!='user' && key!="OpenAnswers" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
             parsed[req.body[key]] = 0;
           }
           else if(key != 'question' && ( key=="OpenAnswers" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
