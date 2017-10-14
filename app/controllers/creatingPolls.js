@@ -5,6 +5,8 @@ var i = 2;
 var submitButton = document.getElementsByClassName("submitButton")[0];
 var latestInputField = document.getElementsByName("answer2")[0];
 latestInputField.addEventListener("input", handler);
+latestInputField.addEventListener("input", checkCreatePollReplies);
+document.getElementById('writeQuestion').addEventListener('input', checkCreatePollReplies);
 //document.getElementById("question").setAttribute('size', document.getElementById("question").getAttribute('placeholder').length);
 function handler(e) {
     i++;
@@ -18,6 +20,7 @@ function handler(e) {
     form.insertBefore(input, submitButton);
     latestInputField = document.getElementsByName("answer" + i)[0];
     latestInputField.addEventListener("input", handler);
+  latestInputField.addEventListener("input", checkCreatePollReplies);
 } 
 
 function checkCreatePollReplies(){
@@ -34,6 +37,6 @@ function checkCreatePollReplies(){
         } else {
               $('.submitButton').removeClass('disabled');
             $('.submitButton').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-        }
-  
+        }  
 }
+checkCreatePollReplies();

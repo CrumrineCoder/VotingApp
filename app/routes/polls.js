@@ -45,6 +45,14 @@ router.post('/create', function(req, res) {
     if(numberOfOptions < 2){
       errors.push({msg: 'At least two answers are required'});
     } 
+  var dummy = {};
+  dummy["question"] = req.body['question'].trim();
+   var newQuestion= new Poll(dummy);
+    Poll.checkExistance(newQuestion, function(err, Poll) {
+            if (err) throw err;
+        });
+    
+  
     if (errors.length != 0 && errors.length != undefined) {
         res.render('create', {
             errors: errors,
