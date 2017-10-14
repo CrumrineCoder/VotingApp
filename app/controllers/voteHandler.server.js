@@ -6,23 +6,6 @@ function voteHandler(db) {
     // Send the collection in a function
     var polls = db.collection('polls');
 
-    /*
- module.exports.checkExistance = function(poll, callback){
-
-  polls.find({question: poll.question}, {$exists: true}).toArray(function(err, doc) //find if a value exists
-{     
-    if(doc && doc.length) //if it does
-    {
-        res.json((doc); // print out what it sends back
-    }
-    else // if it does not 
-    {
-        console.log("Not in docs");
-    }
-});
-}
-
-*/
     this.checkExistance = function(req, res) {
         polls.find({
             question: req.query.question
@@ -53,6 +36,7 @@ function voteHandler(db) {
     // Vote on the poll 
     this.addvote = function(req, res) {
         var results = req.query.data;
+      console.log(results);
         if (results != undefined) {
 
             if (!Array.isArray(results)) {
@@ -98,6 +82,7 @@ function voteHandler(db) {
     };
     this.rescindVote = function(req, res) {
         var results = req.query.data;
+        console.log(results);
         if (results != undefined) {
             results = results.split(",");
             if (!Array.isArray(results)) {
