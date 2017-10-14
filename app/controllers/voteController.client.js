@@ -94,15 +94,6 @@
      var path = window.location.pathname;
      var page = path.split("/").pop();
 
-     function getOpenValue() {
-         var txt;
-         var answer = prompt("Please enter your answer:");
-         if (answer == null || answer == "") {
-             txt = "User cancelled the prompt.";
-         } else {
-             document.getElementById('open').value = txt;
-         }
-     }
 
      function showVotingOptions(data) {
 
@@ -167,16 +158,19 @@
                  // Format Question
                  question.innerHTML = pollObject[page].question;
                  // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
-                 if (pollObject[page]["Options"].includes("Open")) {
-                     document.getElementById("openRadio").innerHTML = "<input id='open' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='open'> <span id='placeholder'>Write your own answer here. </span></label>"
+               console.log('HASDFHASDF');
+               console.log(pollObject[page]["Options"]);
+               if (pollObject[page]["Options"].includes("OpenAnswers")) {
+                   console.log("Byeah");
+                     document.getElementById("openRadio").innerHTML = "<input id='OpenAnswer' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='OpenAnswer'> <span id='placeholder'>Write your own answer here. </span></label>"
 
                      document.getElementById("openRadio").innerHTML += "<br>";
-                     document.getElementById('open').onclick = function() {
+                     document.getElementById('OpenAnswer').onclick = function() {
                          var answer = prompt("Please enter your answer:");
                          if (answer == null || answer == "") {
                              answer = "User cancelled the prompt.";
                          } else {
-                             document.getElementById('open').value = answer;
+                             document.getElementById('OpenAnswer').value = answer;
                              document.getElementById('placeholder').innerHTML = answer;
                          }
                      };

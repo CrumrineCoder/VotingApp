@@ -36,7 +36,7 @@ router.post('/create', function(req, res) {
   };
   function checkErrors (callback){
     for (var key in req.body) {
-      if(req.body[key] != '' && key!='question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
+      if(req.body[key] != '' && key!='question' && key!='user' && key!="OpenAnswers" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
         numberOfOptions++;
       }  
       if(key=='question' && req.body[key] == ''){
@@ -57,8 +57,9 @@ router.post('/create', function(req, res) {
                 if(result != "Not in docs"){
                //   console.log("ERROR ERROR ERROR");
                   errors.push({msg: 'Question is  already in the database.'});
-                      callback();
+                   
                 }
+                   callback();
            //    console.log(result);
               }
         });
@@ -72,7 +73,7 @@ router.post('/create', function(req, res) {
         });
        errors = [];
     } else {
-      console.log("choo choo");
+       console.log(req.body);
        for (var key in req.body) {
            if(req.body[key] == ''){
              delete req.body[key];
@@ -83,7 +84,7 @@ router.post('/create', function(req, res) {
           if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
             parsed[req.body[key]] = 0;
           }
-          else if(key != 'question' && ( key=="Open" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
+          else if(key != 'question' && ( key=="OpenAnswers" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
             parsed["Options"].push(req.body[key])
           }
           else if(key=="question"){
@@ -147,10 +148,10 @@ router.post('/edit/', function(req, res) {
         }
         var parsed={Options: []};
         for(var key in req.body){
-          if(key != 'question' && key!='user' && key!="Open" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
+          if(key != 'question' && key!='user' && key!="OpenAnswers" && key!="Multiple" && key!="Captcha" && key != "IP" && key != "Change" && key != "SeeResults"){
           parsed[req.body[key]] = 0;
           }
-          else if(key != 'question' && ( key=="Open" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
+          else if(key != 'question' && ( key=="OpenAnswers" || key =="Multiple"||key=="Captcha"||key=="Change"||key=="SeeResults")){
             parsed["Options"].push(req.body[key])
           }
           else if(key=="question"){
