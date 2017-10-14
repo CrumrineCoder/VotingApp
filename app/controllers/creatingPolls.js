@@ -37,38 +37,3 @@ function checkCreatePollReplies(){
         }
   
 }
-function checkEditPollReplies(){
-  console.log("Edit Polls Running");
-    var replies = 0;
-       var question = document.getElementById('writeQuestion'); 
-        $('input').each(function() {
-      //    console.log("Is checkbox?: " + $(this).attr('type') == 'checkbox');
-      //     console.log("Value: " + $(this).val());
-          // Check for already made answers
-          if( $(this).attr('name') == 'reply'  && $(this).is(":checked")){
-            replies++;
-            console.log("Found existing answer");
-          }
-          // Check for new answers
-            else if ($(this).val() != '' && $(this).attr('name')!='question' && $(this).attr('name')!='searchTerm' && $(this).attr('type') == 'text') {
-                replies++;
-              console.log("Found new answer");
-            }
-        });
-    //  console.log(replies);
-    //   console.log(replies < 2);
-        if (replies < 2) {
-          $('.submitButton').addClass('disabled');
-            $('.submitButton').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-        } else {
-              $('.submitButton').removeClass('disabled');
-            $('.submitButton').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-        }
-  
-}
-/*
-if (window.location.pathname.split("/")[2] == "edit") {
-checkEditPollReplies();
- $('input').keyup(checkEditPollReplies);
-       $(document).on('click','.reply', checkEditPollReplies);
-} */
