@@ -158,10 +158,9 @@
                  // Format Question
                  question.innerHTML = pollObject[page].question;
                  // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
-               console.log('HASDFHASDF');
-               console.log(pollObject[page]["Options"]);
+       
                if (pollObject[page]["Options"].includes("OpenAnswers")) {
-                   console.log("Byeah");
+       
                      document.getElementById("openRadio").innerHTML = "<input id='OpenAnswer' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='OpenAnswer'> <span id='placeholder'>Write your own answer here. </span></label>"
 
                      document.getElementById("openRadio").innerHTML += "<br>";
@@ -204,8 +203,7 @@
                      } else {
 
                          result = document.querySelector('input[name= "reply"]:checked').value;
-                         localStorage.setItem("question", pollObject[page].question);
-                         localStorage.setItem("result", result);
+                       
                          // Check if the user selected more than 1 checkbox
                          // If it's radios, it's not posible
                          if (votingOption != "radio") {
@@ -217,7 +215,7 @@
                                  }
                              }
                              // Check if the user made an option
-                            console.log("Check if the user made an answer: " + !Object.hasOwnProperty.call(pollObject[page], result))
+             
                              if (!Object.hasOwnProperty.call(pollObject[page], result[0])) {
                                  // If so, brand it   
                                      result[0] = "[User Answer] " + result[0];                   
@@ -232,6 +230,8 @@
                                  result = "[User Answer] " + result;                           
                              }
                          }
+                         localStorage.setItem("question", pollObject[page].question);
+                         localStorage.setItem("result", result);
 
                          // Make a post request to change the votes, and then a get request to update the browser side
                          ajaxRequest('POST', "https://joinordie.glitch.me/api/vote/?data=" + result + "&question=" + pollObject[page].question, function() {});
@@ -240,9 +240,8 @@
                  }, false);
 
              } else {
-                 console.log("IP is already in directory");
                  // Error message for voting on the same poll and show them to the results page
-                 //      console.log("YOU CANNOT VOTE ON THE SAME POLL TWICE SORRY FOR THE CAPS LOCK");
+           
                  window.location.replace(apiUrl + "polls/view/" + page + "/results");
              }
 
@@ -259,6 +258,7 @@
              if (localStorage.getItem("question") == pollObject.question && pollObject["Options"].includes("Change")) {
 
                  document.getElementById("rescind").addEventListener('click', function(e) {
+          
                      ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {
                          ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + localStorage.getItem("question"), function() {
                              window.location.replace(apiUrl + "polls/view/" + number + "?");
@@ -369,7 +369,7 @@
              }
          } else {
              // Error handling to be done
-             // console.log("you must vote before seeing the results");
+         
              window.location.replace(apiUrl + "polls/view/" + number + "?/");
          }
      }
@@ -387,7 +387,7 @@
                  var value = key;
                  completedAnswers.innerHTML += "<input id='" + value.replace(/\s/g,'') + "' type= 'checkbox' value = '" + value .replace(/\s/g,'')+ "' name='reply'  checked class='vis-hidden' /> <label class='voteButton' for='" + value.replace(/\s/g,'') + "'>" + value + "</label>"
                  completedAnswers.innerHTML += "<br>";
-                // console.log(completedAnswers.innerHTML);
+        
              }
          }
          //document.getElementById("question").setAttribute('size', document.getElementById("question").getAttribute('placeholder').length);
@@ -399,8 +399,7 @@
              var replies = 0;
              var question = document.getElementById('writeQuestion');
              $('input').each(function() {
-                 //    console.log("Is checkbox?: " + $(this).attr('type') == 'checkbox');
-                 //     console.log("Value: " + $(this).val());
+          
                  // Check for already made answers
                  if ($(this).attr('name') == 'reply' && $(this).is(":checked")) {
                      replies++;
