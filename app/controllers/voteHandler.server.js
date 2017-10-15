@@ -82,7 +82,7 @@ function voteHandler(db) {
     };
     this.rescindVote = function(req, res) {
         var results = req.query.data;
-        console.log(results);
+
         if (results != undefined) {
             results = results.split(",");
             if (!Array.isArray(results)) {
@@ -96,12 +96,20 @@ function voteHandler(db) {
                         [results]: -1
                     }
 
-                }, function(err, result) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.json(result);
                 });
+              var badoa = polls.find({question: req.query.question},{ [results]:1});
+             console.log(badoa);
+             /*   polls.findAndModify({
+                    question: req.query.question
+                }, {
+                    '_id': 1
+                }, {
+
+                    $inc: {
+                        [results]: -1
+                    }
+
+                });*/
             } else {
                 for (var i = 0; i < results.length; i++) {
                     polls.findAndModify({
@@ -114,12 +122,12 @@ function voteHandler(db) {
                             [results[i]]: -1
                         }
 
-                    }, function(err, result) {
-                        if (err) {
-                            throw err;
-                        }
-                        res.json(result);
                     });
+              polls.find({question: req.query.question},{ [results[i]]:1, _id: 0}).forEach(function(item){
+                console.log(item);
+              });
+                // console.log("Data: " + test);
+      
                 }
             }
         }
