@@ -122,7 +122,7 @@ router.get('/edit/:id', function(req, res) {
 });
 
 router.post('/edit/', function(req, res) {
-  console.log(req.body);
+
     var numberOfOptions;
     var errors = [];
   if(req.body["reply"] != null){
@@ -171,7 +171,6 @@ router.post('/edit/', function(req, res) {
             }
         }
         parsed["user"] = req.user.username;
-      console.log(parsed);
         var newPoll = new Poll(parsed);
         Poll.replace(newPoll, function(err, Poll) {
             if (err) throw err;

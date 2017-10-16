@@ -385,7 +385,7 @@
          for (var key in pollObject[page]) {
              if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP") {
                  var value = key;
-                 completedAnswers.innerHTML += "<input id='" + value.replace(/\s/g,'') + "' type= 'checkbox' value = '" + value .replace(/\s/g,'')+ "' name='reply'  checked class='vis-hidden' /> <label class='voteButton' for='" + value.replace(/\s/g,'') + "'>" + value + "</label>"
+                 completedAnswers.innerHTML += "<input id='" + value.trim()+ "' type= 'checkbox' value = '" +value.trim()+ "' name='reply'  checked class='vis-hidden' /> <label class='voteButton' for='" + value.trim()+ "'>" + value + "</label>"
                  completedAnswers.innerHTML += "<br>";
         
              }
