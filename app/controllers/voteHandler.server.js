@@ -60,8 +60,7 @@ function voteHandler(db) {
                 });
             } else {
                 console.log("Is an Array");
-        
-                for (var i = 0; i < results.length; i++) {
+                   for (var i = 0; i < results.length; i++) {
                     polls.findAndModify({
                         question: req.query.question
                     }, {
@@ -74,12 +73,6 @@ function voteHandler(db) {
 
                     });
                 }
-              polls.find({question: req.query.question}, function(err, result) {
-                        if (err) {
-                            throw err;
-                        }
-                        res.json(result);
-                    });
             }
         }
     };
