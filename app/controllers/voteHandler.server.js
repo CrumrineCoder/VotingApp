@@ -36,11 +36,12 @@ function voteHandler(db) {
     // Vote on the poll 
     this.addvote = function(req, res) {
         var results = req.query.data;
-        console.log(results);
+              results = results.split(",");
+        console.log("Results: " + results);
         if (results != undefined) {
 
             if (!Array.isArray(results)) {
-
+                console.log("Not an Array");
                 polls.findAndModify({
                     question: req.query.question
                 }, {
@@ -58,7 +59,8 @@ function voteHandler(db) {
                     res.json(result);
                 });
             } else {
-                results = results.split(",");
+                console.log("Is an Array");
+        
                 for (var i = 0; i < results.length; i++) {
                     polls.findAndModify({
                         question: req.query.question
@@ -70,13 +72,14 @@ function voteHandler(db) {
                             [results[i]]: 1
                         }
 
-                    }, function(err, result) {
+                    });
+                }
+              polls.find({question: req.query.question}, function(err, result) {
                         if (err) {
                             throw err;
                         }
                         res.json(result);
                     });
-                }
             }
         }
     };
@@ -97,23 +100,35 @@ function voteHandler(db) {
                     }
 
                 });
-                var badoa = polls.find({
-                    question: req.query.question
-                }, {
-                    [results]: 1
-                });
-                console.log(badoa);
-                /*   polls.findAndModify({
-                       question: req.query.question
-                   }, {
-                       '_id': 1
-                   }, {
-
-                       $inc: {
-                           [results]: -1
-                       }
-
-                   });*/
+              var toBeRemoved;
+                 polls.find({
+                        question: req.query.question
+                    }, {
+                        [results]: 1,
+                        _id: 0
+                    }).forEach(function(item) {
+                        if (item[results] < 1) {
+                           if(results.includes("[User Answer]")){
+                            toBeRemoved = item;
+                           }
+                  
+                        }
+                    }, function(err, result) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.json(result);
+                });  
+              
+              if(toBeRemoved != null){
+                 polls.update({
+                            question: req.query.question
+                        }, {
+                            $unset: {
+                                [Object.keys(toBeRemoved)]: 1
+                            }
+                        });
+              }
             } else {
                 var toBeRemoved = [];
                 
