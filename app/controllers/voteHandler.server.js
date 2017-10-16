@@ -13,7 +13,7 @@ function voteHandler(db) {
             $exists: true
         }).toArray(function(err, doc) //find if a value exists
             {
-              if (err) throw err
+                if (err) throw err
                 if (doc && doc.length) //if it does
                 {
                     res.json(doc); // print out what it sends back
@@ -36,7 +36,7 @@ function voteHandler(db) {
     // Vote on the poll 
     this.addvote = function(req, res) {
         var results = req.query.data;
-      console.log(results);
+        console.log(results);
         if (results != undefined) {
 
             if (!Array.isArray(results)) {
@@ -97,38 +97,79 @@ function voteHandler(db) {
                     }
 
                 });
-              var badoa = polls.find({question: req.query.question},{ [results]:1});
-             console.log(badoa);
-             /*   polls.findAndModify({
+                var badoa = polls.find({
                     question: req.query.question
                 }, {
-                    '_id': 1
-                }, {
+                    [results]: 1
+                });
+                console.log(badoa);
+                /*   polls.findAndModify({
+                       question: req.query.question
+                   }, {
+                       '_id': 1
+                   }, {
 
-                    $inc: {
-                        [results]: -1
-                    }
+                       $inc: {
+                           [results]: -1
+                       }
 
-                });*/
+                   });*/
             } else {
-                for (var i = 0; i < results.length; i++) {
-                    polls.findAndModify({
+                var toBeRemoved = [];
+                
+                function getEmptyValues(i, max, callback) {
+                    polls.find({
                         question: req.query.question
                     }, {
-                        '_id': 1
-                    }, {
-
-                        $inc: {
-                            [results[i]]: -1
+                        [results[i]]: 1,
+                        _id: 0
+                    }).forEach(function(item) {
+                        if (item[results] < 1) {
+                           if(results[i].includes("[User Answer]")){
+                            toBeRemoved.push(item);
+                           }
+                           if(i+1 >= max){
+                             callback();
+                            }
                         }
-
-                    });
-              polls.find({question: req.query.question},{ [results[i]]:1, _id: 0}).forEach(function(item){
-                console.log(item);
-              });
-                // console.log("Data: " + test);
-      
+                    }, function(err, result) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.json(result);
+                });            
                 }
+
+                function removeEmptyUserAnswers() {
+                    for (var i = 0; i < toBeRemoved.length; i++) {
+                        polls.update({
+                            question: req.query.question
+                        }, {
+                            $unset: {
+                                [Object.keys(toBeRemoved[i])]: 1
+                            }
+                        });
+                    }
+                }
+
+                function decrement() {
+                    for (var i = 0; i < results.length; i++) {
+                        polls.findAndModify({
+                            question: req.query.question
+                        }, {
+                            '_id': 1
+                        }, {
+
+                            $inc: {
+                                [results[i]]: -1
+                            }
+
+                        });
+                        getEmptyValues(i, results.length, removeEmptyUserAnswers);
+                    }
+               
+                }
+              decrement();    
             }
         }
     }
