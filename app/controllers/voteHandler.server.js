@@ -37,11 +37,11 @@ function voteHandler(db) {
     this.addvote = function(req, res) {
         var results = req.query.data;
               results = results.split(",");
-        console.log("Results: " + results);
+   
         if (results != undefined) {
 
             if (!Array.isArray(results)) {
-                console.log("Not an Array");
+    
                 polls.findAndModify({
                     question: req.query.question
                 }, {
@@ -59,7 +59,7 @@ function voteHandler(db) {
                     res.json(result);
                 });
             } else {
-                console.log("Is an Array");
+         
                    for (var i = 0; i < results.length; i++) {
                     polls.findAndModify({
                         question: req.query.question
@@ -124,19 +124,23 @@ function voteHandler(db) {
               }
             } else {
                 var toBeRemoved = [];
-                
+                console.log(results);
                 function getEmptyValues(i, max, callback) {
+           
                     polls.find({
                         question: req.query.question
                     }, {
                         [results[i]]: 1,
                         _id: 0
                     }).forEach(function(item) {
-                        if (item[results] < 1) {
+               
+                        if (item[results[i]] < 1) {
+         
                            if(results[i].includes("[User Answer]")){
                             toBeRemoved.push(item);
                            }
                            if(i+1 >= max){
+                          
                              callback();
                             }
                         }
@@ -149,6 +153,7 @@ function voteHandler(db) {
                 }
 
                 function removeEmptyUserAnswers() {
+                      
                     for (var i = 0; i < toBeRemoved.length; i++) {
                         polls.update({
                             question: req.query.question
@@ -161,6 +166,7 @@ function voteHandler(db) {
                 }
 
                 function decrement() {
+                
                     for (var i = 0; i < results.length; i++) {
                         polls.findAndModify({
                             question: req.query.question
