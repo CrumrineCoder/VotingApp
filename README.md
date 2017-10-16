@@ -9,3 +9,4 @@ Issues:
 2. I suspect issues with  naming a reply something like null, user, question, or Open
 3. Deleting a poll  that isn't on  the end of the poll throws everything after it off
 4. Recinding a User Vote should remove both of the options, and properly decrease the vote
+5. Editing a poll removes all the spaces from the given replies
