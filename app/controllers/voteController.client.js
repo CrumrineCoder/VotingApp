@@ -87,6 +87,7 @@
                          listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i].Position + "' method='get'>" + "<button style='width:75%;' type='submit'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
                      }
                  }
+            
              } else {
                  listings.innerHTML = "Your account does not have access to edit this poll."
              }
@@ -160,7 +161,7 @@
                  // Format Question
                  question.innerHTML = pollObject[page].question;
                  console.log(question.innerHTML);
-               console.log(question.outerHTML);
+                 console.log(question.outerHTML);
                  // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
 
                  if (pollObject[page]["Options"].includes("OpenAnswers")) {
@@ -380,13 +381,61 @@
 
      function editPoll(data) {
          var pollObject = JSON.parse(data);
-        console.log(pollObject);
+       //  console.log(pollObject);
          // Display the question
-       console.log(pollObject[page].question);
-         document.getElementById('writeQuestion').innerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
-         document.getElementsByClassName('questionStorage')[0].outerHTML = "<input type='hidden' value= '" + pollObject[page].question + "' name='question'/>"
+
+         /*
+         var input = document.createElement("input");
+    var form = document.getElementById('left');
+    input.type = "text";
+    input.name = "answer" + i;
+    input.className = "reply";
+    input.placeholder = "Enter reply";
+    form.insertBefore(input, submitButton);
+    */
+         function insertAfter(referenceNode, newNode) {
+
+             referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+         }
+    
+
+         var input = document.createElement('input');
+         input.type = 'hidden';
+         input.value = pollObject[page].question;
+         input.name = 'question';
+ //        input.id = 'question';
+    var firstQuestion = document.getElementsByClassName('questionContainer')[0];
+   
+       firstQuestion.appendChild(input);
+       
+       
+       var input = document.createElement('input');
+         input.type = 'hidden';
+         input.value = pollObject[page].question;
+         input.name = 'question';
+        var secondQuestion = document.getElementsByClassName('questionContainer')[1];
+      secondQuestion.appendChild(input);
+       
+       var input = document.createElement('input');
+       input.type='hidden';
+       input.value = pollObject[page].Position; 
+       input.name = "Position";
+       firstQuestion.appendChild(input);
+       
+       var input = document.createElement('input');
+       input.type='hidden';
+       input.value = pollObject[page].Position; 
+       input.name = "Position";
+       secondQuestion.appendChild(input);
+        var question = document.getElementById('writeQuestion');
+        // insertAfter(question, input);
+        // insertAfter(document.getElementsByClassName('questionStorage')[0], input);
+         question.innerHTML = pollObject[page].question;
+         //     console.log(pollObject[page].question);
+         //   document.getElementById('writeQuestion').innerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
+         //    document.getElementsByClassName('questionStorage')[0].outerHTML = "<input type='hidden' value= '" + pollObject[page].question + "' name='question'/>"
          // Display the already made answers
-       console.log(document.getElementById('writeQuestion').innerHTML);
+
          var completedAnswers = document.getElementById('alreadyDoneAnswers');
          for (var key in pollObject[page]) {
              if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP" && key != "Position") {
@@ -423,6 +472,7 @@
                  $('.submitButton').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
              }
          }
+       //   console.log(document.getElementById('left').innerHTML);
          checkEditPollReplies();
          $('input:not(#findPolls)').change(checkEditPollReplies);
          $(document).on("change", "input[name='reply']", checkEditPollReplies);
