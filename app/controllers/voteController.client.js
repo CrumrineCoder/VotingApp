@@ -38,7 +38,7 @@
      function showQuestions(data) {
          var listings = document.getElementById('anchor');
          var pollObject = JSON.parse(data);
-         //    console.log(pollObject);
+   
          var number;
          if (pollObject.length != 0) {
              listings.innerHTML = "";
@@ -59,7 +59,7 @@
          var listings = document.getElementById('anchor');
          var number;
          var pollObject = JSON.parse(data);
-         //   console.log(pollObject);
+ 
          function getUser(callback) {
              ajaxRequest('GET', apiUrl + "users/user_data", function(data) {
                  data = JSON.parse(data);
@@ -106,7 +106,7 @@
          //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
          // Get the Data
          var pollObject = JSON.parse(data);
-         console.log(pollObject);
+    
          if (Object.keys(pollObject).length < page) {
              votingButton.innerHTML = "We could not find a poll by that numerical value. 404, and such."
          } else {
@@ -160,8 +160,7 @@
                  }
                  // Format Question
                  question.innerHTML = pollObject[page].question;
-                 console.log(question.innerHTML);
-                 console.log(question.outerHTML);
+
                  // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
 
                  if (pollObject[page]["Options"].includes("OpenAnswers")) {
@@ -381,29 +380,15 @@
 
      function editPoll(data) {
          var pollObject = JSON.parse(data);
-       //  console.log(pollObject);
+   
          // Display the question
 
-         /*
-         var input = document.createElement("input");
-    var form = document.getElementById('left');
-    input.type = "text";
-    input.name = "answer" + i;
-    input.className = "reply";
-    input.placeholder = "Enter reply";
-    form.insertBefore(input, submitButton);
-    */
-         function insertAfter(referenceNode, newNode) {
-
-             referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-         }
     
-
+    
          var input = document.createElement('input');
          input.type = 'hidden';
          input.value = pollObject[page].question;
          input.name = 'question';
- //        input.id = 'question';
     var firstQuestion = document.getElementsByClassName('questionContainer')[0];
    
        firstQuestion.appendChild(input);
@@ -431,7 +416,7 @@
         // insertAfter(question, input);
         // insertAfter(document.getElementsByClassName('questionStorage')[0], input);
          question.innerHTML = pollObject[page].question;
-         //     console.log(pollObject[page].question);
+
          //   document.getElementById('writeQuestion').innerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
          //    document.getElementsByClassName('questionStorage')[0].outerHTML = "<input type='hidden' value= '" + pollObject[page].question + "' name='question'/>"
          // Display the already made answers
@@ -472,7 +457,7 @@
                  $('.submitButton').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
              }
          }
-       //   console.log(document.getElementById('left').innerHTML);
+
          checkEditPollReplies();
          $('input:not(#findPolls)').change(checkEditPollReplies);
          $(document).on("change", "input[name='reply']", checkEditPollReplies);

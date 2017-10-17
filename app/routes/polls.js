@@ -42,7 +42,7 @@ router.post('/create', function(req, res) {
     };
   
   function positionConfigure(){
-  // console.log("Position: " + position);
+
     Position.find({}).forEach(function(item) {
         position = item.Position;
       checkErrors(position)
@@ -52,12 +52,12 @@ router.post('/create', function(req, res) {
             Position: 1,
         }
     });
- //  console.log("Position: " + position);
+
   }
 
     
     function checkErrors(position) {
-   //   console.log("Check Errors: " + position);
+  
         for (var key in req.body) {
             if (req.body[key] != '' && key != 'question' && key != 'user' && key != "OpenAnswers" && key != "Multiple" && key != "Captcha" && key != "IP" && key != "Change" && key != "SeeResults") {
                 numberOfOptions++;
@@ -83,14 +83,14 @@ router.post('/create', function(req, res) {
                 throw err;
             } else {
                 if (result != "Not in docs") {
-                    //   console.log("ERROR ERROR ERROR");
+               
                     errors.push({
                         msg: 'Question is  already in the database.'
                     });
 
                 }
                 restOfCreate(position);
-                //    console.log(result);
+               
             }
         });
 
@@ -98,14 +98,14 @@ router.post('/create', function(req, res) {
     positionConfigure();
 
     function restOfCreate(position) {
-    //  console.log("restOfCreate: " + position);
+ 
         if (errors.length != 0 && errors.length != undefined) {
             res.render('create', {
                 errors: errors,
             });
             errors = [];
         } else {
-            //      console.log(req.body);
+       
             for (var key in req.body) {
                 if (req.body[key] == '') {
                     delete req.body[key];
@@ -125,8 +125,7 @@ router.post('/create', function(req, res) {
                     parsed["user"] = req.body[key];
                 }
             }
-            console.log("Parsed:");
-            console.log(parsed);
+          
             parsed["_id"] = position; 
             parsed["Position"] = position;
    
@@ -151,8 +150,7 @@ router.get('/edit/:id', function(req, res) {
 });
 
 router.post('/edit/', function(req, res) {
-    console.log("Req.Body:");
-    console.log(req.body);
+  
     var numberOfOptions;
     var errors = [];
     if (req.body["reply"] != null) {
@@ -200,16 +198,14 @@ router.post('/edit/', function(req, res) {
                 parsed["question"] = req.body[key].trim();
             }
         }
-      console.log("Parsed:");
-      console.log(parsed);
+
         parsed["user"] = req.user.username;
         parsed["Position"] = req.body.Position;
       
         var newPoll = new Poll(parsed);
         Poll.replace(newPoll, function(err, Poll) {
             if (err) throw err;
-            console.log("Poll:");
-            console.log(Poll);
+          
         });
 
         req.flash('success_msg', 'Changes Saved.');
