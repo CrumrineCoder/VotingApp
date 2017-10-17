@@ -33,8 +33,8 @@
 		{{/if}}
 
           <h5> Note: All votes will be wiped upon editing the poll to prevent vote tampering by the poll creator. The  question is also uneditable for this same reason, but is shown here for convenience sake </h5>
-         <div id="writeQuestion" > </div>
-         <br>
+         <h3 id="writeQuestion" > </h3>
+        <div class="questionContainer"></div>
          <h5> Leave Answers unticked if you wish to delete them. </h5>
          <div id="alreadyDoneAnswers"></div>
          <!--  <input type="text" id="Notes" name="Notes" placeholder="While you cannot edit answers, you can write notes here for typos or other mistakes."> -->
@@ -44,7 +44,7 @@
      </form>
      <br>
      <form method="post" action="/polls/delete" class="poll">
-       <input class="questionStorage"> </input>
+       <div class="questionContainer"> </div>
        <button type="submit" class="deleteButton" style="margin-top: 10px" value="Send order">Delete Poll (this is permanent, and permanent  is a long time!)</button>
     </form>
        <script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>

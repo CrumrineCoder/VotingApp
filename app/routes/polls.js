@@ -125,7 +125,9 @@ router.post('/create', function(req, res) {
                     parsed["user"] = req.body[key];
                 }
             }
-   
+            console.log("Parsed:");
+            console.log(parsed);
+            parsed["_id"] = position; 
             parsed["Position"] = position;
    
             var newPoll = new Poll(parsed);
@@ -149,7 +151,8 @@ router.get('/edit/:id', function(req, res) {
 });
 
 router.post('/edit/', function(req, res) {
-
+    console.log("Req.Body:");
+    console.log(req.body);
     var numberOfOptions;
     var errors = [];
     if (req.body["reply"] != null) {
@@ -189,7 +192,7 @@ router.post('/edit/', function(req, res) {
             Options: []
         };
         for (var key in req.body) {
-            if (key != 'question' && key != 'user' && key != "OpenAnswers" && key != "Multiple" && key != "Captcha" && key != "IP" && key != "Change" && key != "SeeResults") {
+            if (key != 'question' && key != 'user'  && key != 'Position'  && key != "OpenAnswers" && key != "Multiple" && key != "Captcha" && key != "IP" && key != "Change" && key != "SeeResults") {
                 parsed[req.body[key]] = 0;
             } else if (key != 'question' && (key == "OpenAnswers" || key == "Multiple" || key == "Captcha" || key == "Change" || key == "SeeResults")) {
                 parsed["Options"].push(req.body[key])
@@ -197,11 +200,16 @@ router.post('/edit/', function(req, res) {
                 parsed["question"] = req.body[key].trim();
             }
         }
+      console.log("Parsed:");
+      console.log(parsed);
         parsed["user"] = req.user.username;
+        parsed["Position"] = req.body.Position;
+      
         var newPoll = new Poll(parsed);
         Poll.replace(newPoll, function(err, Poll) {
             if (err) throw err;
-
+            console.log("Poll:");
+            console.log(Poll);
         });
 
         req.flash('success_msg', 'Changes Saved.');
