@@ -6,11 +6,11 @@ function voteHandler(db) {
     // Send the collection in a function
     var polls = db.collection('polls');
     var Position = db.collection('Position');
-   this.increasePosition = function(req, res){
-     
-   }
-  
-   
+    this.increasePosition = function(req, res) {
+
+    }
+
+
     this.checkExistance = function(req, res) {
         polls.find({
             question: req.query.question
@@ -35,18 +35,19 @@ function voteHandler(db) {
             __v: 0
         }).toArray(function(err, documents) {
             if (err) throw err
+           documents.sort(compare);
             res.json(documents);
         })
     }
     // Vote on the poll 
     this.addvote = function(req, res) {
         var results = req.query.data;
-              results = results.split(",");
-   
+        results = results.split(",");
+
         if (results != undefined) {
 
             if (!Array.isArray(results)) {
-    
+
                 polls.findAndModify({
                     question: req.query.question
                 }, {
@@ -64,8 +65,8 @@ function voteHandler(db) {
                     res.json(result);
                 });
             } else {
-         
-                   for (var i = 0; i < results.length; i++) {
+
+                for (var i = 0; i < results.length; i++) {
                     polls.findAndModify({
                         question: req.query.question
                     }, {
@@ -98,67 +99,67 @@ function voteHandler(db) {
                     }
 
                 });
-              var toBeRemoved;
-                 polls.find({
-                        question: req.query.question
-                    }, {
-                        [results]: 1,
-                        _id: 0
-                    }).forEach(function(item) {
-                        if (item[results] < 1) {
-                           if(results.includes("[User Answer]")){
+                var toBeRemoved;
+                polls.find({
+                    question: req.query.question
+                }, {
+                    [results]: 1,
+                    _id: 0
+                }).forEach(function(item) {
+                    if (item[results] < 1) {
+                        if (results.includes("[User Answer]")) {
                             toBeRemoved = item;
-                           }
-                  
                         }
-                    }, function(err, result) {
+
+                    }
+                }, function(err, result) {
                     if (err) {
                         throw err;
                     }
                     res.json(result);
-                });  
-              
-              if(toBeRemoved != null){
-                 polls.update({
-                            question: req.query.question
-                        }, {
-                            $unset: {
-                                [Object.keys(toBeRemoved)]: 1
-                            }
-                        });
-              }
+                });
+
+                if (toBeRemoved != null) {
+                    polls.update({
+                        question: req.query.question
+                    }, {
+                        $unset: {
+                            [Object.keys(toBeRemoved)]: 1
+                        }
+                    });
+                }
             } else {
                 var toBeRemoved = [];
 
                 function getEmptyValues(i, max, callback) {
-           
+
                     polls.find({
                         question: req.query.question
                     }, {
                         [results[i]]: 1,
                         _id: 0
                     }).forEach(function(item) {
-               
+
                         if (item[results[i]] < 1) {
-         
-                           if(results[i].includes("[User Answer]")){
-                            toBeRemoved.push(item);
-                           }
-                           if(i+1 >= max){
-                          
-                             callback();
+
+                            if (results[i].includes("[User Answer]")) {
+                                toBeRemoved.push(item);
+                            }
+                            if (i + 1 >= max) {
+
+                                callback();
                             }
                         }
                     }, function(err, result) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.json(result);
-                });            
+                        if (err) {
+                            throw err;
+                        }
+                        res.json(result);
+                    });
                 }
 
                 function removeEmptyUserAnswers() {
-                      
+
                     for (var i = 0; i < toBeRemoved.length; i++) {
                         polls.update({
                             question: req.query.question
@@ -171,7 +172,7 @@ function voteHandler(db) {
                 }
 
                 function decrement() {
-                
+
                     for (var i = 0; i < results.length; i++) {
                         polls.findAndModify({
                             question: req.query.question
@@ -186,9 +187,9 @@ function voteHandler(db) {
                         });
                         getEmptyValues(i, results.length, removeEmptyUserAnswers);
                     }
-               
+
                 }
-              decrement();    
+                decrement();
             }
         }
     }
@@ -230,7 +231,13 @@ function voteHandler(db) {
             res.json(result);
         });
     }
-
+    function compare(a, b) {
+                if (a.Position < b.Position)
+                    return -1;
+                if (a.Position > b.Position)
+                    return 1;
+                return 0;
+            }
     this.searchPolls = function(req, res) {
         var searchTerm = req.query.searchTerm;
         polls.find({
@@ -241,6 +248,7 @@ function voteHandler(db) {
             __v: 0
         }).toArray(function(err, documents) {
             if (err) throw err
+            documents.sort(compare);
             res.json(documents);
         })
     }
@@ -253,7 +261,7 @@ function voteHandler(db) {
             _v: 0
         }).toArray(function(err, documents) {
             if (err) throw err
-
+            documents.sort(compare);
             res.json(documents);
         })
     }

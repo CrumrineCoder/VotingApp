@@ -296,6 +296,19 @@ margin: 10px 0px 10px 0px;
   background: #E3D56B;
 }
 
+/* Edit */
+
+.deleteButton{
+   background: #FF8586;
+   border: none; 
+  padding: 10px; 
+  text-align: left; 
+    border-radius: 10px; 
+}
+.deleteButton:hover{
+  background: #E37677;
+}
+
 
 
 /* Media Queries */
