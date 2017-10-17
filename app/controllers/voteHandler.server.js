@@ -129,7 +129,7 @@ function voteHandler(db) {
               }
             } else {
                 var toBeRemoved = [];
-                console.log(results);
+               // console.log(results);
                 function getEmptyValues(i, max, callback) {
            
                     polls.find({
