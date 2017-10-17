@@ -95,19 +95,17 @@ module.exports.delete = function(poll, callback) {
     // Get every document with an ID larger than it and decrement it { qty: { $gt: 4 } } 
     function decrement(id) {
        
-        polls.findAndModify({
+        polls.update({
             Position: {
                 $gt: id
             }
-        }, {
-            '_id': 1
         }, {
 
             $inc: {
                 Position: -1
             }
 
-        })
+        }, { multi: true })
     }
 
 }
