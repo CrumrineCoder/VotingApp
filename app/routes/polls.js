@@ -42,21 +42,22 @@ router.post('/create', function(req, res) {
     };
   
   function positionConfigure(){
-  //  console.log("Position");
+  // console.log("Position: " + position);
     Position.find({}).forEach(function(item) {
         position = item.Position;
+      checkErrors(position)
     });
     Position.update({}, {
         $inc: {
             Position: 1,
         }
-    },   checkErrors());
- 
+    });
+ //  console.log("Position: " + position);
   }
 
     
-    function checkErrors() {
-  //    console.log("Check Errors");
+    function checkErrors(position) {
+   //   console.log("Check Errors: " + position);
         for (var key in req.body) {
             if (req.body[key] != '' && key != 'question' && key != 'user' && key != "OpenAnswers" && key != "Multiple" && key != "Captcha" && key != "IP" && key != "Change" && key != "SeeResults") {
                 numberOfOptions++;
@@ -88,7 +89,7 @@ router.post('/create', function(req, res) {
                     });
 
                 }
-                restOfCreate();
+                restOfCreate(position);
                 //    console.log(result);
             }
         });
@@ -96,8 +97,8 @@ router.post('/create', function(req, res) {
     }
     positionConfigure();
 
-    function restOfCreate() {
-   //   console.log("restOfCreate");
+    function restOfCreate(position) {
+    //  console.log("restOfCreate: " + position);
         if (errors.length != 0 && errors.length != undefined) {
             res.render('create', {
                 errors: errors,
