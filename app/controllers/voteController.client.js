@@ -38,13 +38,14 @@
      function showQuestions(data) {
          var listings = document.getElementById('anchor');
          var pollObject = JSON.parse(data);
+         //    console.log(pollObject);
          var number;
          if (pollObject.length != 0) {
              listings.innerHTML = "";
              for (var i = 0; i < pollObject.length; i++) {
                  number = 0;
                  for (var key in pollObject[i]) {
-                     if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP" && key != "question"  && key != "Position") {
+                     if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP" && key != "question" && key != "Position") {
                          number += pollObject[i][key];
                      }
                  }
@@ -56,7 +57,9 @@
      function showUserQuestions(data) {
          var user;
          var listings = document.getElementById('anchor');
-
+         var number;
+         var pollObject = JSON.parse(data);
+         //   console.log(pollObject);
          function getUser(callback) {
              ajaxRequest('GET', apiUrl + "users/user_data", function(data) {
                  data = JSON.parse(data);
@@ -68,8 +71,7 @@
          }
 
          getUser(function() {
-             var number;
-             var pollObject = JSON.parse(data);
+
 
              if (pollObject[0].user == user) {
 
@@ -103,7 +105,7 @@
          //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
          // Get the Data
          var pollObject = JSON.parse(data);
-
+         console.log(pollObject);
          if (Object.keys(pollObject).length < page) {
              votingButton.innerHTML = "We could not find a poll by that numerical value. 404, and such."
          } else {
@@ -157,10 +159,12 @@
                  }
                  // Format Question
                  question.innerHTML = pollObject[page].question;
+                 console.log(question.innerHTML);
+               console.log(question.outerHTML);
                  // If the 'Open' option has been selected, allow the user to select the radio/checkbox and make their own value. The placeholder will change with the user's choice.
-       
-               if (pollObject[page]["Options"].includes("OpenAnswers")) {
-       
+
+                 if (pollObject[page]["Options"].includes("OpenAnswers")) {
+
                      document.getElementById("openRadio").innerHTML = "<input id='OpenAnswer' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='OpenAnswer'> <span id='placeholder'>Write your own answer here. </span></label>"
 
                      document.getElementById("openRadio").innerHTML += "<br>";
@@ -176,7 +180,7 @@
                  }
                  // Format the rest of the replies
                  for (var key in pollObject[page]) {
-                     if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP"  && key != "Position") {
+                     if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP" && key != "Position") {
                          var value = key;
                          replies.innerHTML += "<input id='" + value + "' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='" + value + "'>" + value + "</label>"
                          replies.innerHTML += "<br>";
@@ -203,7 +207,7 @@
                      } else {
 
                          result = document.querySelector('input[name= "reply"]:checked').value;
-                       
+
                          // Check if the user selected more than 1 checkbox
                          // If it's radios, it's not posible
                          if (votingOption != "radio") {
@@ -215,19 +219,18 @@
                                  }
                              }
                              // Check if the user made an option
-             
+
                              if (!Object.hasOwnProperty.call(pollObject[page], result[0])) {
                                  // If so, brand it   
-                                     result[0] = "[User Answer] " + result[0];                   
+                                 result[0] = "[User Answer] " + result[0];
                              }
                              // If the user selected one option, get rid of the array
                              if (result.length == 1) {
                                  result = result[0];
                              }
-                         }
-                         else{
-                            if (!Object.hasOwnProperty.call(pollObject[page], result)) {
-                                 result = "[User Answer] " + result;                           
+                         } else {
+                             if (!Object.hasOwnProperty.call(pollObject[page], result)) {
+                                 result = "[User Answer] " + result;
                              }
                          }
                          localStorage.setItem("question", pollObject[page].question);
@@ -241,7 +244,7 @@
 
              } else {
                  // Error message for voting on the same poll and show them to the results page
-           
+
                  window.location.replace(apiUrl + "polls/view/" + page + "/results");
              }
 
@@ -258,7 +261,7 @@
              if (localStorage.getItem("question") == pollObject.question && pollObject["Options"].includes("Change")) {
 
                  document.getElementById("rescind").addEventListener('click', function(e) {
-          
+
                      ajaxRequest('POST', "https://joinordie.glitch.me/api/rescind/?data=" + localStorage.getItem("result") + "&question=" + localStorage.getItem("question"), function() {
                          ajaxRequest('GET', "https://joinordie.glitch.me/api/removeVoter/?IP=" + ip + "&question=" + localStorage.getItem("question"), function() {
                              window.location.replace(apiUrl + "polls/view/" + number + "?");
@@ -370,25 +373,27 @@
              }
          } else {
              // Error handling to be done
-         
+
              window.location.replace(apiUrl + "polls/view/" + number + "?/");
          }
      }
 
      function editPoll(data) {
          var pollObject = JSON.parse(data);
-
+        console.log(pollObject);
          // Display the question
-         document.getElementById('writeQuestion').outerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
+       console.log(pollObject[page].question);
+         document.getElementById('writeQuestion').innerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
          document.getElementsByClassName('questionStorage')[0].outerHTML = "<input type='hidden' value= '" + pollObject[page].question + "' name='question'/>"
          // Display the already made answers
+       console.log(document.getElementById('writeQuestion').innerHTML);
          var completedAnswers = document.getElementById('alreadyDoneAnswers');
          for (var key in pollObject[page]) {
-             if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP"  && key != "Position") {
+             if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP" && key != "Position") {
                  var value = key;
-                 completedAnswers.innerHTML += "<input id='" + value.trim()+ "' type= 'checkbox' value = '" +value.trim()+ "' name='reply'  checked class='vis-hidden' /> <label class='voteButton' for='" + value.trim()+ "'>" + value + "</label>"
+                 completedAnswers.innerHTML += "<input id='" + value.trim() + "' type= 'checkbox' value = '" + value.trim() + "' name='reply'  checked class='vis-hidden' /> <label class='voteButton' for='" + value.trim() + "'>" + value + "</label>"
                  completedAnswers.innerHTML += "<br>";
-        
+
              }
          }
          //document.getElementById("question").setAttribute('size', document.getElementById("question").getAttribute('placeholder').length);
@@ -400,7 +405,7 @@
              var replies = 0;
              var question = document.getElementById('writeQuestion');
              $('input').each(function() {
-          
+
                  // Check for already made answers
                  if ($(this).attr('name') == 'reply' && $(this).is(":checked")) {
                      replies++;
@@ -416,7 +421,7 @@
              } else {
                  $('.submitButton').removeClass('disabled');
                  $('.submitButton').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-             } 
+             }
          }
          checkEditPollReplies();
          $('input:not(#findPolls)').change(checkEditPollReplies);

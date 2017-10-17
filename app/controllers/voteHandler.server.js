@@ -35,6 +35,7 @@ function voteHandler(db) {
             __v: 0
         }).toArray(function(err, documents) {
             if (err) throw err
+       //    console.log(documents);
             res.json(documents);
         })
     }
@@ -253,7 +254,8 @@ function voteHandler(db) {
             _v: 0
         }).toArray(function(err, documents) {
             if (err) throw err
-            res.json(documents);
+        //    console.log(documents);
+            res.json(documents.reverse());
         })
     }
 }

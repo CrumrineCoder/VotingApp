@@ -59,11 +59,11 @@ module.exports.delete = function(poll, callback) {
     });
 
   
-   // console.log("Delete");
+    console.log("Delete");
     polls.deleteOne({
         question: poll.question
     });
-   // console.log("Update Count");
+    console.log("Update Count");
     counter.update({}, {
         $inc: {
             "count": -1
@@ -78,7 +78,7 @@ module.exports.delete = function(poll, callback) {
     });
     // Get every document with an ID larger than it and decrement it { qty: { $gt: 4 } } 
     function decrement(id) {
-   //     console.log("ID: " + id);
+       console.log("ID: " + id);
         polls.findAndModify({
             Position: {
                 $gt: id
