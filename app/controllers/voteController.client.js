@@ -44,11 +44,11 @@
              for (var i = 0; i < pollObject.length; i++) {
                  number = 0;
                  for (var key in pollObject[i]) {
-                     if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP" && key != "question") {
+                     if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP" && key != "question"  && key != "Position") {
                          number += pollObject[i][key];
                      }
                  }
-                 listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + pollObject[i]._id + "' method='get'>" + "<button type='submit' style='width: 75%;'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
+                 listings.innerHTML += "<form action='" + apiUrl + "polls/view/" + pollObject[i].Position + "' method='get'>" + "<button type='submit' style='width: 75%;'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
              }
          }
      }
@@ -78,11 +78,11 @@
                      for (var i = 0; i < pollObject.length; i++) {
                          number = 0;
                          for (var key in pollObject[i]) {
-                             if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP" && key != 'question') {
+                             if (!isNaN(parseInt(pollObject[i][key])) && key != "_id" && key != "IP" && key != 'question' && key != "Position") {
                                  number += pollObject[i][key];
                              }
                          }
-                         listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i]._id + "' method='get'>" + "<button style='width:75%;' type='submit'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
+                         listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i].Position + "' method='get'>" + "<button style='width:75%;' type='submit'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
                      }
                  }
              } else {
@@ -176,7 +176,7 @@
                  }
                  // Format the rest of the replies
                  for (var key in pollObject[page]) {
-                     if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP") {
+                     if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP"  && key != "Position") {
                          var value = key;
                          replies.innerHTML += "<input id='" + value + "' type=" + votingOption + " value = '" + value + "' name='reply' class='vis-hidden voteButton'/><label class='voteButton' for='" + value + "'>" + value + "</label>"
                          replies.innerHTML += "<br>";
@@ -275,6 +275,7 @@
              delete pollObject.question;
              delete pollObject._id;
              delete pollObject.user;
+             delete pollObject.Position;
 
              var datum = [];
              for (var i in pollObject) {
@@ -383,7 +384,7 @@
          // Display the already made answers
          var completedAnswers = document.getElementById('alreadyDoneAnswers');
          for (var key in pollObject[page]) {
-             if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP") {
+             if (key != 'question' && key != "user" && key != "_id" && key != "Options" && key != "IP"  && key != "Position") {
                  var value = key;
                  completedAnswers.innerHTML += "<input id='" + value.trim()+ "' type= 'checkbox' value = '" +value.trim()+ "' name='reply'  checked class='vis-hidden' /> <label class='voteButton' for='" + value.trim()+ "'>" + value + "</label>"
                  completedAnswers.innerHTML += "<br>";

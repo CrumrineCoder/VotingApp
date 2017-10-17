@@ -5,7 +5,12 @@ function voteHandler(db) {
     // Get the 'polls' collection
     // Send the collection in a function
     var polls = db.collection('polls');
-
+    var Position = db.collection('Position');
+   this.increasePosition = function(req, res){
+     
+   }
+  
+   
     this.checkExistance = function(req, res) {
         polls.find({
             question: req.query.question

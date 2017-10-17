@@ -4,6 +4,12 @@ var router = express.Router();
 //var passport = require('passport');
 //var LocalStrategy = require('passport-local').Strategy;
 var Poll = require(process.cwd() + '/models/poll');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
+    useMongoClient: true
+});
+var db = mongoose.connection;
+var Position = db.collection('Position');
 //var page; 
 router.get('/create', function(req, res) {
     res.render('create');
@@ -28,13 +34,29 @@ router.get('/view/:id/results', function(req, res) {
 
 // Create poll
 router.post('/create', function(req, res) {
-    var numberOfOptions = 0;
+    var position;
+  var numberOfOptions = 0;
     var errors = [];
     if (Object.hasOwnProperty.call(req.body, "user")) {
         req.body.user = req.user.username;
     };
+  
+  function positionConfigure(){
+    console.log("Position");
+    Position.find({}).forEach(function(item) {
+        position = item.Position;
+    });
+    Position.update({}, {
+        $inc: {
+            Position: 1,
+        }
+    },   checkErrors());
+ 
+  }
 
-    function checkErrors(callback) {
+    
+    function checkErrors() {
+      console.log("Check Errors");
         for (var key in req.body) {
             if (req.body[key] != '' && key != 'question' && key != 'user' && key != "OpenAnswers" && key != "Multiple" && key != "Captcha" && key != "IP" && key != "Change" && key != "SeeResults") {
                 numberOfOptions++;
@@ -54,6 +76,7 @@ router.post('/create', function(req, res) {
         var dummy = {};
         dummy["question"] = req.body['question'].trim();
         var newQuestion = new Poll(dummy);
+
         Poll.checkExistance(newQuestion, res, function(err, result) {
             if (err) {
                 throw err;
@@ -65,22 +88,23 @@ router.post('/create', function(req, res) {
                     });
 
                 }
-                callback();
+                restOfCreate();
                 //    console.log(result);
             }
         });
 
     }
-    checkErrors(restOfCreate);
+    positionConfigure();
 
     function restOfCreate() {
+      console.log("restOfCreate");
         if (errors.length != 0 && errors.length != undefined) {
             res.render('create', {
                 errors: errors,
             });
             errors = [];
         } else {
-            console.log(req.body);
+            //      console.log(req.body);
             for (var key in req.body) {
                 if (req.body[key] == '') {
                     delete req.body[key];
@@ -100,7 +124,9 @@ router.post('/create', function(req, res) {
                     parsed["user"] = req.body[key];
                 }
             }
-
+   
+            parsed["Position"] = position;
+   
             var newPoll = new Poll(parsed);
             Poll.createPoll(newPoll, function(err, Poll) {
                 if (err) throw err;
@@ -125,11 +151,11 @@ router.post('/edit/', function(req, res) {
 
     var numberOfOptions;
     var errors = [];
-  if(req.body["reply"] != null){
-    for (var i = 0; i < req.body["reply"].length; i++) {
-        req.body["addedAnswer" + i] = req.body["reply"][i];
+    if (req.body["reply"] != null) {
+        for (var i = 0; i < req.body["reply"].length; i++) {
+            req.body["addedAnswer" + i] = req.body["reply"][i];
+        }
     }
-  }
     delete req.body["reply"];
 
     for (var key in req.body) {
