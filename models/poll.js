@@ -31,7 +31,9 @@ PollSchema.plugin(autoIncrement.plugin, {
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
 
 module.exports.createPoll = function(newPoll, callback) {
-    newPoll.save(callback);
+
+      newPoll.save(callback);
+
 }
 var polls = db.collection('polls');
 var counter = db.collection('identitycounters');
@@ -42,17 +44,24 @@ module.exports.replace = function(newPoll, callback) {
         }
     }, newPoll);
 }
-
+    var Position = db.collection('Position');
 module.exports.delete = function(poll, callback) {
     // Get the id of the question
-    var id;
+    var position;
     polls.find({
         question: poll.question
     }).forEach(function(item) {
-        id = item._id;
-        decrement(id);
+        position = item._id;
+        decrement(position);
     });
 
+   Position.update({}, {
+        $inc: {
+            Position: -1,
+        }
+    });
+
+  
     console.log("Delete");
     polls.deleteOne({
         question: poll.question
@@ -82,7 +91,7 @@ module.exports.delete = function(poll, callback) {
         }, {
 
             $inc: {
-                _id: 1
+                Position: -1
             }
 
         })

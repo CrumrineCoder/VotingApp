@@ -34,6 +34,6 @@ module.exports = function(app, db) {
       .get(voteHandler.removeVoter)
     app.route('/api/validate/?')
       .get(validationHandler.validateCaptcha)
- 
-    
+    app.route('/api/increasePosition')
+        .get(voteHandler.increasePosition);
 };
