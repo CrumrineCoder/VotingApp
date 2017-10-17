@@ -1,12 +1,12 @@
 // This file handles the backend for the poll mongoose schema
 var mongoose = require('mongoose');
-var autoIncrement = require('mongoose-auto-increment');;
+
 var bcrypt = require('bcryptjs');
 mongoose.connect('mongodb://' + process.env.HOST + '/' + process.env.NAME, {
     useMongoClient: true
 });
 var db = mongoose.connection;
-autoIncrement.initialize(db);
+
 // User Schema
 var PollSchema = mongoose.Schema({
     IP: [String],
@@ -24,10 +24,7 @@ var PollSchema = mongoose.Schema({
 PollSchema.index({
     question: 'text'
 });
-PollSchema.plugin(autoIncrement.plugin, {
-    model: 'Poll',
-    startAt: 0
-});
+
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
 
 module.exports.createPoll = function(newPoll, callback) {
@@ -51,7 +48,7 @@ module.exports.delete = function(poll, callback) {
     polls.find({
         question: poll.question
     }).forEach(function(item) {
-        position = item._id;
+        position = item.Position;
         decrement(position);
     });
 
@@ -62,11 +59,11 @@ module.exports.delete = function(poll, callback) {
     });
 
   
-    console.log("Delete");
+   // console.log("Delete");
     polls.deleteOne({
         question: poll.question
     });
-    console.log("Update Count");
+   // console.log("Update Count");
     counter.update({}, {
         $inc: {
             "count": -1
@@ -81,9 +78,9 @@ module.exports.delete = function(poll, callback) {
     });
     // Get every document with an ID larger than it and decrement it { qty: { $gt: 4 } } 
     function decrement(id) {
-        console.log("ID: " + id)
+   //     console.log("ID: " + id);
         polls.findAndModify({
-            _id: {
+            Position: {
                 $gt: id
             }
         }, {

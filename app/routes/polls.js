@@ -42,7 +42,7 @@ router.post('/create', function(req, res) {
     };
   
   function positionConfigure(){
-    console.log("Position");
+  //  console.log("Position");
     Position.find({}).forEach(function(item) {
         position = item.Position;
     });
@@ -56,7 +56,7 @@ router.post('/create', function(req, res) {
 
     
     function checkErrors() {
-      console.log("Check Errors");
+  //    console.log("Check Errors");
         for (var key in req.body) {
             if (req.body[key] != '' && key != 'question' && key != 'user' && key != "OpenAnswers" && key != "Multiple" && key != "Captcha" && key != "IP" && key != "Change" && key != "SeeResults") {
                 numberOfOptions++;
@@ -97,7 +97,7 @@ router.post('/create', function(req, res) {
     positionConfigure();
 
     function restOfCreate() {
-      console.log("restOfCreate");
+   //   console.log("restOfCreate");
         if (errors.length != 0 && errors.length != undefined) {
             res.render('create', {
                 errors: errors,
