@@ -1,4 +1,4 @@
-
+// This file handles the verification of reCaptcha
 'use strict';
 var https = require('https');
 

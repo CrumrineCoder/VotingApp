@@ -8,10 +8,10 @@
  }
  window.onload = function() {
 
-
      var result = null;
      var apiUrl = 'https://joinordie.glitch.me/';
 
+     // Ready and ajaxRequest are used to make requests to the backend.
      function ready(fn) {
          // Will do the function once the document is ready
          if (typeof fn !== 'function') {
@@ -35,10 +35,11 @@
          xmlhttp.send();
      }
 
+     // showQuestions shows the polls when the user clicks 'View Polls' on the navigation bar.
      function showQuestions(data) {
          var listings = document.getElementById('anchor');
          var pollObject = JSON.parse(data);
-   
+
          var number;
          if (pollObject.length != 0) {
              listings.innerHTML = "";
@@ -54,12 +55,14 @@
          }
      }
 
+     // showUserQuestions shows the poll that a user has created when they go to their dashboard.
      function showUserQuestions(data) {
          var user;
          var listings = document.getElementById('anchor');
          var number;
          var pollObject = JSON.parse(data);
- 
+
+         // getUser gets the user's username and gets all polls that has the user's username.
          function getUser(callback) {
              ajaxRequest('GET', apiUrl + "users/user_data", function(data) {
                  data = JSON.parse(data);
@@ -70,9 +73,8 @@
              });
          }
 
+         // After getUser, this function shows all of the polls that the user has created 
          getUser(function() {
-
-
              if (pollObject[0].user == user) {
 
                  if (pollObject.length != 0) {
@@ -87,36 +89,41 @@
                          listings.innerHTML += "<form action='" + apiUrl + "polls/edit/" + pollObject[i].Position + "' method='get'>" + "<button style='width:75%;' type='submit'>" + pollObject[i].question + "<div class='smallNumber'>" + number + "</div> </button>" + "<br>" + "</form>";
                      }
                  }
-            
+
              } else {
                  listings.innerHTML = "Your account does not have access to edit this poll."
              }
          });
      }
 
+     // These are used to determine what page the user is on.
      var path = window.location.pathname;
      var page = path.split("/").pop();
 
-
+     // When a poll is clicked on, this function runs; this function shows the user what options they have and handles form submission to the poll.
      function showVotingOptions(data) {
 
          var question = document.getElementById('question');
          var replies = document.getElementById('responses');
          var votingButton = document.getElementById('votingButton');
-         //    votingButton.innerHTML = "<form action='" + apiUrl + "polls/view/" + page + "/results' method='get'>" + "<button type='submit'> Vote </button>" + "<br>" + "</form>";
-         // Get the Data
+
          var pollObject = JSON.parse(data);
-    
+
+         // Error handling
          if (Object.keys(pollObject).length < page) {
              votingButton.innerHTML = "We could not find a poll by that numerical value. 404, and such."
          } else {
-             //|| pollObject[page]["Options"].includes("Change")
+
+             // If the user has not already voted on this poll (represented by storing their IP and checking inf it's there)
              if (!pollObject[page].IP.includes(ip)) {
 
+                 // Go to the results of the page
                  function seeResults() {
                      window.location.replace(apiUrl + "polls/view/" + page + "/results");
                  }
+
                  var status = document.getElementById("status");
+                 // Showing the options the poll creator made to the user that depends on how many choices the user can make and whether they can see the results before voting
                  if (pollObject[page]["Options"].includes("Change") && pollObject[page]["Options"].includes("SeeResults")) {
 
                      status.innerHTML = "You will  be able to recind your vote and see the results before voting."
@@ -135,9 +142,8 @@
                  // If the 'Multiple' option has been selected, have all the user replies be checkboxes to allow for multiple answers, otherwise use radios
 
                  if (pollObject[page]["Options"].includes("Captcha")) {
-                     //var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-
+                     // If the poll creator enabled Captcha, then this happens
                      var secret = "6LeXKjIUAAAAAJoaHILx2XTGAl9R0wtXmxypOqPN";
                      var captchaContainer = null;
                      var loadCaptcha = function() {
@@ -153,6 +159,7 @@
                      loadCaptcha();
                  }
 
+                 // If the poll creator allows for multiple replies, make the form options checkboxes, else they're radios (change is in how they react to multiple being selected)
                  if (pollObject[page]["Options"].includes("Multiple")) {
                      var votingOption = "checkbox";
                  } else {
@@ -186,14 +193,14 @@
                          replies.innerHTML += "<br>";
                      }
                  }
-
+                 // Make the buttons to complete the form visible after all of this stuff is loaded
                  document.getElementById("makeVisible").style.visibility = "visible";
 
-                 // On finishing the form
+                 // On finishing the form...
                  votingButton.addEventListener('click', function(e) {
 
-
                      ajaxRequest('GET', "https://joinordie.glitch.me/api/addVoter/?IP=" + ip + "&question=" + pollObject[page].question, function() {});
+                     // Captcha verification
                      if (pollObject[page]["Options"].includes("Captcha") && !captchaFinished) {
                          // If Captch is required but not filled out
 
@@ -205,7 +212,7 @@
                          e.preventDefault();
 
                      } else {
-
+                         // storing the data
                          result = document.querySelector('input[name= "reply"]:checked').value;
 
                          // Check if the user selected more than 1 checkbox
@@ -272,7 +279,8 @@
              } else {
                  document.getElementById("rescind").innerHTML = "";
              }
-             document.getElementById('pollQuestion').innerHTML = "<p> " + pollObject.question + " </p>"
+             document.getElementById('pollQuestion').innerHTML = "<p> " + pollObject.question + " </p>";
+             // We don't want these to show up on the poll results page.
              delete pollObject.IP;
              delete pollObject.Options;
              delete pollObject.question;
@@ -301,7 +309,6 @@
                  return a + b;
              }, 0);
              totalVotesHTML.innerHTML = "<p> Total Votes: " + sum + " </p>";
-
 
              var ctx = document.getElementById("bar").getContext('2d');
              var options = {
@@ -380,41 +387,38 @@
 
      function editPoll(data) {
          var pollObject = JSON.parse(data);
-   
+
          // Display the question
 
-    
-    
          var input = document.createElement('input');
          input.type = 'hidden';
          input.value = pollObject[page].question;
          input.name = 'question';
-    var firstQuestion = document.getElementsByClassName('questionContainer')[0];
-   
-       firstQuestion.appendChild(input);
-       
-       
-       var input = document.createElement('input');
+         var firstQuestion = document.getElementsByClassName('questionContainer')[0];
+
+         firstQuestion.appendChild(input);
+
+         var input = document.createElement('input');
          input.type = 'hidden';
          input.value = pollObject[page].question;
          input.name = 'question';
-        var secondQuestion = document.getElementsByClassName('questionContainer')[1];
-      secondQuestion.appendChild(input);
-       
-       var input = document.createElement('input');
-       input.type='hidden';
-       input.value = pollObject[page].Position; 
-       input.name = "Position";
-       firstQuestion.appendChild(input);
-       
-       var input = document.createElement('input');
-       input.type='hidden';
-       input.value = pollObject[page].Position; 
-       input.name = "Position";
-       secondQuestion.appendChild(input);
-        var question = document.getElementById('writeQuestion');
-        // insertAfter(question, input);
-        // insertAfter(document.getElementsByClassName('questionStorage')[0], input);
+         var secondQuestion = document.getElementsByClassName('questionContainer')[1];
+         secondQuestion.appendChild(input);
+
+         var input = document.createElement('input');
+         input.type = 'hidden';
+         input.value = pollObject[page].Position;
+         input.name = "Position";
+         firstQuestion.appendChild(input);
+
+         var input = document.createElement('input');
+         input.type = 'hidden';
+         input.value = pollObject[page].Position;
+         input.name = "Position";
+         secondQuestion.appendChild(input);
+         var question = document.getElementById('writeQuestion');
+         // insertAfter(question, input);
+         // insertAfter(document.getElementsByClassName('questionStorage')[0], input);
          question.innerHTML = pollObject[page].question;
 
          //   document.getElementById('writeQuestion').innerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
@@ -483,6 +487,5 @@
      } else if (!isNaN(page) && page != "" && page != "create") {
          ready(ajaxRequest('GET', apiUrl + "api/listings", showVotingOptions));
      }
-
 
  };
