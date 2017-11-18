@@ -1,16 +1,12 @@
 'use strict';
 // This file gets the polls collection data from the db and handles adding votes to the database
 function voteHandler(db) {
-    //
     // Get the 'polls' collection
     // Send the collection in a function
     var polls = db.collection('polls');
     var Position = db.collection('Position');
-    this.increasePosition = function(req, res) {
-
-    }
-
-
+    this.increasePosition = function(req, res) {}
+    // Used to check if a poll is in the database
     this.checkExistance = function(req, res) {
         polls.find({
             question: req.query.question
@@ -27,37 +23,31 @@ function voteHandler(db) {
                     res.json("Not in docs");
                 }
             });
-
     }
-    // get all polls
+    // get all polls and return them
     this.getPolls = function(req, res) {
         polls.find({}, {
             __v: 0
         }).toArray(function(err, documents) {
             if (err) throw err
-           documents.sort(compare);
+            documents.sort(compare);
             res.json(documents);
         })
     }
-    // Vote on the poll 
+    // Votes on a poll
     this.addvote = function(req, res) {
         var results = req.query.data;
         results = results.split(",");
-
         if (results != undefined) {
-
             if (!Array.isArray(results)) {
-
                 polls.findAndModify({
                     question: req.query.question
                 }, {
                     '_id': 1
                 }, {
-
                     $inc: {
                         [results]: 1
                     }
-
                 }, function(err, result) {
                     if (err) {
                         throw err;
@@ -65,26 +55,23 @@ function voteHandler(db) {
                     res.json(result);
                 });
             } else {
-
                 for (var i = 0; i < results.length; i++) {
                     polls.findAndModify({
                         question: req.query.question
                     }, {
                         '_id': 1
                     }, {
-
                         $inc: {
                             [results[i]]: 1
                         }
-
                     });
                 }
             }
         }
     };
+    // Remove a vote from a poll
     this.rescindVote = function(req, res) {
         var results = req.query.data;
-
         if (results != undefined) {
             results = results.split(",");
             if (!Array.isArray(results)) {
@@ -93,11 +80,9 @@ function voteHandler(db) {
                 }, {
                     '_id': 1
                 }, {
-
                     $inc: {
                         [results]: -1
                     }
-
                 });
                 var toBeRemoved;
                 polls.find({
@@ -110,7 +95,6 @@ function voteHandler(db) {
                         if (results.includes("[User Answer]")) {
                             toBeRemoved = item;
                         }
-
                     }
                 }, function(err, result) {
                     if (err) {
@@ -118,7 +102,6 @@ function voteHandler(db) {
                     }
                     res.json(result);
                 });
-
                 if (toBeRemoved != null) {
                     polls.update({
                         question: req.query.question
@@ -132,21 +115,17 @@ function voteHandler(db) {
                 var toBeRemoved = [];
 
                 function getEmptyValues(i, max, callback) {
-
                     polls.find({
                         question: req.query.question
                     }, {
                         [results[i]]: 1,
                         _id: 0
                     }).forEach(function(item) {
-
                         if (item[results[i]] < 1) {
-
                             if (results[i].includes("[User Answer]")) {
                                 toBeRemoved.push(item);
                             }
                             if (i + 1 >= max) {
-
                                 callback();
                             }
                         }
@@ -159,7 +138,6 @@ function voteHandler(db) {
                 }
 
                 function removeEmptyUserAnswers() {
-
                     for (var i = 0; i < toBeRemoved.length; i++) {
                         polls.update({
                             question: req.query.question
@@ -172,27 +150,24 @@ function voteHandler(db) {
                 }
 
                 function decrement() {
-
                     for (var i = 0; i < results.length; i++) {
                         polls.findAndModify({
                             question: req.query.question
                         }, {
                             '_id': 1
                         }, {
-
                             $inc: {
                                 [results[i]]: -1
                             }
-
                         });
                         getEmptyValues(i, results.length, removeEmptyUserAnswers);
                     }
-
                 }
                 decrement();
             }
         }
     }
+    // Add an IP to the IP part of a poll in the database to prevent vote tampering
     this.addVoter = function(req, res) {
         var user = req.query.IP;
         polls.findAndModify({
@@ -200,11 +175,9 @@ function voteHandler(db) {
         }, {
             '_id': 1
         }, {
-
             $push: {
                 IP: user
             }
-
         }, function(err, result) {
             if (err) {
                 throw err;
@@ -212,6 +185,7 @@ function voteHandler(db) {
             res.json(result);
         });
     }
+    // Remove an IP from the IP part of a poll in the database, used when rescinding a vote
     this.removeVoter = function(req, res) {
         var user = req.query.IP;
         polls.findAndModify({
@@ -219,11 +193,9 @@ function voteHandler(db) {
         }, {
             '_id': 1
         }, {
-
             $pull: {
                 IP: user
             }
-
         }, function(err, result) {
             if (err) {
                 throw err;
@@ -231,13 +203,13 @@ function voteHandler(db) {
             res.json(result);
         });
     }
+
     function compare(a, b) {
-                if (a.Position < b.Position)
-                    return -1;
-                if (a.Position > b.Position)
-                    return 1;
-                return 0;
-            }
+        if (a.Position < b.Position) return -1;
+        if (a.Position > b.Position) return 1;
+        return 0;
+    }
+    // Find a specific poll in the database
     this.searchPolls = function(req, res) {
         var searchTerm = req.query.searchTerm;
         polls.find({
@@ -252,7 +224,7 @@ function voteHandler(db) {
             res.json(documents);
         })
     }
-
+    // Find all polls by a user
     this.searchPollsByUser = function(req, res) {
         var user = req.user["username"];
         polls.find({
@@ -266,5 +238,4 @@ function voteHandler(db) {
         })
     }
 }
-
 module.exports = voteHandler;
