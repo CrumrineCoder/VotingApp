@@ -29,7 +29,7 @@ var MongoClient = mongodb.MongoClient;
 var mLab = 'mongodb://' + process.env.HOST + '/' + process.env.NAME;
 var app = express();
 
-// Taken from: https://www.youtube.com/watch?v=Z1ktxiqyiLA
+// Taken from: c
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
     defaultLayout: 'layout'
