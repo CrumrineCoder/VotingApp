@@ -417,13 +417,10 @@
          input.name = "Position";
          secondQuestion.appendChild(input);
          var question = document.getElementById('writeQuestion');
-         // insertAfter(question, input);
-         // insertAfter(document.getElementsByClassName('questionStorage')[0], input);
+
          question.innerHTML = pollObject[page].question;
 
-         //   document.getElementById('writeQuestion').innerHTML = "<input type='text' value=' " + pollObject[page].question + "' readonly name='question' id='question' placeholder='Question: " + pollObject[page].question + "' style='font-size:20px; width: 100%; padding: 5px 0px 0px 0px;' > </input>";
-         //    document.getElementsByClassName('questionStorage')[0].outerHTML = "<input type='hidden' value= '" + pollObject[page].question + "' name='question'/>"
-         // Display the already made answers
+          // Display the already made answers
 
          var completedAnswers = document.getElementById('alreadyDoneAnswers');
          for (var key in pollObject[page]) {
@@ -434,7 +431,7 @@
 
              }
          }
-         //document.getElementById("question").setAttribute('size', document.getElementById("question").getAttribute('placeholder').length);
+         
          for (var i = 0; i < pollObject[page]["Options"].length; i++) {
              document.getElementById(pollObject[page]["Options"][i]).checked = true;
          }
