@@ -4,7 +4,6 @@
 var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
 var ValidationHandler = require(process.cwd() + "/app/controllers/clientValidation.server.js");
 module.exports = function(app, db) {
-
     // Creates an object from the server controller
     var voteHandler = new VoteHandler(db);
     var validationHandler = new ValidationHandler();
@@ -14,6 +13,7 @@ module.exports = function(app, db) {
         .get(function(req, res) {
             res.render(process.cwd() + '/views/create.handlebars');
         });
+    console.log("index");
     // If routed here and there's a get or post method, do these  things  inside of the server file
      app.route('/api/checkExistance/?')
       .get(voteHandler.checkExistance)  

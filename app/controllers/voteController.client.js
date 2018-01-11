@@ -2,12 +2,11 @@
  // This file, onload, will handle the listing of polls, the listing of poll voting and event handling when clicked on one of those polls, and the showing of results when a poll is voted on using Chart.js
  var ip;
  var captchaFinished = false;
-
+console.log("votecontroller");
  function getIP(json) {
      ip = json.ip;
  }
  window.onload = function() {
-
      var result = null;
      var apiUrl = 'https://joinordie.glitch.me/';
 
@@ -474,6 +473,7 @@
          ready(ajaxRequest('GET', apiUrl + "api/listings", showQuestions));
          // This is for the page being a number for the poll, the first poll ever made is poll '0', and so on
      } else if (path.split("/")[2] == "search") {
+         console.log("Internet");
          ready(ajaxRequest('GET', apiUrl + "api/search/?searchTerm=" + localStorage.getItem("searchText"), showQuestions));
      } else if (page == "results") {
          ready(ajaxRequest('GET', apiUrl + "api/listings", updatevoteCount));
