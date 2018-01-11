@@ -211,6 +211,7 @@ function voteHandler(db) {
     }
     // Find a specific poll in the database
     this.searchPolls = function(req, res) {
+        console.log("votehandler");
         var searchTerm = req.query.searchTerm;
         polls.find({
             $text: {
