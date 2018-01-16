@@ -98,7 +98,7 @@ passport.use(new LocalStrategy(
             });
         });
     }));
-
+// Save the user data in a token
 passport.use(new RememberMeStrategy(
     function(token, done) {
         Token.consume(token, function(err, user) {

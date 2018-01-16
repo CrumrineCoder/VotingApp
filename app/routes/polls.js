@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 // This file handles routing relation to making and viewing polls
@@ -36,7 +35,7 @@ router.post('/create', function(req, res) {
     if (Object.hasOwnProperty.call(req.body, "user")) {
         req.body.user = req.user.username;
     };
-
+    // Set up the position for the poll being created
     function positionConfigure() {
         Position.find({}).forEach(function(item) {
             position = item.Position;
@@ -84,6 +83,7 @@ router.post('/create', function(req, res) {
     positionConfigure();
 
     function restOfCreate(position) {
+        // If there's errors, render the create page
         if (errors.length != 0 && errors.length != undefined) {
             res.render('create', {
                 errors: errors,
@@ -98,6 +98,7 @@ router.post('/create', function(req, res) {
             var parsed = {
                 Options: []
             };
+            // Based on the options, add Options
             for (var key in req.body) {
                 if (key != 'question' && key != 'user' && key != "OpenAnswers" && key != "Multiple" && key != "Captcha" && key != "IP" && key != "Change" && key != "SeeResults") {
                     parsed[req.body[key]] = 0;
@@ -111,6 +112,7 @@ router.post('/create', function(req, res) {
             }
             parsed["_id"] = position;
             parsed["Position"] = position;
+            // Create the poll
             var newPoll = new Poll(parsed);
             Poll.createPoll(newPoll, function(err, Poll) {
                 if (err) throw err;
@@ -120,6 +122,7 @@ router.post('/create', function(req, res) {
         }
     }
 });
+// Routing for the edit pages
 router.get('/edit/:id', function(req, res) {
     if (req.user) {
         res.render('edit');
@@ -127,6 +130,7 @@ router.get('/edit/:id', function(req, res) {
         res.render('login');
     }
 });
+// Edit form submission
 router.post('/edit/', function(req, res) {
     var numberOfOptions;
     var errors = [];
@@ -184,6 +188,7 @@ router.post('/edit/', function(req, res) {
         res.redirect('/polls/view');
     }
 });
+// Delete form submission
 router.post("/delete", function(req, res) {
     var newPoll = new Poll(req.body);
     Poll.delete(newPoll, function(err, Poll) {
@@ -191,7 +196,5 @@ router.post("/delete", function(req, res) {
     })
     req.flash('success_msg', 'Poll Deleted :(');
     res.redirect('/polls/create');
-    // Get the identityCounters collection and decrease the counter by 1
-    // Connect to the database, get the polls collection, find the poll in question, and delete the document.
 });
 module.exports = router;

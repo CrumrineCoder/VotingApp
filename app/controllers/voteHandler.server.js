@@ -34,7 +34,7 @@ function voteHandler(db) {
             res.json(documents);
         })
     }
-    // Votes on a poll
+    // Add a vote on a poll
     this.addvote = function(req, res) {
         var results = req.query.data;
         results = results.split(",");
@@ -203,7 +203,7 @@ function voteHandler(db) {
             res.json(result);
         });
     }
-
+    // Compare the positions of two polls. 
     function compare(a, b) {
         if (a.Position < b.Position) return -1;
         if (a.Position > b.Position) return 1;

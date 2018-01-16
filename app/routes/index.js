@@ -20,7 +20,6 @@ module.exports = function(app, db) {
      app.route('/api/listings')
       .get(voteHandler.getPolls)
     app.route('/api/vote/?')
-  //      .get(voteHandler.getvotes)
         .post(voteHandler.addvote)
     app.route('/api/rescind/?')
         .post(voteHandler.rescindVote);
