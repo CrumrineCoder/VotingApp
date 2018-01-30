@@ -1,7 +1,9 @@
 
 # Voting Website
 
-This website is for creating and voting on polls that are stored in a database. This was built as part of FreeCodeCamp's backend cirriculum. 
+This is my first attempt at a fullstack website. The website lets users create, view, and vote on polls. If the user logs in, the user can link a poll in its creation to the user's account. The user can edit or delete the poll at any time afterwards if it's linked.
+
+This was built as part of FreeCodeCamp's backend curriculum. This is my first fullstack website and I taught myself Express, Node.js, NPM, MongoDB, and other minor libraries to build this. Once I find the time, I'll improve on this with the skills I learned making the NPC website. I really enjoyed seeing the progress I made from the initial boilerplate I used to the current website.
 
 ## To Do
 
