@@ -29,6 +29,7 @@ router.get('/view/:id/results', function(req, res) {
 });
 // Create poll
 router.post('/create', function(req, res) {
+    console.log(req.body);
     var position;
     var numberOfOptions = 0;
     var errors = [];
@@ -110,11 +111,15 @@ router.post('/create', function(req, res) {
                     parsed["user"] = req.body[key];
                 }
             }
+          console.log(req.body);
+          console.log(parsed);
             parsed["_id"] = position;
             parsed["Position"] = position;
             // Create the poll
+          console.log(parsed);
             var newPoll = new Poll(parsed);
             Poll.createPoll(newPoll, function(err, Poll) {
+                console.log(Poll);
                 if (err) throw err;
             });
             req.flash('success_msg', 'Your poll was created.');
