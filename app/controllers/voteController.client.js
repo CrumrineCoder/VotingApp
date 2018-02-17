@@ -9,7 +9,7 @@
  // When the window loads
  window.onload = function() {
      var result = null;
-     var apiUrl = 'https://polling-app-crumrine.glitch.me/';
+     var apiUrl = 'https://joinordie.glitch.me/';
      // Ready and ajaxRequest are used to make requests to the backend.
      function ready(fn) {
          // Will do the function once the document is ready

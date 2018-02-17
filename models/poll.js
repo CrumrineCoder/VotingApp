@@ -39,7 +39,7 @@ var polls = db.collection('polls');
 var counter = db.collection('identitycounters');
 module.exports.replace = function(newPoll, callback) {
 
-  var str = (newPoll.question).replace(/(['"])/g, "\\$1");
+var str = (newPoll.question).replace(/(['"])/g, "\\$1");
    /*polls.find( {$text: {
             $search: str
         }}).forEach(function(item) {
