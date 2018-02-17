@@ -7,6 +7,7 @@ This was built as part of FreeCodeCamp's backend curriculum. This is my first fu
 
 ## To Do
 
+* Implement AngularJS and separate JS files by page rather than having one master page.
 * Closing and Opening a poll to future voting.  
 * Test bugs with naming replies something like 'null', 'user', 'question', or 'open' and fix them. 
 * Replies with the same answer turn into the same when passed into the database upon creation of a poll. This isn't a problem except that users can create polls with only one voting option. 
