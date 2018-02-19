@@ -34,6 +34,8 @@ User Story: As an authenticated user, if I don't like the options on a poll, I c
 
 ### Personal User Stories
 
+User Story: As a user I can search for polls and see all polls.
+
 User Story: I can upload a poll with the following options:
 * Allow users to write their own answers
 * Allow users to reply with multiple answers
@@ -41,9 +43,9 @@ User Story: I can upload a poll with the following options:
 * Allow users to see the results of the poll before voting
 * Allow users to use Captcha for their poll
 
-User Story: Searching for polls and viewing all polls. 
-
 User Story: As an owner of a poll, I can add or remove options at a later date.
+
+User Story: The results of the poll are presented with Chart.js in a bar graph and pie graph. 
 
 ## Built With
 
